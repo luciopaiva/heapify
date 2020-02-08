@@ -1,7 +1,7 @@
 
 import FlatQueue from 'flatqueue';
 import TinyQueue from 'tinyqueue';
-import BinaryHeap from "./";
+import Heapify from "./heapify.js";
 
 const N = 1000000;
 const K = 1000;
@@ -50,7 +50,7 @@ console.timeEnd(`flat push/pop ${N}`);
 
 // NEW QUEUE ---------------------------------------------------------
 
-const heap = new BinaryHeap(N);
+const heap = new Heapify(N);
 
 console.time(`newqueue push ${N}`);
 for (let i = 0; i < N; i++) heap.push(i, data[i].value);

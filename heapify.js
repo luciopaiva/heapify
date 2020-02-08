@@ -1,5 +1,5 @@
 
-export default class BinaryHeap {
+export default class Heapify {
 
     constructor (capacity = 64, KeysBackingArrayType = Uint32Array,
                  PrioritiesBackingArrayType = Uint32Array) {
@@ -139,44 +139,3 @@ export default class BinaryHeap {
         return `[${result.join(" ")}]`;
     }
 }
-
-const heap = new BinaryHeap(10);
-console.info(heap.toString());
-let nextIndex = 0;
-
-function push(p) {
-    heap.push(nextIndex++, p);
-    console.info(heap.toString());
-}
-
-function pop() {
-    const k = heap.pop();
-    console.info(k, heap.toString());
-}
-
-push(10);
-push(20);
-push(9);
-push(21);
-push(8);
-
-while (heap.length > 0) {
-    pop();
-}
-
-// heap.push(1, 10);
-// console.info(heap.toString());
-// heap.push(2, 20);
-// console.info(heap.toString());
-// heap.push(3, 5);
-// console.info(heap.toString());
-// heap.push(4, 21);
-// console.info(heap.toString());
-// heap.push(5, 3);
-// console.info(heap.toString());
-//
-
-// heap.clear();
-// console.info(heap.toString());
-// heap.push(3, 5);
-// console.info(heap.toString());

@@ -1,14 +1,18 @@
 {
-  "name": "binary-heap",
+  "name": "heapify",
   "version": "1.0.0",
   "description": "A blazingly fast JavaScript priority queue",
-  "main": "binary-heap.js",
+  "main": "heapify.js",
   "type": "module",
   "scripts": {
     "test": "node test.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["priority queue", "queue", "heap", "minheap", "maxheap", "binary heap"],
+  "author": {
+    "name": "Lucio Paiva",
+    "url": "https://luciopaiva.com"
+  },
+  "homepage": "https://github.com/luciopaiva/pqjs",
   "license": "ISC",
   "devDependencies": {
     "tinyqueue": "2.0.3",

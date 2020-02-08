@@ -1,5 +1,5 @@
 
-import BinaryHeap from './';
+import Heapify from './heapify.js';
 import test from 'tape';
 
 const data = [];
@@ -10,7 +10,7 @@ for (let i = 0; i < 100; i++) {
 const sorted = data.slice().sort((a, b) => a - b);
 
 test('maintains a priority queue', (t) => {
-    const queue = new BinaryHeap(100);
+    const queue = new Heapify(100);
     for (let i = 0; i < data.length; i++) queue.push(i, data[i]);
 
     t.equal(queue.peekPriority(), sorted[0]);
@@ -25,7 +25,7 @@ test('maintains a priority queue', (t) => {
 });
 
 test('handles edge cases with few elements', (t) => {
-    const queue = new BinaryHeap();
+    const queue = new Heapify();
 
     queue.push(0, 2);
     queue.push(1, 1);
