@@ -1,8 +1,8 @@
 {
   "name": "binary-heap",
   "version": "1.0.0",
-  "description": "",
-  "main": "",
+  "description": "A blazingly fast JavaScript priority queue",
+  "main": "binary-heap.js",
   "type": "module",
   "scripts": {
     "test": "node test.js"
