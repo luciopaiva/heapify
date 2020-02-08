@@ -1,0 +1,20 @@
+{
+  "name": "binary-heap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "type": "module",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tinyqueue": "2.0.3",
+    "flatqueue": "1.1.0"
+  },
+  "dependencies": {
+    "tape": "^4.13.0"
+  }
+}
