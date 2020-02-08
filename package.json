@@ -1,6 +1,6 @@
 {
   "name": "heapify",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A blazingly fast JavaScript priority queue",
   "main": "heapify.js",
   "type": "module",
