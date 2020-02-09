@@ -52,3 +52,11 @@ queue.peek();  // 1
 queue.clear();
 queue.pop();  // undefined
 ```
+
+## Running tests
+
+    npm run test
+
+For benchmark tests:
+
+    npm run bench

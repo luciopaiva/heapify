@@ -2,10 +2,11 @@
   "name": "heapify",
   "version": "0.1.0",
   "description": "A blazingly fast JavaScript priority queue",
-  "main": "heapify.js",
+  "main": "heapify.mjs",
   "scripts": {
     "test": "nyc mocha --require esm",
-    "count": "cloc heapify.js"
+    "count": "cloc heapify.mjs",
+    "bench": "node bench.mjs"
   },
   "keywords": [
     "priority queue",
@@ -33,7 +34,7 @@
   "nyc": {
     "all": true,
     "include": [
-      "heapify.js"
+      "heapify.mjs"
     ]
   },
   "dependencies": {}

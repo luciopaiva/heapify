@@ -1,7 +1,7 @@
 
 import assert from "assert";
 import mocha from "mocha";
-import Heapify from "../heapify.js";
+import Heapify from "../heapify.mjs";
 
 const {describe, it} = mocha;
 

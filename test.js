@@ -1,5 +1,5 @@
 
-import Heapify from './heapify.js';
+import Heapify from './heapify.mjs';
 import test from 'tape';
 
 const data = [];

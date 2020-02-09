@@ -1,7 +1,7 @@
 
 import FlatQueue from 'flatqueue';
 import TinyQueue from 'tinyqueue';
-import Heapify from "./heapify.js";
+import Heapify from "./heapify.mjs";
 
 const N = 1000000;
 const K = 1000;
