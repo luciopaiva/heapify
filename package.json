@@ -4,7 +4,8 @@
   "description": "A blazingly fast JavaScript priority queue",
   "main": "heapify.js",
   "scripts": {
-    "test": "nyc mocha --require esm"
+    "test": "nyc mocha --require esm",
+    "count": "cloc heapify.js"
   },
   "keywords": [
     "priority queue",
@@ -21,6 +22,7 @@
   "homepage": "https://github.com/luciopaiva/pqjs",
   "license": "ISC",
   "devDependencies": {
+    "cloc": "^2.5.1",
     "esm": "^3.2.25",
     "flatqueue": "1.1.0",
     "mocha": "^7.0.1",

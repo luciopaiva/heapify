@@ -20,6 +20,17 @@ Supported operations:
 - pop: O(log n)
 - peek: O(1)
 
+Features:
+
+- runs on browser and Node.js with support to ES6 modules
+- tiny code base (under 100 LoC)
+- supports several types of priorities and keys
+
+Upcoming features:
+
+- standalone heap structures
+- max heaps
+
 ## How to install
 
     npm i heapify
