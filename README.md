@@ -24,6 +24,10 @@ Supported operations:
 
     npm i heapify
 
+Or
+
+    yarn add heapify
+
 ## How to use
 
 ```javascript
