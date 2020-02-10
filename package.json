@@ -6,7 +6,8 @@
   "scripts": {
     "test": "nyc  --reporter=html --reporter=text mocha --require esm",
     "count": "cloc heapify.mjs",
-    "bench": "node bench.mjs"
+    "bench": "node bench.mjs",
+    "report-coverage": "nyc report --reporter=text-lcov --require esm > coverage.lcov && codecov"
   },
   "keywords": [
     "priority queue",

@@ -33,6 +33,7 @@ Upcoming features:
 - unique items
 - getting arbitrary items
 - changing the priority of arbitrary items
+- objects as keys (with performance hit)
 
 ## How to install
 
