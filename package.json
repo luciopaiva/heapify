@@ -4,7 +4,7 @@
   "description": "A blazingly fast JavaScript priority queue",
   "main": "heapify.mjs",
   "scripts": {
-    "test": "nyc mocha --require esm",
+    "test": "nyc  --reporter=html --reporter=text mocha --require esm",
     "count": "cloc heapify.mjs",
     "bench": "node bench.mjs"
   },
