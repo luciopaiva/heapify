@@ -38,14 +38,23 @@ Upcoming features:
 - getting arbitrary items
 - changing the priority of arbitrary items
 - objects as keys (with performance hit)
+- pre ES modules support for older browsers
 
 ## How to install
 
     npm i heapify
 
-Or
+Or if you're a yarn person:
 
     yarn add heapify
+
+If you're on a browser, there's also the option of using a CDN:
+
+    import Heapify from "https://unpkg.com/heapify";
+
+And to import a specific version:
+
+    import Heapify from "https://unpkg.com/heapify";
 
 ## How to use
 
