@@ -1,9 +1,10 @@
 
 # Heapify
 
-🚑 🚴 🚌 🚕 🚗 🚚 🚛
-
 [![codecov](https://codecov.io/gh/luciopaiva/heapify/branch/master/graph/badge.svg)](https://codecov.io/gh/luciopaiva/heapify)
+[![travis](https://api.travis-ci.com/luciopaiva/heapify.svg?branch=master)](https://travis-ci.com/luciopaiva/heapify)
+
+🚑 🚴 🚌 🚕 🚗 🚚 🚛
 
 A very fast JavaScript priority queue, implemented using a binary heap, which in turn is implemented using two underlying parallel [typed arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray). No dependencies whatsoever; just plain, vanilla JS.
 
