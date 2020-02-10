@@ -5,7 +5,7 @@
 
 A very fast JavaScript priority queue, implemented using a binary heap, which in turn is implemented using two underlying parallel [typed arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray). No dependencies whatsoever; just plain, vanilla JS.
 
-It's the fastest publicly available JavaScript library implementation of a priority queue. Here's benchmark comparing Heapify with two other known libraries implementing heaps, running for 1 million elements:
+It's the fastest publicly available JavaScript library implementation of a priority queue. Here's a benchmark comparing Heapify with two other known libraries implementing heaps, running for 1 million elements:
 
 ```
               push       pop      push+pop
@@ -30,6 +30,9 @@ Upcoming features:
 
 - standalone heap structures
 - max heaps
+- unique items
+- getting arbitrary items
+- changing the priority of arbitrary items
 
 ## How to install
 
