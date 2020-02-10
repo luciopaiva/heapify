@@ -25,6 +25,7 @@
   "license": "ISC",
   "devDependencies": {
     "cloc": "^2.5.1",
+    "codecov": "^3.6.5",
     "esm": "^3.2.25",
     "flatqueue": "1.1.0",
     "mocha": "^7.0.1",
