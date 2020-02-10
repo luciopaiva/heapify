@@ -3,6 +3,8 @@
 
 🚑 🚴 🚌 🚕 🚗 🚚 🚛
 
+[![codecov](https://codecov.io/gh/luciopaiva/heapify/branch/master/graph/badge.svg)](https://codecov.io/gh/luciopaiva/heapify)
+
 A very fast JavaScript priority queue, implemented using a binary heap, which in turn is implemented using two underlying parallel [typed arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray). No dependencies whatsoever; just plain, vanilla JS.
 
 It's the fastest publicly available JavaScript library implementation of a priority queue. Here's a benchmark comparing Heapify with two other known libraries implementing heaps, running for 1 million elements:
