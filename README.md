@@ -1,8 +1,9 @@
 
 # Heapify
 
-[![codecov](https://codecov.io/gh/luciopaiva/heapify/branch/master/graph/badge.svg)](https://codecov.io/gh/luciopaiva/heapify)
-[![travis](https://api.travis-ci.com/luciopaiva/heapify.svg?branch=master)](https://travis-ci.com/luciopaiva/heapify)
+[![codecov](https://img.shields.io/codecov/c/github/luciopaiva/heapify)](https://codecov.io/gh/luciopaiva/heapify)
+[![travis](https://api.travis-ci.com/luciopaiva/heapify.svg?branch=master)](https://travis-ci.com/luciopaiva/heapify) 
+[![version](https://img.shields.io/npm/v/heapify?color=brightgreen&label=version)](https://www.npmjs.com/package/heapify)
 
 🚑 🚴 🚌 🚕 🚗 🚚 🚛
 
