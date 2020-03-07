@@ -1,12 +1,27 @@
 
 export default class Heapify {
 
-    constructor (capacity = 64, KeysBackingArrayType = Uint32Array,
+    constructor (capacity = 64, keys = [], priorities = [],
+                 KeysBackingArrayType = Uint32Array,
                  PrioritiesBackingArrayType = Uint32Array) {
         this.capacity = capacity;
         this.keys = new KeysBackingArrayType(capacity);
         this.priorities = new PrioritiesBackingArrayType(capacity);
-        this.length = 0;
+        if (keys.length !== priorities.length) {
+            throw new Error("The length of keys and the length of priorities should be equal.");
+        }
+        if (capacity < keys.length) {
+            throw new Error("No enough capcty when constructing the heap.");
+        }
+        // copy data from user
+        for (let i = 0; i < keys.length; i++) {
+            this.keys[i] = keys[i];
+            this.priorities[i] = priorities[i];
+        }
+        this.length = keys.length;
+        for (let i = keys.length >>> 1; i >= 0; i--) {
+            this.bubbleDown(i);
+        }
     }
 
     clear() {

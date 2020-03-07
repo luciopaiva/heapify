@@ -18,6 +18,21 @@ describe("Heapify", function () {
         assert.strictEqual(queue.length, 0);
     });
 
+    it("should create a priority queue with given keys and priorities", function () {
+        const queue = new Heapify(100, [1, 2], [50, 1]);
+        assert.strictEqual(queue.length, 2);
+        const key = queue.peek();
+        assert.strictEqual(key, 2);
+    });
+
+    it("should only create a priority queue with same length of keys and priorities", function () {
+        assert.throws(() => new Heapify(30, [1, 2], [3, 4, 5]));
+    });
+
+    it("should only create a priority queue with enough cpacity", function () {
+        assert.throws(() => new Heapify(1, [1, 2], [50, 1]));
+    });
+
     it("should be able to push new items", function () {
         const queue = new Heapify();
         assert.strictEqual(queue.length, 0);
