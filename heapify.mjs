@@ -8,10 +8,10 @@ export default class Heapify {
         this.keys = new KeysBackingArrayType(capacity);
         this.priorities = new PrioritiesBackingArrayType(capacity);
         if (keys.length !== priorities.length) {
-            throw new Error("The length of keys and the length of priorities should be equal.");
+            throw new Error("Number of keys does not match number of priorities provided.");
         }
         if (capacity < keys.length) {
-            throw new Error("No enough capcty when constructing the heap.");
+            throw new Error("Capacity less than number of provided keys.");
         }
         // copy data from user
         for (let i = 0; i < keys.length; i++) {

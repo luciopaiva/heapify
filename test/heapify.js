@@ -25,11 +25,11 @@ describe("Heapify", function () {
         assert.strictEqual(key, 2);
     });
 
-    it("should only create a priority queue with same length of keys and priorities", function () {
+    it("should only create a priority queue with same number of keys and priorities", function () {
         assert.throws(() => new Heapify(30, [1, 2], [3, 4, 5]));
     });
 
-    it("should only create a priority queue with enough cpacity", function () {
+    it("should only create a priority queue with enough capacity", function () {
         assert.throws(() => new Heapify(1, [1, 2], [50, 1]));
     });
 
