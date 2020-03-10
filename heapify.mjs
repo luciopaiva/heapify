@@ -1,12 +1,15 @@
 
+// this is just to make it clear that we are using a 1-based array; changing it to zero won't work without code changes
+const ROOT_INDEX = 1;
+
 export default class Heapify {
 
     constructor (capacity = 64, keys = [], priorities = [],
                  KeysBackingArrayType = Uint32Array,
                  PrioritiesBackingArrayType = Uint32Array) {
         this.capacity = capacity;
-        this.keys = new KeysBackingArrayType(capacity);
-        this.priorities = new PrioritiesBackingArrayType(capacity);
+        this.keys = new KeysBackingArrayType(capacity + ROOT_INDEX);
+        this.priorities = new PrioritiesBackingArrayType(capacity + ROOT_INDEX);
         if (keys.length !== priorities.length) {
             throw new Error("Number of keys does not match number of priorities provided.");
         }
@@ -15,11 +18,11 @@ export default class Heapify {
         }
         // copy data from user
         for (let i = 0; i < keys.length; i++) {
-            this.keys[i] = keys[i];
-            this.priorities[i] = priorities[i];
+            this.keys[i + ROOT_INDEX] = keys[i];
+            this.priorities[i + ROOT_INDEX] = priorities[i];
         }
         this.length = keys.length;
-        for (let i = keys.length >>> 1; i >= 0; i--) {
+        for (let i = keys.length >>> 1; i >= ROOT_INDEX; i--) {
             this.bubbleDown(i);
         }
     }
@@ -38,9 +41,9 @@ export default class Heapify {
         const key = this.keys[index];
         const priority = this.priorities[index];
 
-        while (index > 0) {
+        while (index > ROOT_INDEX) {
             // get its parent item
-            const parentIndex = (index - 1) >>> 1;
+            const parentIndex = index >>> 1;
             if (this.priorities[parentIndex] <= priority) {
                 break;  // if parent priority is smaller, heap property is satisfied
             }
@@ -67,9 +70,10 @@ export default class Heapify {
         const key = this.keys[index];
         const priority = this.priorities[index];
 
-        while (index < this.length) {
-            const left = (index << 1) + 1;
-            if (left >= this.length) {
+        const lastIndex = this.length + ROOT_INDEX;
+        while (index < lastIndex) {
+            const left = index << 1;
+            if (left >= lastIndex) {
                 break;  // index is a leaf node, no way to bubble down any further
             }
 
@@ -80,7 +84,7 @@ export default class Heapify {
 
             // if there's a right child, choose the child with the smallest priority
             const right = left + 1;
-            if (right < this.length) {
+            if (right < lastIndex) {
                 const rightPriority = this.priorities[right];
                 if (rightPriority < childPriority) {
                     childPriority = rightPriority;
@@ -114,9 +118,10 @@ export default class Heapify {
         if (this.length === this.capacity) {
             throw new Error("Heap has reached capacity, can't push new items");
         }
-        this.keys[this.length] = key;
-        this.priorities[this.length] = priority;
-        this.bubbleUp(this.length);
+        const pos = this.length + ROOT_INDEX;
+        this.keys[pos] = key;
+        this.priorities[pos] = priority;
+        this.bubbleUp(pos);
         this.length++;
     }
 
@@ -124,32 +129,32 @@ export default class Heapify {
         if (this.length === 0) {
             return undefined;
         }
-        const key = this.keys[0];
+        const key = this.keys[ROOT_INDEX];
 
         this.length--;
 
         if (this.length > 0) {
-            this.keys[0] = this.keys[this.length];
-            this.priorities[0] = this.priorities[this.length];
+            this.keys[ROOT_INDEX] = this.keys[this.length + ROOT_INDEX];
+            this.priorities[ROOT_INDEX] = this.priorities[this.length + ROOT_INDEX];
 
-            this.bubbleDown(0);
+            this.bubbleDown(ROOT_INDEX);
         }
 
         return key;
     }
 
     peekPriority() {
-        return this.priorities[0];
+        return this.priorities[ROOT_INDEX];
     }
 
     peek() {
-        return this.keys[0];
+        return this.keys[ROOT_INDEX];
     }
 
     toString() {
-        let result = Array(this.length);
+        let result = Array(this.length - ROOT_INDEX);
         for (let i = 0; i < this.length; i++) {
-            result[i] = this.priorities[i];
+            result[i] = this.priorities[i + ROOT_INDEX];
         }
         return `[${result.join(" ")}]`;
     }
