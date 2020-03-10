@@ -21,7 +21,7 @@
     "name": "Lucio Paiva",
     "url": "https://luciopaiva.com"
   },
-  "homepage": "https://github.com/luciopaiva/pqjs",
+  "homepage": "https://github.com/luciopaiva/heapify",
   "license": "MIT",
   "devDependencies": {
     "cloc": "^2.5.1",
