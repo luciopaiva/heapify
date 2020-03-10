@@ -153,6 +153,8 @@ queue.pop();  // 1
 
 Adds a new item to the queue with a given `key` and `priority`. Will throw an error if the queue is already at its capacity.
 
+Example:
+
 ```javascript
 const queue = new Heapify();
 queue.push(1, 10);
