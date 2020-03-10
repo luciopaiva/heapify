@@ -28,6 +28,7 @@ Features:
 
 - runs on browser and Node.js with support to ES6 modules
 - tiny code base (under 100 LoC)
+- no dependencies
 - supports several types of priorities and keys
 
 Upcoming features:
@@ -94,15 +95,15 @@ Effectively empties the queue. The heap capacity is not changed, nor its element
 
 ### peek()
 
-Gets the key with the highest priority, but does not remove it from the queue.
+Gets the key with the smallest priority, but does not remove it from the queue.
 
 ### peekPriority()
 
-Gets the _priority_ of the key with the highest priority, but does not remove the item from the queue.
+Gets the _priority_ of the key with the smallest priority, but does not remove the item from the queue.
 
 ### pop()
 
-Removes the highest priority item from the queue, returning its key.
+Removes the smallest priority item from the queue, returning its key.
 
 ### push(key, priority)
 
