@@ -82,7 +82,7 @@ For benchmark tests:
 
 ## API
 
-### Heapify(capacity = 64, keys = [], priorities = [], KeysBackingArrayType = Uint32Array, PrioritiesBackingArrayType = Uint32Array)
+### new Heapify(capacity = 64, keys = [], priorities = [], KeysBackingArrayType = Uint32Array, PrioritiesBackingArrayType = Uint32Array)
 
 Creates a new priority queue. Parameters are:
 
