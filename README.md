@@ -36,10 +36,10 @@ Upcoming features:
 - standalone heap structures
 - max heaps
 - unique items
-- getting arbitrary items
+- accessing arbitrary items
 - changing the priority of arbitrary items
 - objects as keys (with performance hit)
-- pre ES modules support for older browsers
+- dynamic size
 
 ## How to install
 
