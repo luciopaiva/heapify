@@ -23,6 +23,7 @@ Supported operations:
 - push: O(log n)
 - pop: O(log n)
 - peek: O(1)
+- creation with pre-existing list of priorities: O(n)
 
 Features:
 
