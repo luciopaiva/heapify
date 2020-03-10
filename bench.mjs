@@ -6,16 +6,22 @@ import Heapify from "./heapify.mjs";
 const N = 1000000;
 const K = 1000;
 
-const data = [];
-// for (let i = 0; i < N; i++) data[i] = {value: Math.random()};
-for (let i = 0; i < N; i++) data[i] = {value: Math.floor(100 * Math.random())};
+const indexes = Array(N);
+const data = Array(N);
+const dataObjs = Array(N);
+for (let i = 0; i < N; i++) {
+    const value = Math.floor(100 * Math.random());
+    dataObjs[i] = { value };
+    data[i] = value;
+    indexes[i] = i + 1;
+}
 
 // TINY QUEUE ---------------------------------------------------------
 
 const q = new TinyQueue([], (a, b) => a.value - b.value);
 
 console.time(`tinyqueue push ${N}`);
-for (let i = 0; i < N; i++) q.push(data[i]);
+for (let i = 0; i < N; i++) q.push(dataObjs[i]);
 console.timeEnd(`tinyqueue push ${N}`);
 
 console.time(`tinyqueue pop ${N}`);
@@ -24,7 +30,7 @@ console.timeEnd(`tinyqueue pop ${N}`);
 
 console.time(`tinyqueue push/pop ${N}`);
 for (let i = 0; i < N; i += K) {
-    for (let j = 0; j < K; j++) q.push(data[i + j]);
+    for (let j = 0; j < K; j++) q.push(dataObjs[i + j]);
     for (let j = 0; j < K; j++) q.pop();
 }
 console.timeEnd(`tinyqueue push/pop ${N}`);
@@ -34,35 +40,40 @@ console.timeEnd(`tinyqueue push/pop ${N}`);
 const f = new FlatQueue();
 
 console.time(`flatqueue push ${N}`);
-for (let i = 0; i < N; i++) f.push(i, data[i].value);
+for (let i = 0; i < N; i++) f.push(i, data[i]);
 console.timeEnd(`flatqueue push ${N}`);
 
 console.time(`flatqueue pop ${N}`);
 for (let i = 0; i < N; i++) f.pop();
 console.timeEnd(`flatqueue pop ${N}`);
 
-console.time(`flat push/pop ${N}`);
+console.time(`flatqueue push/pop ${N}`);
 for (let i = 0; i < N; i += K) {
-    for (let j = 0; j < K; j++) f.push(i, data[i + j].value);
+    for (let j = 0; j < K; j++) f.push(i, data[i + j]);
     for (let j = 0; j < K; j++) f.pop();
 }
-console.timeEnd(`flat push/pop ${N}`);
+console.timeEnd(`flatqueue push/pop ${N}`);
 
 // NEW QUEUE ---------------------------------------------------------
 
 const heap = new Heapify(N);
 
-console.time(`newqueue push ${N}`);
-for (let i = 0; i < N; i++) heap.push(i, data[i].value);
-console.timeEnd(`newqueue push ${N}`);
+// build should be compared with push() in the other implementations
+console.time(`heapify build ${N}`);
+new Heapify(N, indexes, data);
+console.timeEnd(`heapify build ${N}`);
 
-console.time(`newqueue pop ${N}`);
+console.time(`heapify push ${N}`);
+for (let i = 0; i < N; i++) heap.push(i, data[i]);
+console.timeEnd(`heapify push ${N}`);
+
+console.time(`heapify pop ${N}`);
 for (let i = 0; i < N; i++) heap.pop();
-console.timeEnd(`newqueue pop ${N}`);
+console.timeEnd(`heapify pop ${N}`);
 
-console.time(`newqueue push/pop ${N}`);
+console.time(`heapify push/pop ${N}`);
 for (let i = 0; i < N; i += K) {
-    for (let j = 0; j < K; j++) heap.push(i, data[i + j].value);
+    for (let j = 0; j < K; j++) heap.push(i, data[i + j]);
     for (let j = 0; j < K; j++) heap.pop();
 }
-console.timeEnd(`newqueue push/pop ${N}`);
+console.timeEnd(`heapify push/pop ${N}`);
