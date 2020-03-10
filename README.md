@@ -87,6 +87,8 @@ For benchmark tests:
 Creates a new priority queue. Parameters are:
 
 - `capacity`: the size of the underlying typed arrays backing the heap. Defaults to 64;
+- `keys`: an optional array of pre-existing keys. Provide `[]` to skip this field;
+- `priorities`: an optional array of pre-existing priorities. Must match number of keys above. Provide `[]` to skip this field;
 - `KeysBackingArrayType`: the array type to be used for keys. Defaults to `Uint32Array`;
 - `PrioritiesBackingArrayType`: the array type to be used for priorities. Defaults to `Uint32Array`.
 
