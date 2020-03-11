@@ -11,9 +11,9 @@ const data = Array(N);
 const dataObjs = Array(N);
 for (let i = 0; i < N; i++) {
     const value = Math.floor(100 * Math.random());
-    dataObjs[i] = { value };
     data[i] = value;
     indexes[i] = i + 1;
+    dataObjs[i] = { value };
 }
 
 // TINY QUEUE ---------------------------------------------------------
