@@ -70,8 +70,9 @@ export default class Heapify {
         const key = this.keys[index];
         const priority = this.priorities[index];
 
+        const halfLength = ROOT_INDEX + (this.length >>> 1);  // no need to check the last level
         const lastIndex = this.length + ROOT_INDEX;
-        while (index < lastIndex) {
+        while (index < halfLength) {
             const left = index << 1;
             if (left >= lastIndex) {
                 break;  // index is a leaf node, no way to bubble down any further
