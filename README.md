@@ -27,6 +27,7 @@ Supported operations:
 - push: O(log n)
 - pop: O(log n)
 - peek: O(1)
+- creation with pre-existing list of priorities: O(n)
 
 Features:
 
@@ -85,33 +86,86 @@ For benchmark tests:
 
 ## API
 
-### Heapify(capacity, KeysBackingArrayType, PrioritiesBackingArrayType)
+### new Heapify(capacity = 64, keys = [], priorities = [], KeysBackingArrayType = Uint32Array, PrioritiesBackingArrayType = Uint32Array)
 
 Creates a new priority queue. Parameters are:
 
-- `capacity`: the size of the underlying typed arrays backing the heap. Defaults to 64;
-- `KeysBackingArrayType`: the array type to be used for keys. Defaults to `Uint32Array`;
-- `PrioritiesBackingArrayType`: the array type to be used for priorities. Defaults to `Uint32Array`.
+- `capacity`: the size of the underlying typed arrays backing the heap;
+- `keys`: an optional array of pre-existing keys. Provide `[]` to skip this field;
+- `priorities`: an optional array of pre-existing priorities. Must match number of keys above. Provide `[]` to skip this field;
+- `KeysBackingArrayType`: the array type to be used for keys;
+- `PrioritiesBackingArrayType`: the array type to be used for priorities.
+
+Example:
+
+```javascript
+const queue1 = new Heapify(32);
+const queue2 = new Heapify(16, [], [], Uint64Array, Uint32Array);
+```
 
 ### clear()
 
 Effectively empties the queue. The heap capacity is not changed, nor its elements get erased in any way; it's just the variable that tracks the length that gets cleared to zero, so it's a very cheap operation.
 
+Example:
+
+```javascript
+const queue = new Heapify();
+queue.push(1, 10);
+console.info(queue.length);  // 1
+queue.clear();
+console.info(queue.length);  // 0
+```
+
 ### peek()
 
 Gets the key with the smallest priority, but does not remove it from the queue.
+
+Example:
+
+```javascript
+const queue = new Heapify();
+queue.push(1, 10);
+queue.peek();  // 1
+```
 
 ### peekPriority()
 
 Gets the _priority_ of the key with the smallest priority, but does not remove the item from the queue.
 
+Example:
+
+```javascript
+const queue = new Heapify();
+queue.push(1, 10);
+queue.peekPriority();  // 10
+```
+
 ### pop()
 
 Removes the smallest priority item from the queue, returning its key.
 
+Example:
+
+```javascript
+const queue = new Heapify();
+queue.push(1, 10);
+queue.pop();  // 1
+```
+
 ### push(key, priority)
 
 Adds a new item to the queue with a given `key` and `priority`. Will throw an error if the queue is already at its capacity.
+
+Example:
+
+```javascript
+const queue = new Heapify();
+queue.push(1, 10);
+queue.length;  // 1
+queue.peek();  // 1
+queue.peekPriority();  // 10
+```
 
 ### toString()
 
