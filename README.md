@@ -60,7 +60,7 @@ If you're on a browser, there's also the option of using a CDN:
 
 And to import a specific version:
 
-    import Heapify from "https://unpkg.com/heapify";
+    import Heapify from "https://unpkg.com/heapify@0.2.1";
 
 ## How to use
 
