@@ -70,13 +70,10 @@ export default class Heapify {
         const key = this.keys[index];
         const priority = this.priorities[index];
 
-        const halfLength = ROOT_INDEX + (this.length >>> 1);  // no need to check the last level
-        const lastIndex = this.length + ROOT_INDEX;
-        while (index < halfLength) {
+        const halfLength = this.length >>> 1;  // no need to check the last level
+        const lastIndex = this.length;
+        while (index <= halfLength) {
             const left = index << 1;
-            if (left >= lastIndex) {
-                break;  // index is a leaf node, no way to bubble down any further
-            }
 
             // pick the left child
             let childPriority = this.priorities[left];
@@ -85,7 +82,7 @@ export default class Heapify {
 
             // if there's a right child, choose the child with the smallest priority
             const right = left + 1;
-            if (right < lastIndex) {
+            if (right <= lastIndex) {
                 const rightPriority = this.priorities[right];
                 if (rightPriority < childPriority) {
                     childPriority = rightPriority;
