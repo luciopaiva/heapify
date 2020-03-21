@@ -211,4 +211,20 @@ describe("Heapify", function () {
         queue.push(2, 10);
         assert.strictEqual(queue.toString(), "[10 20]");
     });
+
+    it("should be possible to use this as an iterator", function () {
+        const queue = new Heapify();
+        queue.push(1, 10);
+        queue.push(2, 20);
+        queue.push(3, 30);
+        queue.push(4, 40);
+        queue.push(5, 35);
+
+        assert.deepStrictEqual([...queue], [10, 20, 30, 40, 35]);
+    })
+
+    it ("should return [object Heapify] when stringified", function () {
+        const queue = new Heapify();
+        assert.strictEqual(Object.prototype.toString.call(queue), '[object Heapify]')
+    })
 });

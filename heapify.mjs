@@ -158,5 +158,16 @@ export default class Heapify {
             result[i] = this.priorities[i + ROOT_INDEX];
         }
         return `[${result.join(" ")}]`;
+    
+    }
+
+    get [Symbol.toStringTag]() {
+        return 'Heapify'
+    }
+
+    * [Symbol.iterator] () {
+        for (let i = 0; i < this.length; i++) {
+            yield this.priorities[i + ROOT_INDEX];
+        }
     }
 }
