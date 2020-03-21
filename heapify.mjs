@@ -153,6 +153,10 @@ export default class Heapify {
     }
 
     toString() {
+        if (this.length - ROOT_INDEX < 0 ) {
+            return '(empty queue)'
+        }
+
         let result = Array(this.length - ROOT_INDEX);
         for (let i = 0; i < this.length; i++) {
             result[i] = this.priorities[i + ROOT_INDEX];

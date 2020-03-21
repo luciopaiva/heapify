@@ -227,4 +227,9 @@ describe("Heapify", function () {
         const queue = new Heapify();
         assert.strictEqual(Object.prototype.toString.call(queue), '[object Heapify]')
     })
+
+    it ("should return '(empty queue)' when stringifying an empty queue", function () {
+        const queue = new Heapify();
+        assert.strictEqual(String(queue), '(empty queue)')
+    })
 });
