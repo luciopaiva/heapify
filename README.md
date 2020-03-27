@@ -195,7 +195,7 @@ queue.push(4, 40);
 console.log([...queue]) // [ [ 1, 10 ], [ 2, 20 ], [ 3, 30 ], [ 5, 35 ], [ 4, 40 ] ]
 ```
 
-You can alsu use this conveniently with a `for ... of` construct:
+You can also use this feature conveniently with a `for ... of` construct:
 
 ```javascript
 const queue = new Heapify();
