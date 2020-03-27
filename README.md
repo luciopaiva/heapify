@@ -195,6 +195,27 @@ queue.push(4, 40);
 console.log([...queue]) // [ [ 1, 10 ], [ 2, 20 ], [ 3, 30 ], [ 5, 35 ], [ 4, 40 ] ]
 ```
 
+You can alsu use this conveniently with a `for ... of` construct:
+
+```javascript
+const queue = new Heapify();
+queue.push(5, 35);
+queue.push(3, 30);
+queue.push(1, 10);
+queue.push(2, 20);
+queue.push(4, 40);
+
+for (const [key, priority] of queue) {
+  console.log(key, priority)
+}
+
+// 1 10
+// 2 20
+// 3 30
+// 5 35
+// 4 40
+```
+
 ### * keysIter()
 
 Allows to get an iterator that iterates over keys:
