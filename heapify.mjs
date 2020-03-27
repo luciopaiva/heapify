@@ -153,8 +153,8 @@ export default class Heapify {
     }
 
     toString() {
-        if (this.length - ROOT_INDEX < 0 ) {
-            return '(empty queue)'
+        if (this.length === 0 ) {
+            return "(empty queue)";
         }
 
         let result = Array(this.length - ROOT_INDEX);
