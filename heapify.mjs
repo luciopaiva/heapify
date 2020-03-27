@@ -171,6 +171,20 @@ export default class Heapify {
 
     * [Symbol.iterator] () {
         for (let i = 0; i < this.length; i++) {
+            const priority = this.priorities[i + ROOT_INDEX];
+            const key = this.keys[i + ROOT_INDEX];
+            yield [key, priority];
+        }
+    }
+
+    * keysIter () {
+        for (let i = 0; i < this.length; i++) {
+            yield this.keys[i + ROOT_INDEX];
+        }
+    }
+
+    * prioritiesIter () {
+        for (let i = 0; i < this.length; i++) {
             yield this.priorities[i + ROOT_INDEX];
         }
     }

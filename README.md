@@ -178,3 +178,49 @@ Returns a string with an array representation of all priorities in the queue. Fo
 ```
 
 The returned string will be `[10 30 20 40]`. See tests for more examples.
+
+
+### * [Symbol.iterator]()
+
+Allows to get an iterator that iterates over keys and priorities that will be yielded as tuples (`[key, priority]`):
+
+```javascript
+const queue = new Heapify();
+queue.push(5, 35);
+queue.push(3, 30);
+queue.push(1, 10);
+queue.push(2, 20);
+queue.push(4, 40);
+
+console.log([...queue]) // [ [ 1, 10 ], [ 2, 20 ], [ 3, 30 ], [ 5, 35 ], [ 4, 40 ] ]
+```
+
+### * keysIter()
+
+Allows to get an iterator that iterates over keys:
+
+```javascript
+const queue = new Heapify();
+queue.push(5, 35);
+queue.push(3, 30);
+queue.push(1, 10);
+queue.push(2, 20);
+queue.push(4, 40);
+
+console.log([...queue.keysIter()]); // [ 1, 2, 3, 5, 4 ]
+```
+
+### * prioritiesIter()
+
+Allows to get an iterator that iterates over keys:
+
+```javascript
+const queue = new Heapify();
+queue.push(5, 35);
+queue.push(3, 30);
+queue.push(1, 10);
+queue.push(2, 20);
+queue.push(4, 40);
+
+console.log([...queue.prioritiesIter()]); // [ 10, 20, 30, 35, 40 ] 
+```
