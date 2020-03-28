@@ -231,7 +231,7 @@ describe("Heapify", function () {
         queue.push(2, 20);
         queue.push(4, 40);
 
-        assert.deepStrictEqual([...queue.keysIter()], [1, 2, 3, 5, 4]);
+        assert.deepStrictEqual([...queue.keys()], [1, 2, 3, 5, 4]);
     })
 
     it ("should be possible to iterate over all the priorities", function () {
@@ -242,7 +242,7 @@ describe("Heapify", function () {
         queue.push(2, 20);
         queue.push(4, 40);
 
-        assert.deepStrictEqual([...queue.prioritiesIter()], [10, 20, 30, 35, 40]);
+        assert.deepStrictEqual([...queue.priorities()], [10, 20, 30, 35, 40]);
     })
 
     it ("should return [object Heapify] when stringified", function () {

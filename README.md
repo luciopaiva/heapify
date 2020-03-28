@@ -216,7 +216,7 @@ for (const [key, priority] of queue) {
 // 4 40
 ```
 
-### * keysIter()
+### * keys()
 
 Allows to get an iterator that iterates over keys:
 
@@ -228,10 +228,10 @@ queue.push(1, 10);
 queue.push(2, 20);
 queue.push(4, 40);
 
-console.log([...queue.keysIter()]); // [ 1, 2, 3, 5, 4 ]
+console.log([...queue.keys()]); // [ 1, 2, 3, 5, 4 ]
 ```
 
-### * prioritiesIter()
+### * priorities()
 
 Allows to get an iterator that iterates over keys:
 
@@ -243,5 +243,5 @@ queue.push(1, 10);
 queue.push(2, 20);
 queue.push(4, 40);
 
-console.log([...queue.prioritiesIter()]); // [ 10, 20, 30, 35, 40 ] 
+console.log([...queue.priorities()]); // [ 10, 20, 30, 35, 40 ] 
 ```
