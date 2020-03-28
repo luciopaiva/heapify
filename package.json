@@ -32,11 +32,5 @@
     "mocha": "^7.1.1",
     "tinyqueue": "2.0.3"
   },
-  "nyc": {
-    "all": true,
-    "include": [
-      "heapify.mjs"
-    ]
-  },
   "dependencies": {}
 }
