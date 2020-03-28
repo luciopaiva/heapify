@@ -4,10 +4,10 @@
   "description": "Blazing fast JavaScript priority queue",
   "main": "heapify.mjs",
   "scripts": {
-    "test": "nyc  --reporter=html --reporter=text mocha --require esm",
+    "test": "c8 --reporter=html --reporter=text mocha",
+    "report-coverage": "c8 report --reporter=text-lcov > coverage.lcov && codecov",
     "count": "cloc heapify.mjs",
-    "bench": "node bench.mjs",
-    "report-coverage": "nyc report --reporter=text-lcov --require esm > coverage.lcov && codecov"
+    "bench": "node bench.mjs"
   },
   "keywords": [
     "priority queue",
@@ -24,12 +24,11 @@
   "homepage": "https://github.com/luciopaiva/heapify",
   "license": "MIT",
   "devDependencies": {
+    "c8": "^7.1.0",
     "cloc": "^2.5.1",
     "codecov": "^3.6.5",
-    "esm": "^3.2.25",
     "flatqueue": "1.1.0",
     "mocha": "^7.1.1",
-    "nyc": "^15.0.0",
     "tinyqueue": "2.0.3"
   },
   "nyc": {
