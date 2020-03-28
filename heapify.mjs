@@ -4,7 +4,7 @@ const ROOT_INDEX = 1;
 
 export default class Heapify {
 
-    constructor (capacity = 64, keys = [], priorities = [],
+    constructor(capacity = 64, keys = [], priorities = [],
         KeysBackingArrayType = Uint32Array,
         PrioritiesBackingArrayType = Uint32Array) {
 
@@ -38,7 +38,7 @@ export default class Heapify {
      * @param {Number} index
      * @private
      */
-    bubbleUp (index) {
+    bubbleUp(index) {
         const key = this._keys[index];
         const priority = this._priorities[index];
 
@@ -158,7 +158,7 @@ export default class Heapify {
             return "(empty queue)";
         }
 
-        let result = Array(this.length - ROOT_INDEX);
+        const result = Array(this.length - ROOT_INDEX);
         for (let i = 0; i < this.length; i++) {
             result[i] = this._priorities[i + ROOT_INDEX];
         }

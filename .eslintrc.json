@@ -64,7 +64,7 @@
         "func-name-matching": "error",
         "func-names": "error",
         "func-style": "error",
-        "function-call-argument-newline": "error",
+        "function-call-argument-newline": ["error", "consistent"],
         "function-paren-newline": "off",
         "generator-star-spacing": "off",
         "global-require": "error",
@@ -144,7 +144,7 @@
         "no-lonely-if": "error",
         "no-loop-func": "error",
         "no-magic-numbers": "off",
-        "no-mixed-operators": "error",
+        "no-mixed-operators": "off",
         "no-mixed-requires": "error",
         "no-multi-assign": "error",
         "no-multi-spaces": [
@@ -217,14 +217,14 @@
         "padded-blocks": "off",
         "padding-line-between-statements": "error",
         "prefer-arrow-callback": "error",
-        "prefer-const": "off",
+        "prefer-const": "error",
         "prefer-destructuring": "error",
         "prefer-exponentiation-operator": "error",
         "prefer-named-capture-group": "error",
         "prefer-numeric-literals": "error",
         "prefer-object-spread": "error",
         "prefer-promise-reject-errors": "error",
-        "prefer-reflect": "error",
+        "prefer-reflect": "off",
         "prefer-regex-literals": "error",
         "prefer-rest-params": "error",
         "prefer-spread": "error",
@@ -252,11 +252,17 @@
             "error",
             "last"
         ],
-        "sort-imports": "error",
+        "sort-imports": ["error", {
+            "ignoreCase": true
+        }],
         "sort-keys": "error",
         "sort-vars": "error",
         "space-before-blocks": "error",
-        "space-before-function-paren": "off",
+        "space-before-function-paren": ["error", {
+            "anonymous": "always",
+            "named": "never",
+            "asyncArrow": "never"
+        }],
         "space-in-parens": "error",
         "space-infix-ops": "error",
         "space-unary-ops": [
