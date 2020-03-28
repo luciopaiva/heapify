@@ -5,8 +5,9 @@ const ROOT_INDEX = 1;
 export default class Heapify {
 
     constructor (capacity = 64, keys = [], priorities = [],
-                 KeysBackingArrayType = Uint32Array,
-                 PrioritiesBackingArrayType = Uint32Array) {
+        KeysBackingArrayType = Uint32Array,
+        PrioritiesBackingArrayType = Uint32Array) {
+
         this.capacity = capacity;
         this._keys = new KeysBackingArrayType(capacity + ROOT_INDEX);
         this._priorities = new PrioritiesBackingArrayType(capacity + ROOT_INDEX);
