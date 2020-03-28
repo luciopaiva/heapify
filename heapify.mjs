@@ -4,9 +4,10 @@ const ROOT_INDEX = 1;
 
 export default class Heapify {
 
-    constructor (capacity = 64, keys = [], priorities = [],
-                 KeysBackingArrayType = Uint32Array,
-                 PrioritiesBackingArrayType = Uint32Array) {
+    constructor(capacity = 64, keys = [], priorities = [],
+        KeysBackingArrayType = Uint32Array,
+        PrioritiesBackingArrayType = Uint32Array) {
+
         this.capacity = capacity;
         this._keys = new KeysBackingArrayType(capacity + ROOT_INDEX);
         this._priorities = new PrioritiesBackingArrayType(capacity + ROOT_INDEX);
@@ -153,11 +154,11 @@ export default class Heapify {
     }
 
     toString() {
-        if (this.length === 0 ) {
+        if (this.length === 0) {
             return "(empty queue)";
         }
 
-        let result = Array(this.length - ROOT_INDEX);
+        const result = Array(this.length - ROOT_INDEX);
         for (let i = 0; i < this.length; i++) {
             result[i] = this._priorities[i + ROOT_INDEX];
         }
@@ -166,10 +167,10 @@ export default class Heapify {
     }
 
     get [Symbol.toStringTag]() {
-        return 'Heapify'
+        return "Heapify";
     }
 
-    * [Symbol.iterator] () {
+    * [Symbol.iterator]() {
         for (let i = 0; i < this.length; i++) {
             const priority = this._priorities[i + ROOT_INDEX];
             const key = this._keys[i + ROOT_INDEX];
@@ -177,13 +178,13 @@ export default class Heapify {
         }
     }
 
-    * keys () {
+    * keys() {
         for (let i = 0; i < this.length; i++) {
             yield this._keys[i + ROOT_INDEX];
         }
     }
 
-    * priorities () {
+    * priorities() {
         for (let i = 0; i < this.length; i++) {
             yield this._priorities[i + ROOT_INDEX];
         }

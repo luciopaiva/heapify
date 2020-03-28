@@ -7,7 +7,8 @@
     "test": "c8 --reporter=html --reporter=text mocha",
     "report-coverage": "c8 report --reporter=text-lcov > coverage.lcov && codecov",
     "count": "cloc heapify.mjs",
-    "bench": "node bench.mjs"
+    "bench": "node bench.mjs",
+    "linter": "eslint *.mjs test/*.mjs"
   },
   "keywords": [
     "priority queue",
@@ -27,15 +28,10 @@
     "c8": "^7.1.0",
     "cloc": "^2.5.1",
     "codecov": "^3.6.5",
+    "eslint": "^6.8.0",
     "flatqueue": "1.1.0",
     "mocha": "^7.1.1",
     "tinyqueue": "2.0.3"
-  },
-  "nyc": {
-    "all": true,
-    "include": [
-      "heapify.mjs"
-    ]
   },
   "dependencies": {}
 }
