@@ -166,10 +166,10 @@ export default class Heapify {
     }
 
     get [Symbol.toStringTag]() {
-        return 'Heapify'
+        return "Heapify";
     }
 
-    * [Symbol.iterator] () {
+    * [Symbol.iterator]() {
         for (let i = 0; i < this.length; i++) {
             const priority = this._priorities[i + ROOT_INDEX];
             const key = this._keys[i + ROOT_INDEX];
@@ -177,13 +177,13 @@ export default class Heapify {
         }
     }
 
-    * keys () {
+    * keys() {
         for (let i = 0; i < this.length; i++) {
             yield this._keys[i + ROOT_INDEX];
         }
     }
 
-    * priorities () {
+    * priorities() {
         for (let i = 0; i < this.length; i++) {
             yield this._priorities[i + ROOT_INDEX];
         }

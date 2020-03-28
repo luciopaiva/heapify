@@ -221,9 +221,9 @@ describe("Heapify", function () {
         queue.push(4, 40);
 
         assert.deepStrictEqual([...queue], [[1,10], [2,20], [3,30], [5, 35], [4,40]]);
-    })
+    });
 
-    it ("should be possible to iterate over all the keys", function () {
+    it("should be possible to iterate over all the keys", function () {
         const queue = new Heapify();
         queue.push(5, 35);
         queue.push(3, 30);
@@ -232,9 +232,9 @@ describe("Heapify", function () {
         queue.push(4, 40);
 
         assert.deepStrictEqual([...queue.keys()], [1, 2, 3, 5, 4]);
-    })
+    });
 
-    it ("should be possible to iterate over all the priorities", function () {
+    it("should be possible to iterate over all the priorities", function () {
         const queue = new Heapify();
         queue.push(5, 35);
         queue.push(3, 30);
@@ -243,15 +243,15 @@ describe("Heapify", function () {
         queue.push(4, 40);
 
         assert.deepStrictEqual([...queue.priorities()], [10, 20, 30, 35, 40]);
-    })
+    });
 
-    it ("should return [object Heapify] when stringified", function () {
+    it("should return [object Heapify] when stringified", function () {
         const queue = new Heapify();
         assert.strictEqual(Object.prototype.toString.call(queue), '[object Heapify]');
-    })
+    });
 
-    it ("should return '(empty queue)' when stringifying an empty queue", function () {
+    it("should return '(empty queue)' when stringifying an empty queue", function () {
         const queue = new Heapify();
         assert.strictEqual(String(queue), '(empty queue)');
-    })
+    });
 });
