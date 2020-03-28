@@ -32,7 +32,7 @@ Supported operations:
 Features:
 
 - runs on browser and Node.js with support to ES6 modules
-- tiny code base (under 100 LoC)
+- tiny code base (under 200 LoC)
 - no dependencies
 - supports several types of priorities and keys
 
