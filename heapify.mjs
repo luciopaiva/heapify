@@ -38,7 +38,7 @@ export default class Heapify {
      * @param {Number} index
      * @private
      */
-    bubbleUp(index) {
+    bubbleUp (index) {
         const key = this._keys[index];
         const priority = this._priorities[index];
 
@@ -154,7 +154,7 @@ export default class Heapify {
     }
 
     toString() {
-        if (this.length === 0 ) {
+        if (this.length === 0) {
             return "(empty queue)";
         }
 
