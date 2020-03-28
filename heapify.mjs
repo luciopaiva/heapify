@@ -8,8 +8,8 @@ export default class Heapify {
                  KeysBackingArrayType = Uint32Array,
                  PrioritiesBackingArrayType = Uint32Array) {
         this.capacity = capacity;
-        this.keys = new KeysBackingArrayType(capacity + ROOT_INDEX);
-        this.priorities = new PrioritiesBackingArrayType(capacity + ROOT_INDEX);
+        this._keys = new KeysBackingArrayType(capacity + ROOT_INDEX);
+        this._priorities = new PrioritiesBackingArrayType(capacity + ROOT_INDEX);
         if (keys.length !== priorities.length) {
             throw new Error("Number of keys does not match number of priorities provided.");
         }
@@ -18,8 +18,8 @@ export default class Heapify {
         }
         // copy data from user
         for (let i = 0; i < keys.length; i++) {
-            this.keys[i + ROOT_INDEX] = keys[i];
-            this.priorities[i + ROOT_INDEX] = priorities[i];
+            this._keys[i + ROOT_INDEX] = keys[i];
+            this._priorities[i + ROOT_INDEX] = priorities[i];
         }
         this.length = keys.length;
         for (let i = keys.length >>> 1; i >= ROOT_INDEX; i--) {
@@ -38,26 +38,26 @@ export default class Heapify {
      * @private
      */
     bubbleUp(index) {
-        const key = this.keys[index];
-        const priority = this.priorities[index];
+        const key = this._keys[index];
+        const priority = this._priorities[index];
 
         while (index > ROOT_INDEX) {
             // get its parent item
             const parentIndex = index >>> 1;
-            if (this.priorities[parentIndex] <= priority) {
+            if (this._priorities[parentIndex] <= priority) {
                 break;  // if parent priority is smaller, heap property is satisfied
             }
             // bubble parent down so the item can go up
-            this.keys[index] = this.keys[parentIndex];
-            this.priorities[index] = this.priorities[parentIndex];
+            this._keys[index] = this._keys[parentIndex];
+            this._priorities[index] = this._priorities[parentIndex];
 
             // repeat for the next level
             index = parentIndex;
         }
 
         // we finally found the place where the initial item should be; write it there
-        this.keys[index] = key;
-        this.priorities[index] = priority;
+        this._keys[index] = key;
+        this._priorities[index] = priority;
     }
 
     /**
@@ -67,8 +67,8 @@ export default class Heapify {
      * @private
      */
     bubbleDown(index) {
-        const key = this.keys[index];
-        const priority = this.priorities[index];
+        const key = this._keys[index];
+        const priority = this._priorities[index];
 
         const halfLength = ROOT_INDEX + (this.length >>> 1);  // no need to check the last level
         const lastIndex = this.length + ROOT_INDEX;
@@ -79,17 +79,17 @@ export default class Heapify {
             }
 
             // pick the left child
-            let childPriority = this.priorities[left];
-            let childKey = this.keys[left];
+            let childPriority = this._priorities[left];
+            let childKey = this._keys[left];
             let childIndex = left;
 
             // if there's a right child, choose the child with the smallest priority
             const right = left + 1;
             if (right < lastIndex) {
-                const rightPriority = this.priorities[right];
+                const rightPriority = this._priorities[right];
                 if (rightPriority < childPriority) {
                     childPriority = rightPriority;
-                    childKey = this.keys[right];
+                    childKey = this._keys[right];
                     childIndex = right;
                 }
             }
@@ -99,16 +99,16 @@ export default class Heapify {
             }
 
             // bubble the child up to where the parent is
-            this.keys[index] = childKey;
-            this.priorities[index] = childPriority;
+            this._keys[index] = childKey;
+            this._priorities[index] = childPriority;
 
             // repeat for the next level
             index = childIndex;
         }
 
         // we finally found the place where the initial item should be; write it there
-        this.keys[index] = key;
-        this.priorities[index] = priority;
+        this._keys[index] = key;
+        this._priorities[index] = priority;
     }
 
     /**
@@ -120,8 +120,8 @@ export default class Heapify {
             throw new Error("Heap has reached capacity, can't push new items");
         }
         const pos = this.length + ROOT_INDEX;
-        this.keys[pos] = key;
-        this.priorities[pos] = priority;
+        this._keys[pos] = key;
+        this._priorities[pos] = priority;
         this.bubbleUp(pos);
         this.length++;
     }
@@ -130,13 +130,13 @@ export default class Heapify {
         if (this.length === 0) {
             return undefined;
         }
-        const key = this.keys[ROOT_INDEX];
+        const key = this._keys[ROOT_INDEX];
 
         this.length--;
 
         if (this.length > 0) {
-            this.keys[ROOT_INDEX] = this.keys[this.length + ROOT_INDEX];
-            this.priorities[ROOT_INDEX] = this.priorities[this.length + ROOT_INDEX];
+            this._keys[ROOT_INDEX] = this._keys[this.length + ROOT_INDEX];
+            this._priorities[ROOT_INDEX] = this._priorities[this.length + ROOT_INDEX];
 
             this.bubbleDown(ROOT_INDEX);
         }
@@ -145,18 +145,47 @@ export default class Heapify {
     }
 
     peekPriority() {
-        return this.priorities[ROOT_INDEX];
+        return this._priorities[ROOT_INDEX];
     }
 
     peek() {
-        return this.keys[ROOT_INDEX];
+        return this._keys[ROOT_INDEX];
     }
 
     toString() {
+        if (this.length === 0 ) {
+            return "(empty queue)";
+        }
+
         let result = Array(this.length - ROOT_INDEX);
         for (let i = 0; i < this.length; i++) {
-            result[i] = this.priorities[i + ROOT_INDEX];
+            result[i] = this._priorities[i + ROOT_INDEX];
         }
         return `[${result.join(" ")}]`;
+    
+    }
+
+    get [Symbol.toStringTag]() {
+        return 'Heapify'
+    }
+
+    * [Symbol.iterator] () {
+        for (let i = 0; i < this.length; i++) {
+            const priority = this._priorities[i + ROOT_INDEX];
+            const key = this._keys[i + ROOT_INDEX];
+            yield [key, priority];
+        }
+    }
+
+    * keys () {
+        for (let i = 0; i < this.length; i++) {
+            yield this._keys[i + ROOT_INDEX];
+        }
+    }
+
+    * priorities () {
+        for (let i = 0; i < this.length; i++) {
+            yield this._priorities[i + ROOT_INDEX];
+        }
     }
 }
