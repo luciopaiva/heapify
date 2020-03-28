@@ -180,7 +180,7 @@ Returns a string with an array representation of all priorities in the queue. Fo
 The returned string will be `[10 30 20 40]`. See tests for more examples.
 
 
-### * [Symbol.iterator]()
+### * [Symbol.iterator] ()
 
 Allows to get an iterator that iterates over keys and priorities that will be yielded as tuples (`[key, priority]`):
 
