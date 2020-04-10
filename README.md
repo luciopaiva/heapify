@@ -65,6 +65,7 @@ import Heapify from "https://unpkg.com/heapify"
 ```
 
 And to import a specific version:
+
 ```js
 import Heapify from "https://unpkg.com/heapify@0.2.1"
 ```
