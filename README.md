@@ -59,6 +59,7 @@ yarn add heapify
 ```
 
 If you're on a browser, there's also the option of using a CDN:
+
 ```js
 import Heapify from "https://unpkg.com/heapify"
 ```
