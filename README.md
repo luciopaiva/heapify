@@ -91,6 +91,7 @@ npm run test
 ````
 
 For benchmark tests:
+
 ```sh
 npm run bench
 ```
