@@ -47,6 +47,7 @@ Upcoming features:
 - dynamic size
 
 ## How to install
+
 ```sh
 npm i heapify
 ```
