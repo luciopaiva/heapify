@@ -183,7 +183,7 @@ queue.peekPriority();  // 10
 
 Returns a string with an array representation of all priorities in the queue. For instance, given the following priority heap:
 
-```sh
+```
     10
   30  20
 40
