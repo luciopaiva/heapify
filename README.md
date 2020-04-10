@@ -53,6 +53,7 @@ npm i heapify
 ```
 
 Or if you're a yarn person:
+
 ```sh
 yarn add heapify
 ```
