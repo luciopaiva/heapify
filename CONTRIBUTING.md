@@ -30,14 +30,14 @@ Follow these basic rules:
 
 Follow these basic rules:
 
-* be descriptive
-* limit the subject line to 50 characters
-* use the imperative mood in the subject line
-* capitalize the subject line
-* do not end the subject line with a period
-* separate subject from body with a blank line
-* wrap the body at 72 characters
-* use the body to explain what and why vs. how
+* be descriptive;
+* limit the subject line to 50 characters;
+* use the imperative mood in the subject line;
+* capitalize the subject line;
+* do not end the subject line with a period;
+* separate subject from body with a blank line;
+* wrap the body at 72 characters;
+* use the body to explain what and why vs. how.
 
 Some good examples:
 
