@@ -60,12 +60,8 @@ For more information, see [this](https://chris.beams.io/posts/git-commit/).
 
 Use npm to run unit tests locally:
 
-```sh
-npm run test
-````
+    npm run test
 
 There's also a benchmark script:
 
-```sh
-npm run bench
-```
+    npm run bench
