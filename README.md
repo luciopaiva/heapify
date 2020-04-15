@@ -48,23 +48,31 @@ Upcoming features:
 
 ## How to install
 
-    npm i heapify
+```sh
+npm i heapify
+```
 
 Or if you're a yarn person:
 
-    yarn add heapify
+```sh
+yarn add heapify
+```
 
 If you're on a browser, there's also the option of using a CDN:
 
-    import Heapify from "https://unpkg.com/heapify";
+```js
+import Heapify from "https://unpkg.com/heapify"
+```
 
 And to import a specific version:
 
-    import Heapify from "https://unpkg.com/heapify@0.2.1";
+```js
+import Heapify from "https://unpkg.com/heapify@0.2.1"
+```
 
 ## How to use
 
-```javascript
+```js
 import Heapify from "heapify";
 
 const queue = new Heapify();
@@ -78,11 +86,15 @@ queue.pop();  // undefined
 
 ## Running tests
 
-    npm run test
+```sh
+npm run test
+````
 
 For benchmark tests:
 
-    npm run bench
+```sh
+npm run bench
+```
 
 ## API
 
@@ -98,7 +110,7 @@ Creates a new priority queue. Parameters are:
 
 Example:
 
-```javascript
+```js
 const queue1 = new Heapify(32);
 const queue2 = new Heapify(16, [], [], Uint64Array, Uint32Array);
 ```
@@ -109,7 +121,7 @@ Effectively empties the queue. The heap capacity is not changed, nor its element
 
 Example:
 
-```javascript
+```js
 const queue = new Heapify();
 queue.push(1, 10);
 console.info(queue.length);  // 1
@@ -123,7 +135,7 @@ Gets the key with the smallest priority, but does not remove it from the queue.
 
 Example:
 
-```javascript
+```js
 const queue = new Heapify();
 queue.push(1, 10);
 queue.peek();  // 1
@@ -135,7 +147,7 @@ Gets the _priority_ of the key with the smallest priority, but does not remove t
 
 Example:
 
-```javascript
+```js
 const queue = new Heapify();
 queue.push(1, 10);
 queue.peekPriority();  // 10
@@ -147,7 +159,7 @@ Removes the smallest priority item from the queue, returning its key.
 
 Example:
 
-```javascript
+```js
 const queue = new Heapify();
 queue.push(1, 10);
 queue.pop();  // 1
@@ -159,7 +171,7 @@ Adds a new item to the queue with a given `key` and `priority`. Will throw an er
 
 Example:
 
-```javascript
+```js
 const queue = new Heapify();
 queue.push(1, 10);
 queue.length;  // 1
@@ -184,7 +196,7 @@ The returned string will be `[10 30 20 40]`. See tests for more examples.
 
 Allows to get an iterator that iterates over keys and priorities that will be yielded as tuples (`[key, priority]`):
 
-```javascript
+```js
 const queue = new Heapify();
 queue.push(5, 35);
 queue.push(3, 30);
@@ -197,7 +209,7 @@ console.log([...queue]) // [ [ 1, 10 ], [ 2, 20 ], [ 3, 30 ], [ 5, 35 ], [ 4, 40
 
 You can also use this feature conveniently with a `for ... of` construct:
 
-```javascript
+```js
 const queue = new Heapify();
 queue.push(5, 35);
 queue.push(3, 30);
@@ -220,7 +232,7 @@ for (const [key, priority] of queue) {
 
 Allows to get an iterator that iterates over keys:
 
-```javascript
+```js
 const queue = new Heapify();
 queue.push(5, 35);
 queue.push(3, 30);
@@ -235,7 +247,7 @@ console.log([...queue.keys()]); // [ 1, 2, 3, 5, 4 ]
 
 Allows to get an iterator that iterates over keys:
 
-```javascript
+```js
 const queue = new Heapify();
 queue.push(5, 35);
 queue.push(3, 30);
