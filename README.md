@@ -208,7 +208,7 @@ queue.push(1, 10);
 queue.push(2, 20);
 queue.push(4, 40);
 
-console.log([...queue]) // [ [ 1, 10 ], [ 2, 20 ], [ 3, 30 ], [ 5, 35 ], [ 4, 40 ] ]
+console.log([...queue])  // [ [ 1, 10 ], [ 2, 20 ], [ 3, 30 ], [ 5, 35 ], [ 4, 40 ] ]
 ```
 
 You can also use this feature conveniently with a `for ... of` construct:
@@ -244,7 +244,7 @@ queue.push(1, 10);
 queue.push(2, 20);
 queue.push(4, 40);
 
-console.log([...queue.keys()]); // [ 1, 2, 3, 5, 4 ]
+console.log([...queue.keys()]);  // [ 1, 2, 3, 5, 4 ]
 ```
 
 ### * priorities()
@@ -259,5 +259,5 @@ queue.push(1, 10);
 queue.push(2, 20);
 queue.push(4, 40);
 
-console.log([...queue.priorities()]); // [ 10, 20, 30, 35, 40 ] 
+console.log([...queue.priorities()]);  // [ 10, 20, 30, 35, 40 ] 
 ```
