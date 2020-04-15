@@ -18,7 +18,7 @@ Follow these basic rules:
 
 - make sure your new logic is fully covered by unit tests;
 
-- review your code first. Look for unused code, look for proper formatting, see if everything makes sense. Act as if you were reviewing someone else's PR and criticize it. Spare the time of the final reviewer;
+- review your code first. Look for unused code, strive for proper formatting, see if everything makes sense. Act as if you were reviewing someone else's PR and criticize it. Spare the time of the final reviewer;
 
 - avoid opening PRs with simple documentation formatting or pure coding style changes. If you want to contribute to open source projects, put some effort into it. Help by fixing known bugs or improving performance;
 
