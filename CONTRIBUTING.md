@@ -26,8 +26,6 @@ Follow these basic rules:
 
 - inline comments are welcome to explain the hard parts.
 
-Commit messages should follow 
-
 ### Commit messages
 
 Follow these basic rules:
