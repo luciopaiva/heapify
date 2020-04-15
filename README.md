@@ -22,29 +22,39 @@ Heapify        32ms     41ms     150ms        112ms
 
 *Note: the build operation doesn't actually exist in TinyQueue and FlatQueue, so it has to be replaced with a manual push operation. That's why build times for those two cases are the same as for push.*
 
-Supported operations:
+# Table of contents
+
+- [Features](#features)
+- [How to install](#how-to-install)
+- [Basic usage](#basic-usage)
+- [Contributing](#contributing)
+- [API](#api)
+  - [new Heapify()](#new-heapifycapacity--64-keys---priorities---keysbackingarraytype--uint32array-prioritiesbackingarraytype--uint32array)
+  - [clear()](#clear)
+  - [peek()](#peek)
+  - [peekPriority()](#peekpriority)
+  - [pop()](#pop)
+  - [push(key, priority)](#pushkey-priority)
+  - [toString()](#tostring)
+  - [* [Symbol.iterator] ()](#-symboliterator-)
+  - [* keys()](#-keys)
+  - [* priorities()](#-priorities)
+
+## Features
+
+Supported queue operations:
 
 - push: O(log n)
 - pop: O(log n)
 - peek: O(1)
 - creation with pre-existing list of priorities: O(n)
 
-Features:
+Other features:
 
 - runs on browser and Node.js with support to ES6 modules
 - tiny code base (under 200 LoC)
 - no dependencies
 - supports several types of priorities and keys
-
-Upcoming features:
-
-- standalone heap structures
-- max heaps
-- unique items
-- accessing arbitrary items
-- changing the priority of arbitrary items
-- objects as keys (with performance hit)
-- dynamic size
 
 ## How to install
 
@@ -70,7 +80,7 @@ And to import a specific version:
 import Heapify from "https://unpkg.com/heapify@0.2.1"
 ```
 
-## How to use
+## Basic usage
 
 ```js
 import Heapify from "heapify";
@@ -84,17 +94,11 @@ queue.clear();
 queue.pop();  // undefined
 ```
 
-## Running tests
+See the API section below for more details.
 
-```sh
-npm run test
-````
+## Contributing
 
-For benchmark tests:
-
-```sh
-npm run bench
-```
+You are welcome to contribute, but please take the time to read and follow [these guidelines](CONTRIBUTING.md).
 
 ## API
 
