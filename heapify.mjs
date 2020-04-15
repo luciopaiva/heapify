@@ -128,7 +128,7 @@ export default class Heapify {
     }
 
     pop() {
-        if (this.length === 0) {
+        if (!this.length) {
             return undefined;
         }
         const key = this._keys[ROOT_INDEX];
@@ -154,7 +154,7 @@ export default class Heapify {
     }
 
     toString() {
-        if (this.length === 0) {
+        if (!this.length) {
             return "(empty queue)";
         }
 
