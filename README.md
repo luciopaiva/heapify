@@ -203,7 +203,7 @@ The returned string will be `[10 30 20 40]`. See tests for more examples.
 
 *Deprecated.*
 
-Allows to get an iterator that iterates over keys and priorities that will be yielded as tuples (`[key, priority]`):
+Allows to get an iterator that iterates over keys and priorities that will be yielded as tuples (`[key, priority]`).
 
 *Warning: this does not return tuples in priority order; it just traverses the underlying array. Moreover, tuples are not consumed from the queue. This method is deprecated and likely to be changed in a future version to return in order and consume while traversing.*
 
