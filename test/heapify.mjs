@@ -14,15 +14,20 @@ describe("Heapify", () => {
         assert(queue instanceof Heapify);
     });
 
+    it("should have a default capacity", () => {
+        const queue = new Heapify();
+        assert.strictEqual(queue.capacity, 64);
+    });
+
     it("should create a priority queue with a specified capacity", () => {
         const queue = new Heapify(123);
         assert.strictEqual(queue.capacity, 123);
-        assert.strictEqual(queue.length, 0);
+        assert.strictEqual(queue.size, 0);
     });
 
     it("should create a priority queue with given keys and priorities", () => {
         const queue = new Heapify(100, [1, 2], [50, 1]);
-        assert.strictEqual(queue.length, 2);
+        assert.strictEqual(queue.size, 2);
         const key = queue.peek();
         assert.strictEqual(key, 2);
     });
@@ -37,26 +42,26 @@ describe("Heapify", () => {
 
     it("should be able to push new items", () => {
         const queue = new Heapify();
-        assert.strictEqual(queue.length, 0);
+        assert.strictEqual(queue.size, 0);
         queue.push(1, 10);
-        assert.strictEqual(queue.length, 1);
+        assert.strictEqual(queue.size, 1);
     });
 
     it("should not be able to push new items over capacity", () => {
         const queue = new Heapify(1);
-        assert.strictEqual(queue.length, 0);
+        assert.strictEqual(queue.size, 0);
         queue.push(1, 10);
-        assert.strictEqual(queue.length, 1);
+        assert.strictEqual(queue.size, 1);
         assert.throws(() => queue.push(2, 20));
-        assert.strictEqual(queue.length, 1);
+        assert.strictEqual(queue.size, 1);
     });
 
     it("should be able to pop an item", () => {
         const queue = new Heapify();
         queue.push(123, 456);
-        assert.strictEqual(queue.length, 1);
+        assert.strictEqual(queue.size, 1);
         const key = queue.pop();
-        assert.strictEqual(queue.length, 0);
+        assert.strictEqual(queue.size, 0);
         assert.strictEqual(key, 123);
     });
 
@@ -68,18 +73,18 @@ describe("Heapify", () => {
     it("should be able to peek an item", () => {
         const queue = new Heapify();
         queue.push(123, 456);
-        assert.strictEqual(queue.length, 1);
+        assert.strictEqual(queue.size, 1);
         const key = queue.peek();
-        assert.strictEqual(queue.length, 1);
+        assert.strictEqual(queue.size, 1);
         assert.strictEqual(key, 123);
     });
 
     it("should be able to peek the priority of an item", () => {
         const queue = new Heapify();
         queue.push(123, 456);
-        assert.strictEqual(queue.length, 1);
+        assert.strictEqual(queue.size, 1);
         const priority = queue.peekPriority();
-        assert.strictEqual(queue.length, 1);
+        assert.strictEqual(queue.size, 1);
         assert.strictEqual(priority, 456);
     });
 

@@ -30,11 +30,13 @@ Heapify        32ms     41ms     150ms        112ms
 - [Contributing](#contributing)
 - [API](#api)
   - [new Heapify()](#new-heapifycapacity--64-keys---priorities---keysbackingarraytype--uint32array-prioritiesbackingarraytype--uint32array)
+  - [capacity](#capacity)
   - [clear()](#clear)
   - [peek()](#peek)
   - [peekPriority()](#peekpriority)
   - [pop()](#pop)
   - [push(key, priority)](#pushkey-priority)
+  - [size](#size)
   - [toString()](#tostring)
   - [* [Symbol.iterator] ()](#-symboliterator-)
   - [* keys()](#-keys)
@@ -116,7 +118,16 @@ Example:
 
 ```js
 const queue1 = new Heapify(32);
-const queue2 = new Heapify(16, [], [], Uint64Array, Uint32Array);
+const queue2 = new Heapify(16, [], [], Uint16Array, Uint32Array);
+```
+
+### capacity
+
+A read-only property that returns the maximum capacity of the queue. Example:
+
+```js
+const queue = new Heapify(32);
+queue.capacity;  // 32
 ```
 
 ### clear()
@@ -128,9 +139,9 @@ Example:
 ```js
 const queue = new Heapify();
 queue.push(1, 10);
-console.info(queue.length);  // 1
+console.info(queue.size);  // 1
 queue.clear();
-console.info(queue.length);  // 0
+console.info(queue.size);  // 0
 ```
 
 ### peek()
@@ -159,7 +170,7 @@ queue.peekPriority();  // 10
 
 ### pop()
 
-Removes the smallest priority item from the queue, returning its key.
+Removes the smallest priority item from the queue, returning its key. Returns `undefined` if the queue is empty. 
 
 Example:
 
@@ -178,9 +189,24 @@ Example:
 ```js
 const queue = new Heapify();
 queue.push(1, 10);
-queue.length;  // 1
+queue.size;  // 1
 queue.peek();  // 1
 queue.peekPriority();  // 10
+```
+
+### size
+
+A read-only property that returns the current size of the queue.
+
+Example:
+
+```js
+const queue = new Heapify();
+queue.size;  // 0
+queue.push(1, 10);
+queue.size;  // 1
+queue.pop();
+queue.size;  // 0
 ```
 
 ### toString()
