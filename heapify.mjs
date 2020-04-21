@@ -8,7 +8,7 @@ export default class Heapify {
         KeysBackingArrayType = Uint32Array,
         PrioritiesBackingArrayType = Uint32Array) {
 
-        this.capacity = capacity;
+        this._capacity = capacity;
         this._keys = new KeysBackingArrayType(capacity + ROOT_INDEX);
         this._priorities = new PrioritiesBackingArrayType(capacity + ROOT_INDEX);
         if (keys.length !== priorities.length) {
@@ -26,6 +26,10 @@ export default class Heapify {
         for (let i = keys.length >>> 1; i >= ROOT_INDEX; i--) {
             this.bubbleDown(i);
         }
+    }
+
+    get capacity() {
+        return this._capacity;
     }
 
     clear() {
@@ -117,7 +121,7 @@ export default class Heapify {
      * @param {Number} priority 32-bit value corresponding to the priority of this key
      */
     push(key, priority) {
-        if (this.length === this.capacity) {
+        if (this.length === this._capacity) {
             throw new Error("Heap has reached capacity, can't push new items");
         }
         const pos = this.length + ROOT_INDEX;
@@ -151,6 +155,10 @@ export default class Heapify {
 
     peek() {
         return this._keys[ROOT_INDEX];
+    }
+
+    get size() {
+        return this.length;
     }
 
     toString() {
