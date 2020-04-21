@@ -205,7 +205,7 @@ The returned string will be `[10 30 20 40]`. See tests for more examples.
 
 Allows to get an iterator that iterates over keys and priorities that will be yielded as tuples (`[key, priority]`).
 
-*Warning: this does not return tuples in priority order; it just traverses the underlying array. Moreover, tuples are not consumed from the queue. This method is deprecated and likely to be changed in a future version to return in order and consume while traversing.*
+*Warning: this does not return tuples in priority order; it just traverses the underlying array. Moreover, tuples are not consumed from the queue. This method is deprecated and likely to be removed or changed in a future version to return in order and consume while traversing.*
 
 ```js
 const queue = new Heapify();
@@ -245,7 +245,7 @@ for (const [key, priority] of queue) {
 
 Allows to get an iterator that iterates over keys.
 
-*Warning: this does not return keys in priority order; it just traverses the underlying array. Moreover, keys are not consumed from the queue. This method is deprecated and likely to be removed in a future version to return in order and consume while traversing.*
+*Warning: this does not return keys in priority order; it just traverses the underlying array. Moreover, keys are not consumed from the queue. This method is deprecated and likely to be removed or changed in a future version to return in order and consume while traversing.*
 
 ```js
 const queue = new Heapify();
@@ -264,7 +264,7 @@ console.log([...queue.keys()]);  // [ 1, 2, 3, 5, 4 ]
 
 Allows to get an iterator that iterates over priorities.
 
-*Warning: this does not return priorities in priority order; it just traverses the underlying array. Moreover, priorities are not consumed from the queue. This method is deprecated and likely to be removed in a future version to return in order and consume while traversing.*
+*Warning: this does not return priorities in priority order; it just traverses the underlying array. Moreover, priorities are not consumed from the queue. This method is deprecated and likely to be removed or changed in a future version to return in order and consume while traversing.*
 
 ```js
 const queue = new Heapify();
