@@ -4,11 +4,11 @@
   "description": "Blazing fast JavaScript priority queue",
   "main": "heapify.mjs",
   "scripts": {
-    "test": "c8 --reporter=html --reporter=text mocha",
+    "test": "c8 --reporter=html --reporter=text mocha --recursive",
     "report-coverage": "c8 report --reporter=text-lcov > coverage.lcov && codecov",
     "count": "cloc heapify.mjs",
     "bench": "node bench.mjs",
-    "linter": "eslint *.mjs test/*.mjs"
+    "linter": "eslint *.mjs test/**/*.mjs"
   },
   "keywords": [
     "priority queue",
