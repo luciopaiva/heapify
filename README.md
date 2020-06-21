@@ -88,10 +88,10 @@ import Heapify from "https://unpkg.com/heapify@0.2.1"
 import Heapify from "heapify";
 
 const queue = new Heapify();
-queue.push(1, 10);
-queue.push(2, 5);
-queue.pop();  // 2
-queue.peek();  // 1
+queue.push('foo', 10); // add 'foo' with priority 10
+queue.push('bar', 5); // add 'bar' with priority 5
+queue.pop();  // 'bar'
+queue.peek();  // 'foo'
 queue.clear();
 queue.pop();  // undefined
 ```
@@ -138,7 +138,7 @@ Example:
 
 ```js
 const queue = new Heapify();
-queue.push(1, 10);
+queue.push('foo', 10);
 console.info(queue.size);  // 1
 queue.clear();
 console.info(queue.size);  // 0
@@ -152,8 +152,8 @@ Example:
 
 ```js
 const queue = new Heapify();
-queue.push(1, 10);
-queue.peek();  // 1
+queue.push('foo', 10);
+queue.peek();  // 'foo'
 ```
 
 ### peekPriority()
@@ -164,7 +164,7 @@ Example:
 
 ```js
 const queue = new Heapify();
-queue.push(1, 10);
+queue.push('foo', 10);
 queue.peekPriority();  // 10
 ```
 
@@ -176,8 +176,8 @@ Example:
 
 ```js
 const queue = new Heapify();
-queue.push(1, 10);
-queue.pop();  // 1
+queue.push('foo', 10);
+queue.pop();  // 'foo'
 ```
 
 ### push(key, priority)
@@ -188,9 +188,9 @@ Example:
 
 ```js
 const queue = new Heapify();
-queue.push(1, 10);
+queue.push('foo', 10);
 queue.size;  // 1
-queue.peek();  // 1
+queue.peek();  // 'foo'
 queue.peekPriority();  // 10
 ```
 
@@ -203,7 +203,7 @@ Example:
 ```js
 const queue = new Heapify();
 queue.size;  // 0
-queue.push(1, 10);
+queue.push('foo', 10);
 queue.size;  // 1
 queue.pop();
 queue.size;  // 0
@@ -235,34 +235,34 @@ Allows to get an iterator that iterates over keys and priorities that will be yi
 
 ```js
 const queue = new Heapify();
-queue.push(5, 35);
-queue.push(3, 30);
-queue.push(1, 10);
-queue.push(2, 20);
-queue.push(4, 40);
+queue.push('e', 35);
+queue.push('c', 30);
+queue.push('a', 10);
+queue.push('b', 20);
+queue.push('d', 40);
 
-console.log([...queue])  // [ [ 1, 10 ], [ 2, 20 ], [ 3, 30 ], [ 5, 35 ], [ 4, 40 ] ]
+console.log([...queue])  // [ [ 'a', 10 ], [ 'b', 20 ], [ 'c', 30 ], [ 'e', 35 ], [ 'd', 40 ] ]
 ```
 
 You can also use this feature conveniently with a `for ... of` construct:
 
 ```js
 const queue = new Heapify();
-queue.push(5, 35);
-queue.push(3, 30);
-queue.push(1, 10);
-queue.push(2, 20);
-queue.push(4, 40);
+queue.push('e', 35);
+queue.push('c', 30);
+queue.push('a', 10);
+queue.push('b', 20);
+queue.push('d', 40);
 
 for (const [key, priority] of queue) {
     console.log(key, priority)
 }
 
-// 1 10
-// 2 20
-// 3 30
-// 5 35
-// 4 40
+// 'a' 10
+// 'b' 20
+// 'c' 30
+// 'e' 35
+// 'd' 40
 ```
 
 ### * keys()
@@ -275,13 +275,13 @@ Allows to get an iterator that iterates over keys.
 
 ```js
 const queue = new Heapify();
-queue.push(5, 35);
-queue.push(3, 30);
-queue.push(1, 10);
-queue.push(2, 20);
-queue.push(4, 40);
+queue.push('e', 35);
+queue.push('c', 30);
+queue.push('a', 10);
+queue.push('b', 20);
+queue.push('d', 40);
 
-console.log([...queue.keys()]);  // [ 1, 2, 3, 5, 4 ]
+console.log([...queue.keys()]);  // [ 'a', 'b', 'c', 'd', 'e' ]
 ```
 
 ### * priorities()
@@ -294,11 +294,11 @@ Allows to get an iterator that iterates over priorities.
 
 ```js
 const queue = new Heapify();
-queue.push(5, 35);
-queue.push(3, 30);
-queue.push(1, 10);
-queue.push(2, 20);
-queue.push(4, 40);
+queue.push('e', 35);
+queue.push('c', 30);
+queue.push('a', 10);
+queue.push('b', 20);
+queue.push('d', 40);
 
 console.log([...queue.priorities()]);  // [ 10, 20, 30, 35, 40 ] 
 ```
