@@ -271,4 +271,98 @@ describe("Heapify", () => {
         const queue = new Heapify();
         assert.strictEqual(String(queue), "(empty queue)");
     });
+
+    it("should pushPop correctly when new priority is smaller than min", () => {
+        const queue = new Heapify();
+        queue.push(1, 20);
+        const popped = queue.pushPop(2, 10);
+        
+        assert.strictEqual(popped, 2);
+        assert.strictEqual(queue.toString(), "[20]");
+    });
+
+    it("should pushPop correctly when new priority is larger than min", () => {
+        const queue = new Heapify();
+        queue.push(1, 10);
+        const popped = queue.pushPop(2, 20);
+        
+        assert.strictEqual(popped, 1);
+        assert.strictEqual(queue.toString(), "[20]");
+    });
+
+    it("should have consistent behavior on pushPop when priority is equal to min", () => {
+        const queue1 = new Heapify();
+        queue1.push(1, 10);
+        const popped1 = queue1.pushPop(2, 10);
+        const peek1 = queue1.peek();
+
+        const queue2 = new Heapify();
+        queue2.push(1, 10);
+        queue2.push(2, 10);
+        const popped2 = queue2.pop();
+        const peek2 = queue2.peek();
+        assert.strictEqual(popped1, popped2);
+        assert.strictEqual(peek1, peek2);
+    });
+
+    it("should pushPop correctly when new queue is empty", () => {
+        const queue = new Heapify();
+        const popped = queue.pushPop(1, 10);
+
+        assert.strictEqual(popped, 1);
+        assert.strictEqual(queue.size, 0);
+    });
+
+    it("should not be able to pushPop new items over capacity", () => {
+        const queue = new Heapify(1);
+        assert.strictEqual(queue.size, 0);
+        queue.push(1, 10);
+        assert.strictEqual(queue.size, 1);
+        assert.throws(() => queue.pushPop(2, 20));
+        assert.strictEqual(queue.size, 1);
+    });
+
+    it("should popPush correctly when new priority is larger than min", () => {
+        const queue = new Heapify();
+        queue.push(1, 20);
+        const popped = queue.popPush(2, 10);
+        
+        assert.strictEqual(popped, 1);
+        assert.strictEqual(queue.toString(), "[10]");
+    });
+
+    it("should have consistent behavior on popPush when priority is equal to min", () => {
+        const queue1 = new Heapify();
+        queue1.push(1, 10);
+        const popped1 = queue1.popPush(2, 10);
+        const peek1 = queue1.peek();
+
+        const queue2 = new Heapify();
+        queue2.push(1, 10);
+        const popped2 = queue2.pop();
+        queue2.push(2, 10);
+        const peek2 = queue2.peek();
+        assert.strictEqual(popped1, popped2);
+        assert.strictEqual(peek1, peek2);
+    });
+
+    it("should popPush correctly when new queue is empty", () => {
+        const queue = new Heapify();
+        const popped = queue.popPush(1, 10);
+
+        assert.strictEqual(popped, undefined);
+        assert.strictEqual(queue.peek(), 1);
+    });
+
+    it("should be able to popPush when items at capacity", () => {
+        const queue = new Heapify(2);
+        queue.push(1, 3);
+        queue.push(2, 5);
+        
+        const popped = queue.popPush(3, 4);
+
+        assert.strictEqual(popped, 1);
+        assert.strictEqual(queue.size, 2);
+        assert.strictEqual(queue.toString(), "[4 5]");
+    });
 });
