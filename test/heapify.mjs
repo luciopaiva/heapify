@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 
 import assert from "assert";
 import Heapify from "../heapify.mjs";
