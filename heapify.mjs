@@ -168,6 +168,22 @@ export default class Heapify {
         return poppedKey;
     }
 
+    popPush(key, priority) {
+        if (this.length === 0) {
+            this.push(key, priority);
+            return undefined;
+        }
+
+        const poppedKey = this._keys[ROOT_INDEX];
+        
+        this._keys[ROOT_INDEX] = key;
+        this._priorities[ROOT_INDEX] = priority;
+
+        this.bubbleDown(ROOT_INDEX);
+
+        return poppedKey;
+    }
+
     peekPriority() {
         return this._priorities[ROOT_INDEX];
     }
