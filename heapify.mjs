@@ -149,6 +149,25 @@ export default class Heapify {
         return key;
     }
 
+    pushPop(key, priority) {
+        if (this.length === this._capacity) {
+            throw new Error("Heap has reached capacity, can't push new items");
+        }
+
+        if (this.length === 0 || this._priorities[ROOT_INDEX] > priority) {
+            return key;
+        }
+
+        const poppedKey = this._keys[ROOT_INDEX];
+        
+        this._keys[ROOT_INDEX] = key;
+        this._priorities[ROOT_INDEX] = priority;
+
+        this.bubbleDown(ROOT_INDEX);
+
+        return poppedKey;
+    }
+
     peekPriority() {
         return this._priorities[ROOT_INDEX];
     }
