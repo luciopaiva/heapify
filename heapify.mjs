@@ -12,7 +12,7 @@ export default class Heapify {
         this._keys = new KeysBackingArrayType(capacity + ROOT_INDEX);
         this._priorities = new PrioritiesBackingArrayType(capacity + ROOT_INDEX);
         // to keep track of whether the last operation was a pop
-        this._lastPopped = false;
+        this._hasPoppedElement = false;
 
         if (keys.length !== priorities.length) {
             throw new Error("Number of keys does not match number of priorities provided.");
@@ -37,7 +37,7 @@ export default class Heapify {
 
     clear() {
         this.length = 0;
-        this._lastPopped = false;
+        this._hasPoppedElement = false;
     }
 
     /**
@@ -129,13 +129,13 @@ export default class Heapify {
             throw new Error("Heap has reached capacity, can't push new items");
         }
 
-        if (this._lastPopped) {
+        if (this._hasPoppedElement) {
             // replace root element (which was deleted from the last pop)
             this._keys[ROOT_INDEX] = key;
             this._priorities[ROOT_INDEX] = priority;
 
             this.bubbleDown(ROOT_INDEX);
-            this._lastPopped = false;
+            this._hasPoppedElement = false;
         } else {
             const pos = this.length + ROOT_INDEX;
             this._keys[pos] = key;
@@ -151,27 +151,36 @@ export default class Heapify {
             return undefined;
         }
 
-        if (this._lastPopped) {
-            // since root element was already deleted from pop, replace with last and bubble down
-            this._keys[ROOT_INDEX] = this._keys[this.length + ROOT_INDEX];
-            this._priorities[ROOT_INDEX] = this._priorities[this.length + ROOT_INDEX];
-
-            this.bubbleDown(ROOT_INDEX);
-        }
+        this.removePoppedElement();
 
         this.length--;
-        this._lastPopped = true;
+        this._hasPoppedElement = true;
 
         return this._keys[ROOT_INDEX];
 
     }
 
     peekPriority() {
+        this.removePoppedElement();
+
         return this._priorities[ROOT_INDEX];
     }
 
     peek() {
+        this.removePoppedElement();
+
         return this._keys[ROOT_INDEX];
+    }
+
+    removePoppedElement() {
+        if (this._hasPoppedElement) {
+            // since root element was already deleted from pop, replace with last and bubble down
+            this._keys[ROOT_INDEX] = this._keys[this.length + ROOT_INDEX];
+            this._priorities[ROOT_INDEX] = this._priorities[this.length + ROOT_INDEX];
+
+            this.bubbleDown(ROOT_INDEX);
+            this._hasPoppedElement = false;
+        }
     }
 
     get size() {
@@ -183,14 +192,7 @@ export default class Heapify {
             return "(empty queue)";
         }
 
-        if (this._lastPopped) {
-            // remove root element which was previously deleted in a pop
-            this._keys[ROOT_INDEX] = this._keys[this.length + ROOT_INDEX];
-            this._priorities[ROOT_INDEX] = this._priorities[this.length + ROOT_INDEX];
-            this.bubbleDown(ROOT_INDEX);
-
-            this._lastPopped = false;
-        }
+        this.removePoppedElement();
 
         const result = Array(this.length - ROOT_INDEX);
         for (let i = 0; i < this.length; i++) {
