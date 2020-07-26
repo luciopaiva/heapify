@@ -11,6 +11,9 @@ export default class Heapify {
         this._capacity = capacity;
         this._keys = new KeysBackingArrayType(capacity + ROOT_INDEX);
         this._priorities = new PrioritiesBackingArrayType(capacity + ROOT_INDEX);
+        // to keep track of whether the last operation was a pop
+        this._lastPopped = false;
+
         if (keys.length !== priorities.length) {
             throw new Error("Number of keys does not match number of priorities provided.");
         }
@@ -34,6 +37,7 @@ export default class Heapify {
 
     clear() {
         this.length = 0;
+        this._lastPopped = false;
     }
 
     /**
@@ -124,10 +128,21 @@ export default class Heapify {
         if (this.length === this._capacity) {
             throw new Error("Heap has reached capacity, can't push new items");
         }
-        const pos = this.length + ROOT_INDEX;
-        this._keys[pos] = key;
-        this._priorities[pos] = priority;
-        this.bubbleUp(pos);
+
+        if (this._lastPopped) {
+            // replace root element (which was deleted from the last pop)
+            this._keys[ROOT_INDEX] = key;
+            this._priorities[ROOT_INDEX] = priority;
+
+            this.bubbleDown(ROOT_INDEX);
+            this._lastPopped = false;
+        } else {
+            const pos = this.length + ROOT_INDEX;
+            this._keys[pos] = key;
+            this._priorities[pos] = priority;
+            this.bubbleUp(pos);
+        }
+
         this.length++;
     }
 
@@ -135,18 +150,20 @@ export default class Heapify {
         if (this.length === 0) {
             return undefined;
         }
-        const key = this._keys[ROOT_INDEX];
 
-        this.length--;
-
-        if (this.length > 0) {
+        if (this._lastPopped) {
+            // since root element was already deleted from pop, replace with last and bubble down
             this._keys[ROOT_INDEX] = this._keys[this.length + ROOT_INDEX];
             this._priorities[ROOT_INDEX] = this._priorities[this.length + ROOT_INDEX];
 
             this.bubbleDown(ROOT_INDEX);
         }
 
-        return key;
+        this.length--;
+        this._lastPopped = true;
+
+        return this._keys[ROOT_INDEX];
+
     }
 
     peekPriority() {
@@ -164,6 +181,15 @@ export default class Heapify {
     toString() {
         if (this.length === 0) {
             return "(empty queue)";
+        }
+
+        if (this._lastPopped) {
+            // remove root element which was previously deleted in a pop
+            this._keys[ROOT_INDEX] = this._keys[this.length + ROOT_INDEX];
+            this._priorities[ROOT_INDEX] = this._priorities[this.length + ROOT_INDEX];
+            this.bubbleDown(ROOT_INDEX);
+
+            this._lastPopped = false;
         }
 
         const result = Array(this.length - ROOT_INDEX);
