@@ -11,7 +11,7 @@ export default class Heapify {
         this._capacity = capacity;
         this._keys = new KeysBackingArrayType(capacity + ROOT_INDEX);
         this._priorities = new PrioritiesBackingArrayType(capacity + ROOT_INDEX);
-        // to keep track of whether the last operation was a pop
+        // to keep track of whether the first element is a deleted one
         this._hasPoppedElement = false;
 
         if (keys.length !== priorities.length) {
@@ -150,7 +150,6 @@ export default class Heapify {
         if (this.length === 0) {
             return undefined;
         }
-
         this.removePoppedElement();
 
         this.length--;
@@ -162,13 +161,11 @@ export default class Heapify {
 
     peekPriority() {
         this.removePoppedElement();
-
         return this._priorities[ROOT_INDEX];
     }
 
     peek() {
         this.removePoppedElement();
-
         return this._keys[ROOT_INDEX];
     }
 
@@ -191,7 +188,6 @@ export default class Heapify {
         if (this.length === 0) {
             return "(empty queue)";
         }
-
         this.removePoppedElement();
 
         const result = Array(this.length - ROOT_INDEX);
@@ -207,6 +203,7 @@ export default class Heapify {
     }
 
     * [Symbol.iterator]() {
+        this.removePoppedElement();
         for (let i = 0; i < this.length; i++) {
             const priority = this._priorities[i + ROOT_INDEX];
             const key = this._keys[i + ROOT_INDEX];
@@ -215,12 +212,14 @@ export default class Heapify {
     }
 
     * keys() {
+        this.removePoppedElement();
         for (let i = 0; i < this.length; i++) {
             yield this._keys[i + ROOT_INDEX];
         }
     }
 
     * priorities() {
+        this.removePoppedElement();
         for (let i = 0; i < this.length; i++) {
             yield this._priorities[i + ROOT_INDEX];
         }
