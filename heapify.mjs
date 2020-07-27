@@ -161,40 +161,11 @@ export default class Heapify {
         return this.length;
     }
 
-    toString() {
-        if (this.length === 0) {
-            return "(empty queue)";
-        }
-
+    dumpRawPriorities() {
         const result = Array(this.length - ROOT_INDEX);
         for (let i = 0; i < this.length; i++) {
             result[i] = this._priorities[i + ROOT_INDEX];
         }
         return `[${result.join(" ")}]`;
-    
-    }
-
-    get [Symbol.toStringTag]() {
-        return "Heapify";
-    }
-
-    * [Symbol.iterator]() {
-        for (let i = 0; i < this.length; i++) {
-            const priority = this._priorities[i + ROOT_INDEX];
-            const key = this._keys[i + ROOT_INDEX];
-            yield [key, priority];
-        }
-    }
-
-    * keys() {
-        for (let i = 0; i < this.length; i++) {
-            yield this._keys[i + ROOT_INDEX];
-        }
-    }
-
-    * priorities() {
-        for (let i = 0; i < this.length; i++) {
-            yield this._priorities[i + ROOT_INDEX];
-        }
     }
 }

@@ -128,14 +128,6 @@ describe("Heapify", () => {
         assert.strictEqual(priority2, 0);
     });
 
-    it("should dump priorities", () => {
-        const queue = new Heapify();
-        queue.push(1, 10);
-        queue.push(2, 20);
-        queue.push(3, 30);
-        assert.strictEqual(queue.toString(), "[10 20 30]");
-    });
-
     it("should correctly pop root and then its child", () => {
         // this triggers the logic that moves a child to the top, but still without any bubbling to fix the heap
         const queue = new Heapify();
@@ -158,14 +150,14 @@ describe("Heapify", () => {
         queue.push(2, 20);
         queue.push(3, 30);
         queue.push(4, 40);
-        assert.strictEqual(queue.toString(), "[10 20 30 40]");
+        assert.strictEqual(queue.dumpRawPriorities(), "[10 20 30 40]");
 
         /*
          * removing 10, now 40 is moved to the top and needs to be bubbled down
          * and we should now be triggering that logic
          */
         queue.pop();
-        assert.strictEqual(queue.toString(), "[20 40 30]");
+        assert.strictEqual(queue.dumpRawPriorities(), "[20 40 30]");
     });
 
     it("should correctly bubble down to the right after pop", () => {
@@ -181,14 +173,14 @@ describe("Heapify", () => {
         queue.push(2, 30);
         queue.push(3, 20);
         queue.push(4, 40);
-        assert.strictEqual(queue.toString(), "[10 30 20 40]");
+        assert.strictEqual(queue.dumpRawPriorities(), "[10 30 20 40]");
 
         /*
          * removing 10, now 40 is moved to the top and needs to be bubbled down,
          * but this time we'll trigger the logic that moves it to the right
          */
         queue.pop();
-        assert.strictEqual(queue.toString(), "[20 30 40]");
+        assert.strictEqual(queue.dumpRawPriorities(), "[20 30 40]");
     });
 
     it("should correctly bubble down after pop, but stopping before a leaf", () => {
@@ -210,14 +202,14 @@ describe("Heapify", () => {
         queue.push(3, 30);
         queue.push(4, 40);
         queue.push(5, 35);
-        assert.strictEqual(queue.toString(), "[10 20 30 40 35]");
+        assert.strictEqual(queue.dumpRawPriorities(), "[10 20 30 40 35]");
 
         /*
          * removing 10, now 35 is moved to the top and needs to be bubbled down,
          * but it should only goes as far as the second level
          */
         queue.pop();
-        assert.strictEqual(queue.toString(), "[20 35 30 40]");
+        assert.strictEqual(queue.dumpRawPriorities(), "[20 35 30 40]");
     });
 
     it("should correctly bubble up when inserting a higher priority item in a non-empty queue", () => {
@@ -226,49 +218,6 @@ describe("Heapify", () => {
         queue.push(1, 20);
         // now we insert a higher priority and it should bubble to the top
         queue.push(2, 10);
-        assert.strictEqual(queue.toString(), "[10 20]");
-    });
-
-    it("should be possible to use this as an iterator and get [key, priority] tuples", () => {
-        const queue = new Heapify();
-        queue.push(5, 35);
-        queue.push(3, 30);
-        queue.push(1, 10);
-        queue.push(2, 20);
-        queue.push(4, 40);
-
-        assert.deepStrictEqual([...queue], [[1, 10], [2, 20], [3, 30], [5, 35], [4, 40]]);
-    });
-
-    it("should be possible to iterate over all the keys", () => {
-        const queue = new Heapify();
-        queue.push(5, 35);
-        queue.push(3, 30);
-        queue.push(1, 10);
-        queue.push(2, 20);
-        queue.push(4, 40);
-
-        assert.deepStrictEqual([...queue.keys()], [1, 2, 3, 5, 4]);
-    });
-
-    it("should be possible to iterate over all the priorities", () => {
-        const queue = new Heapify();
-        queue.push(5, 35);
-        queue.push(3, 30);
-        queue.push(1, 10);
-        queue.push(2, 20);
-        queue.push(4, 40);
-
-        assert.deepStrictEqual([...queue.priorities()], [10, 20, 30, 35, 40]);
-    });
-
-    it("should return [object Heapify] when stringified", () => {
-        const queue = new Heapify();
-        assert.strictEqual(Object.prototype.toString.call(queue), "[object Heapify]");
-    });
-
-    it("should return '(empty queue)' when stringifying an empty queue", () => {
-        const queue = new Heapify();
-        assert.strictEqual(String(queue), "(empty queue)");
+        assert.strictEqual(queue.dumpRawPriorities(), "[10 20]");
     });
 });

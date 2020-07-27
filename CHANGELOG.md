@@ -4,6 +4,7 @@ v0.3.0
 - replaced nyc with c8 for code coverage
 - added ESLint
 - added `size` and `capacity` properties
+- renamed `toString()` to `dumpRawPriorities()` to avoid confusion
 
 v0.2.1
 
