@@ -185,6 +185,8 @@ export default class Heapify {
     }
 
     dumpRawPriorities() {
+        this.removePoppedElement();
+        
         const result = Array(this.length - ROOT_INDEX);
         for (let i = 0; i < this.length; i++) {
             result[i] = this._priorities[i + ROOT_INDEX];
