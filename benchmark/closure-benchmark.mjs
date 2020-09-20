@@ -15,10 +15,15 @@ export default class ClosureBenchmark extends Benchmark {
 
     reset() {
         this.q = new goog.structs.Heap();
+
+        this.buildQ = new goog.structs.Heap();
+        for (let i = 0; i < this.numberOfKeys; i++) {
+            this.buildQ.insert(this.indexes[i], this.data[i]);
+        }
     }
 
     buildTest() {
-        // override parent class and do nothing
+        this.q.insertAll(this.buildQ);
     }
 
     pushTest(data) {
