@@ -22,12 +22,12 @@ export default class Benchmark {
 
     run(count) {
         for (let i = 0; i < count; i++) {
-            this.runBuildTest(this.indexes, this.data);
-            this.runPushTest(this.data);
+            this.runBuildTest();
+            this.runPushTest();
             this.runPopTest();
-            this.runPushPopBatchTest(this.data);
-            this.runPushPopInterleaved(this.data);
-            this.runPushPopRandom(this.data);
+            this.runPushPopBatchTest();
+            this.runPushPopInterleaved();
+            this.runPushPopRandom();
         }
     }
 
@@ -40,16 +40,16 @@ export default class Benchmark {
         return result;
     }
 
-    runBuildTest(indexes, data) {
-        this.time("build", this.buildTest.bind(this, indexes, data));
+    runBuildTest() {
+        this.time("build", this.buildTest.bind(this, this.indexes, this.data));
     }
 
     buildTest() {
         throw new Error("implement me!");
     }
 
-    runPushTest(data) {
-        this.time("push", this.pushTest.bind(this, data));
+    runPushTest() {
+        this.time("push", this.pushTest.bind(this, this.data));
     }
 
     pushTest() {
@@ -64,23 +64,23 @@ export default class Benchmark {
         throw new Error("implement me!");
     }
 
-    runPushPopBatchTest(data) {
-        this.time("push/pop batch", this.pushPopBatchTest.bind(this, data));
+    runPushPopBatchTest() {
+        this.time("push/pop batch", this.pushPopBatchTest.bind(this, this.data));
     }
 
     pushPopBatchTest() {
         throw new Error("implement me!");
     }
 
-    runPushPopInterleaved(data) {
+    runPushPopInterleaved() {
         // initialize with 10% of total keys
         const prepareSize = Math.trunc(this.numberOfKeys / 10);
-        this.preparePushPopInterleaved(data, prepareSize);
+        this.preparePushPopInterleaved(this.data, prepareSize);
 
         const remainingKeys = this.numberOfKeys - prepareSize;
 
         this.time("push/pop interleaved",
-            this.pushPopInterleaved.bind(this, data, prepareSize, remainingKeys));
+            this.pushPopInterleaved.bind(this, this.data, prepareSize, remainingKeys));
 
         // get rid of the initial pops
         this.reset();
@@ -94,10 +94,10 @@ export default class Benchmark {
         throw new Error("implement me!");
     }
 
-    runPushPopRandom(data) {
+    runPushPopRandom() {
         // initialize with 10% of total keys
         const prepareSize = Math.trunc(this.numberOfKeys / 10);
-        const walk = this.preparePushPopRandom(data, prepareSize);
+        const walk = this.preparePushPopRandom(this.data, prepareSize);
         this.time("push/pop random", this.pushPopRandom.bind(this, walk));
 
         // get rid of any remaining pops not popped yet
