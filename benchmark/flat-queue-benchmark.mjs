@@ -53,4 +53,25 @@ export default class FlatQueueBenchmark extends Benchmark {
             this.q.pop();
         }
     }
+
+    preparePushPopRandom(data, prepareSize) {
+        // add a few before starting
+        for (let i = 0; i < prepareSize; i++) {
+            this.q.push(i, data[i]);
+        }
+        const remainingSize = this.numberOfKeys - prepareSize;
+
+        const walk = [];
+        const pop = this.q.pop.bind(this.q);
+        for (let i = prepareSize; i < remainingSize; i++) {
+            walk.push(Math.random() < 0.5 ? this.q.push.bind(this.q, i, data[i]) : pop);
+        }
+        return walk;
+    }
+
+    pushPopRandom(walk) {
+        for (let i = 0; i < walk.length; i++) {
+            walk[i]();
+        }
+    }
 }

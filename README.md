@@ -13,11 +13,12 @@ It's the fastest publicly available JavaScript library implementation of a prior
 
 ```
                            TinyQueue  FlatQueue    Heapify
-build                             67         61         20
-push                              67         61         20
-pop                              792        148        116
-push/pop batch                   214         85         86
-push/pop interleaved             223         51         56
+build                             78         65         18
+push                              78         65         20
+pop                              952        141        109
+push/pop batch                   282         84         87
+push/pop interleaved             279         51         53
+push/pop random                  263         49         49
 ```
 
 *Host machine: 2.6 GHz 6-Core Intel Core i7, 32 GB 2400 MHz DDR4 RAM.*
