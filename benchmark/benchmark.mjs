@@ -1,6 +1,8 @@
 
 /* eslint-disable no-console */
 
+const ONE_MILLI_IN_NANOS = 1000000n;
+
 export default class Benchmark {
 
     constructor(name, indexes, data, numberOfKeys, batchSize) {
@@ -31,7 +33,7 @@ export default class Benchmark {
     getTimes() {
         const result = new Map();
         for (const [key, values] of this.times.entries()) {
-            const medianInMillis = values.sort()[values.length >>> 1] / 1000000n;
+            const medianInMillis = values.sort()[values.length >>> 1] / ONE_MILLI_IN_NANOS;
             result.set(key, medianInMillis);
         }
         return result;
