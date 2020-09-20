@@ -1,6 +1,7 @@
 /* eslint-disable no-console,func-style */
 
 import ClosureBenchmark from "./closure-benchmark.mjs";
+import FastPriorityQueueBenchmark from "./fast-priority-queue-benchmark.mjs";
 import FlatQueueBenchmark from "./flat-queue-benchmark.mjs";
 import HeapifyBenchmark from "./heapify-benchmark.mjs";
 import TinyQueueBenchmark from "./tiny-queue-benchmark.mjs";
@@ -38,9 +39,10 @@ function consolidate(benchs) {
 }
 
 const benchs = [
-    new TinyQueueBenchmark(indexes, dataObjs, NUMBER_OF_KEYS, BATCH_SIZE),
     new ClosureBenchmark(indexes, data, NUMBER_OF_KEYS, BATCH_SIZE),
+    new FastPriorityQueueBenchmark(indexes, data, NUMBER_OF_KEYS, BATCH_SIZE),
     new FlatQueueBenchmark(indexes, data, NUMBER_OF_KEYS, BATCH_SIZE),
+    new TinyQueueBenchmark(indexes, dataObjs, NUMBER_OF_KEYS, BATCH_SIZE),
     new HeapifyBenchmark(indexes, data, NUMBER_OF_KEYS, BATCH_SIZE),
 ];
 
