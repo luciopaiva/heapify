@@ -28,11 +28,11 @@ function consolidate(benchs) {
         map(bench => bench.name).
         map(name => name.padStart(10)).
         join(" ");
-    console.info(`${" ".repeat(30)} ${names}`);
+    console.info(`${" ".repeat(25)} ${names}`);
     for (const tag of tags) {
         const times = benchTimes.map(timesByTag => timesByTag.get(tag));
         const values = times.map(time => time.toString().padStart(10)).join(" ");
-        console.info(`${tag.padEnd(30)} ${values}`);
+        console.info(`${tag.padEnd(25)} ${values}`);
     }
 }
 

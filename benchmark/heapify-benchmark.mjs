@@ -6,7 +6,7 @@ import Heapify from "../heapify.mjs";
 export default class HeapifyBenchmark extends Benchmark {
 
     constructor(...args) {
-        super("heapify", ...args);
+        super("Heapify", ...args);
         this.reset();
     }
 

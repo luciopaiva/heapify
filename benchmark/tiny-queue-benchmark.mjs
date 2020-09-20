@@ -6,7 +6,7 @@ import TinyQueue from "tinyqueue";
 export default class TinyQueueBenchmark extends Benchmark {
 
     constructor(...args) {
-        super("tinyqueue", ...args);
+        super("TinyQueue", ...args);
         this.reset();
     }
 

@@ -6,7 +6,7 @@ import FlatQueue from "flatqueue";
 export default class FlatQueueBenchmark extends Benchmark {
 
     constructor(...args) {
-        super("flatqueue", ...args);
+        super("FlatQueue", ...args);
         this.reset();
     }
 

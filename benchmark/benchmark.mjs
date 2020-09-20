@@ -40,7 +40,7 @@ export default class Benchmark {
     }
 
     runBuildTest(indexes, data) {
-        this.time(`build ${this.numberOfKeys}`, this.buildTest.bind(this, indexes, data));
+        this.time("build", this.buildTest.bind(this, indexes, data));
     }
 
     buildTest() {
@@ -48,7 +48,7 @@ export default class Benchmark {
     }
 
     runPushTest(data) {
-        this.time(`push ${this.numberOfKeys}`, this.pushTest.bind(this, data));
+        this.time("push", this.pushTest.bind(this, data));
     }
 
     pushTest() {
@@ -56,7 +56,7 @@ export default class Benchmark {
     }
 
     runPopTest() {
-        this.time(`pop ${this.numberOfKeys}`, this.popTest.bind(this));
+        this.time("pop", this.popTest.bind(this));
     }
 
     popTest() {
@@ -64,7 +64,7 @@ export default class Benchmark {
     }
 
     runPushPopBatchTest(data) {
-        this.time(`push/pop batch ${this.numberOfKeys}`, this.pushPopBatchTest.bind(this, data));
+        this.time("push/pop batch", this.pushPopBatchTest.bind(this, data));
     }
 
     pushPopBatchTest() {
@@ -78,7 +78,7 @@ export default class Benchmark {
 
         const remainingKeys = this.numberOfKeys - prepareSize;
 
-        this.time(`push/pop interleaved ${remainingKeys}`,
+        this.time("push/pop interleaved",
             this.pushPopInterleaved.bind(this, data, prepareSize, remainingKeys));
 
         // get rid of the initial pops
