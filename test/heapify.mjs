@@ -36,7 +36,7 @@ describe("Heapify", () => {
         assert.throws(() => new Heapify(30, [1, 2], [3, 4, 5]));
     });
 
-    it("should only create a priority queue with enough capacity", () => {
+    it("should only create a priority queue if has enough capacity", () => {
         assert.throws(() => new Heapify(1, [1, 2], [50, 1]));
     });
 
@@ -47,7 +47,7 @@ describe("Heapify", () => {
         assert.strictEqual(queue.size, 1);
     });
 
-    it("should not be able to push new items over capacity", () => {
+    it("should not be able to push new items beyond capacity", () => {
         const queue = new Heapify(1);
         assert.strictEqual(queue.size, 0);
         queue.push(1, 10);
@@ -188,7 +188,7 @@ describe("Heapify", () => {
         /*
          * similar to the previous test, but now we need an item to be bubbled
          * down to the left and stop somewhere before reaching a leaf, so we
-         * can test the logic that evaluates and to stop bubbling
+         * can test the logic that evaluates when to stop bubbling
          */
         const queue = new Heapify();
 
