@@ -27,6 +27,7 @@ export default class Benchmark {
             this.runPopTest();
             this.runPushPopBatchTest(this.data);
             this.runPushPopInterleaved(this.data);
+            this.runPushPopRandom(this.data);
         }
     }
 
@@ -90,6 +91,24 @@ export default class Benchmark {
     }
 
     pushPopInterleaved() {
+        throw new Error("implement me!");
+    }
+
+    runPushPopRandom(data) {
+        // initialize with 10% of total keys
+        const prepareSize = Math.trunc(this.numberOfKeys / 10);
+        const walk = this.preparePushPopRandom(data, prepareSize);
+        this.time("push/pop random", this.pushPopRandom.bind(this, walk));
+
+        // get rid of any remaining pops not popped yet
+        this.reset();
+    }
+
+    preparePushPopRandom() {
+        throw new Error("implement me!");
+    }
+
+    pushPopRandom() {
         throw new Error("implement me!");
     }
 
