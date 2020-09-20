@@ -14,7 +14,7 @@ These are the general guidelines you should follow when contributing with PRs to
 
 Follow these basic rules:
 
-- one change per PR: PRs should be small and easy to read. Do not mix different subjects, do not fix different things. Avoid changing formatting unless you're touching the very code that needs to be re-formatted;
+- one change per PR: PRs should be small and easy to read. Do not mix different subjects, do not fix different things, do not piggyback unnecessary typo fixes or unrelated npm updates. Avoid changing formatting unless you're touching the very code that needs to be re-formatted;
 
 - make sure your new logic is fully covered by unit tests;
 
