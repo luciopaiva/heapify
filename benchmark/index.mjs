@@ -33,7 +33,7 @@ function consolidate(benchs) {
     console.info(`${" ".repeat(25)} ${names}`);
     for (const tag of tags) {
         const times = benchTimes.map(timesByTag => timesByTag.get(tag));
-        const values = times.map(time => time.toString().padStart(10)).join(" ");
+        const values = times.map(time => (time < 1 ? "-" : time.toString()).padStart(10)).join(" ");
         console.info(`${tag.padEnd(25)} ${values}`);
     }
 }
