@@ -7,7 +7,7 @@
     "test": "c8 --reporter=html --reporter=text mocha --recursive",
     "report-coverage": "c8 report --reporter=text-lcov > coverage.lcov && codecov",
     "count": "cloc heapify.mjs",
-    "bench": "node bench.mjs",
+    "bench": "node benchmark/index.mjs",
     "linter": "eslint *.mjs test/**/*.mjs"
   },
   "keywords": [
