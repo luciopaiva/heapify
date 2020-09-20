@@ -9,7 +9,7 @@
 
 A very fast JavaScript priority queue, implemented using a binary heap, which in turn is implemented using two underlying parallel [typed arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray). No dependencies whatsoever; just plain, vanilla JS.
 
-It's the fastest publicly available JavaScript library implementation of a priority queue. Here's an average benchmark comparing Heapify with [TinyQueue](https://github.com/mourner/tinyqueue/) and [FlatQueue](https://github.com/mourner/flatqueue), running for 1 million elements (times are in milliseconds):
+It's the fastest publicly available JavaScript library implementation of a priority queue. Here's a benchmark comparing Heapify with [TinyQueue](https://github.com/mourner/tinyqueue/) and [FlatQueue](https://github.com/mourner/flatqueue), running for 1 million elements (times are in milliseconds):
 
 ```
                            TinyQueue  FlatQueue    Heapify
@@ -21,7 +21,7 @@ push/pop interleaved             279         51         53
 push/pop random                  263         49         49
 ```
 
-*Host machine: 2.6 GHz 6-Core Intel Core i7, 32 GB 2400 MHz DDR4 RAM.*
+*Host machine: Node.js 13.8.0, 2.6 GHz 6-Core Intel Core i7, 32 GB 2400 MHz DDR4 RAM.*
 
 *Note: the build operation doesn't actually exist in TinyQueue and FlatQueue, so it has to be replaced with a manual push operation. That's why build times for those two cases are the same as for push.*
 
