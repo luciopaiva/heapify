@@ -83,9 +83,6 @@ export default class Heapify {
         const lastIndex = this.length + ROOT_INDEX;
         while (index < halfLength) {
             const left = index << 1;
-            if (left >= lastIndex) {
-                break;  // index is a leaf node, no way to bubble down any further
-            }
 
             // pick the left child
             let childPriority = this._priorities[left];
@@ -156,7 +153,6 @@ export default class Heapify {
         this._hasPoppedElement = true;
 
         return this._keys[ROOT_INDEX];
-
     }
 
     peekPriority() {
@@ -186,7 +182,7 @@ export default class Heapify {
 
     dumpRawPriorities() {
         this.removePoppedElement();
-        
+
         const result = Array(this.length - ROOT_INDEX);
         for (let i = 0; i < this.length; i++) {
             result[i] = this._priorities[i + ROOT_INDEX];
