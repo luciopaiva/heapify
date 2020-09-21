@@ -224,17 +224,17 @@ push/pop random                  186         45         50        257         48
 Host machine: Node.js 13.8.0, 2.6 GHz 6-Core Intel Core i7, 32 GB 2400 MHz DDR4 RAM.
 
 Operations:
-- build - build queue from scratch by providing a collection of keys and priorities at once;
-- push - insert a single key/priority pair into the queue;
+- build - build queue from scratch by providing a collection of keys and priorities, all at once;
+- push - insert a single element into the queue;
 - pop - remove a single element from the queue;
 - push/pop batch - performs batches of 1k pushes followed by 1k pops;
-- push/pop interleaved - starting with a partially filled queue, this test inserts an element and then immediately removes the lowest priority value from the queue;
+- push/pop interleaved - starting with a partially filled queue, this test inserts a random element and then immediately removes the lowest priority value from the queue;
 - push/pop random - starting with a partially filled queue, this test runs either a push or a pop at random.
 
 Each test performs 1 million operations and is repeated 5 times. The median value is used as the result.
 
 Tested libraries:
 
-- [Google Closure library](https://github.com/google/closure-library/blob/master/closure/goog/structs/heap.js) - a vastly popular library, but is the worst implementation with respect to performance;
-- [Fast Priority Queue](https://github.com/lemire/FastPriorityQueue.js) - ok, it runs comparably fast, but it doesn't support inserting keys as well, so its implementation significantly limits what the user is able to achieve with it;
-- [FlatQueue](https://github.com/mourner/flatqueue) and [TinyQueue](https://github.com/mourner/flatqueue) - two very nice queue implementations by Vladimir Agafonkin. They don't support the build method, that's why they're missing this benchmark. FlatQueue performs considerably well for an implementation that is not based on typed arrays.
+- [Google Closure library](https://github.com/google/closure-library/blob/master/closure/goog/structs/heap.js) - a hugely popular library, but is the worst implementation with respect to performance;
+- [Fast Priority Queue](https://github.com/lemire/FastPriorityQueue.js) - runs comparably fast, but doesn't support inserting keys as well, so its implementation significantly limits what the user is able to achieve with it;
+- [FlatQueue](https://github.com/mourner/flatqueue) and [TinyQueue](https://github.com/mourner/flatqueue) - two very nice queue implementations by Vladimir Agafonkin. They don't support the build method and that's why they're missing this benchmark. FlatQueue performs considerably well for an implementation that is not based on typed arrays.
