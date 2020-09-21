@@ -47,8 +47,9 @@ Heapify's design strives for reliability, with strong test coverage and focus on
 Supported queue operations:
 
 - push: O(log n)
-- pop: O(log n)
-- peek: O(1)
+- pop: O(log n) in the general case, O(1) if not preceded by a pop
+- peek: O(1) in the general case, O(log n) if preceded by a pop
+- peekPriority: O(1) in the general case, O(log n) if preceded by a pop
 - creation with pre-existing list of priorities: O(n)
 
 Other features:
