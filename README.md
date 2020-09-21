@@ -1,5 +1,5 @@
 
-![Heapify](logo.png)
+![Heapify](https://raw.githubusercontent.com/luciopaiva/heapify/master/logo.png)
 
 [![codecov](https://img.shields.io/codecov/c/github/luciopaiva/heapify)](https://codecov.io/gh/luciopaiva/heapify)
 [![travis](https://api.travis-ci.com/luciopaiva/heapify.svg?branch=master)](https://travis-ci.com/luciopaiva/heapify) 
@@ -22,6 +22,8 @@ push/pop random                  186         50        257         48
 ```
 
 See the [benchmark](#benchmark) section below for more details.
+
+Heapify's design strives for reliability, with strong test coverage and focus on code readability. It should be easy to understand what the library is doing. The library is also very lean, with no dependencies and a small and concise source code. 
 
 # Table of contents
 

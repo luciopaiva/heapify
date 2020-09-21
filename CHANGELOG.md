@@ -1,4 +1,9 @@
 
+v0.4.0
+
+- added performance improvement for successive push & pop calls
+- added more benchmarks
+
 v0.3.0
 
 - replaced nyc with c8 for code coverage
