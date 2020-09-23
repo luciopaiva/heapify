@@ -10,14 +10,14 @@ const NUMBER_OF_KEYS = 1000000;
 const BATCH_SIZE = 1000;
 const BENCH_RUN_COUNT = 5;
 
-const indexes = Array(NUMBER_OF_KEYS);
-const data = Array(NUMBER_OF_KEYS);
-const dataObjs = Array(NUMBER_OF_KEYS);
+const indexes = [];
+const data = [];
+const dataObjs = [];
 for (let i = 0; i < NUMBER_OF_KEYS; i++) {
     const value = Math.floor(100 * Math.random());
-    data[i] = value;
-    indexes[i] = i + 1;
-    dataObjs[i] = {value};
+    data.push(value);
+    indexes.push(i + 1);
+    dataObjs.push({value});
 }
 
 /**
