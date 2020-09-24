@@ -56,10 +56,6 @@ export default class Heapify {
         }
     }
 
-    get capacity() {
-        return this._capacity;
-    }
-
     clear() {
         this.length = 0;
         this._hasPoppedElement = false;
@@ -67,30 +63,91 @@ export default class Heapify {
     }
 
     /**
-     * Bubble an item up until its heap property is satisfied.
-     *
-     * @param {Number} index
-     * @private
+     * @param {*} key the identifier of the object to be pushed into the heap
+     * @param {Number} priority 32-bit value corresponding to the priority of this key
      */
-    _bubbleUp(index) {
-        const key = this._keys[index];
-        const priority = this._priorities[index];
-
-        while (index > ROOT_INDEX) {
-            // get its parent item
-            const parentIndex = index >>> 1;
-            if (this._priorities[parentIndex] <= priority) {
-                break;  // if parent priority is smaller, heap property is satisfied
-            }
-            // bubble parent down so the item can go up
-            this._writeAtIndex(index, this._keys[parentIndex], this._priorities[parentIndex]);
-
-            // repeat for the next level
-            index = parentIndex;
+    push(key, priority) {
+        if (this.length === this._capacity) {
+            throw new Error("Heap has reached capacity, can't push new items");
         }
 
-        // we finally found the place where the initial item should be; write it there
-        this._writeAtIndex(index, key, priority);
+        this.remove(key);
+
+        if (this._hasPoppedElement) {
+            // replace root element (which was deleted from the last pop)
+            this._writeAtIndex(ROOT_INDEX, key, priority);
+
+            this._bubbleDown(ROOT_INDEX);
+            this._hasPoppedElement = false;
+        } else {
+            const pos = this.length + ROOT_INDEX;
+            this._writeAtIndex(pos, key, priority);
+            this._bubbleUp(pos);
+        }
+
+        this.length++;
+    }
+
+    pop() {
+        if (this.length === 0) {
+            return undefined;
+        }
+        this._removePoppedElement();
+
+        this.length--;
+        this._hasPoppedElement = true;
+
+        const key = this._keys[ROOT_INDEX];
+        this._indexByKey.delete(key);
+        return key;
+    }
+
+    peek() {
+        this._removePoppedElement();
+        return this._keys[ROOT_INDEX];
+    }
+
+    peekPriority() {
+        this._removePoppedElement();
+        return this._priorities[ROOT_INDEX];
+    }
+
+    remove(key) {
+        if (this.areKeyUpdatesEnabled) {
+            this._removePoppedElement();
+
+            const index = this._indexByKey.get(key);
+            if (index === undefined) {
+                return;  // item not found
+            }
+
+            this._removeAtIndex(index);
+            this._indexByKey.delete(key);
+        }
+    }
+
+    containsKey(key) {
+        return this._indexByKey.has(key);
+    }
+
+    dumpRawKeys() {
+        this._removePoppedElement();
+
+        const result = Array(this.length);
+        for (let i = 0; i < this.length; i++) {
+            result[i] = this._keys[i + ROOT_INDEX];
+        }
+        return `[${result.join(" ")}]`;
+    }
+
+    dumpRawPriorities() {
+        this._removePoppedElement();
+
+        const result = Array(this.length);
+        for (let i = 0; i < this.length; i++) {
+            result[i] = this._priorities[i + ROOT_INDEX];
+        }
+        return `[${result.join(" ")}]`;
     }
 
     /**
@@ -140,83 +197,36 @@ export default class Heapify {
     }
 
     /**
-     * @param {*} key the identifier of the object to be pushed into the heap
-     * @param {Number} priority 32-bit value corresponding to the priority of this key
+     * Bubble an item up until its heap property is satisfied.
+     *
+     * @param {Number} index
+     * @private
      */
-    push(key, priority) {
-        if (this.length === this._capacity) {
-            throw new Error("Heap has reached capacity, can't push new items");
-        }
+    _bubbleUp(index) {
+        const key = this._keys[index];
+        const priority = this._priorities[index];
 
-        this.remove(key);
-
-        if (this._hasPoppedElement) {
-            // replace root element (which was deleted from the last pop)
-            this._writeAtIndex(ROOT_INDEX, key, priority);
-
-            this._bubbleDown(ROOT_INDEX);
-            this._hasPoppedElement = false;
-        } else {
-            const pos = this.length + ROOT_INDEX;
-            this._writeAtIndex(pos, key, priority);
-            this._bubbleUp(pos);
-        }
-
-        this.length++;
-    }
-
-    pop() {
-        if (this.length === 0) {
-            return undefined;
-        }
-        this._removePoppedElement();
-
-        this.length--;
-        this._hasPoppedElement = true;
-
-        const key = this._keys[ROOT_INDEX];
-        this._indexByKey.delete(key);
-        return key;
-    }
-
-    peekPriority() {
-        this._removePoppedElement();
-        return this._priorities[ROOT_INDEX];
-    }
-
-    peek() {
-        this._removePoppedElement();
-        return this._keys[ROOT_INDEX];
-    }
-
-    _writeAtIndex(index, key, priority) {
-        this._keys[index] = key;
-        this._priorities[index] = priority;
-        this._indexByKey.set(key, index);
-    }
-
-    _removePoppedElement() {
-        if (this._hasPoppedElement) {
-            // since root element was already deleted from pop, replace with last and bubble down
-            const lastIndex = this.length + ROOT_INDEX;  // actually one beyond last (length was already decremented)
-            this._copyItem(lastIndex, ROOT_INDEX);
-            this._bubbleDown(ROOT_INDEX);
-            this._hasPoppedElement = false;
-        }
-    }
-
-    remove(key) {
-        if (this.areKeyUpdatesEnabled) {
-            this._removePoppedElement();
-
-            const index = this._indexByKey.get(key);
-            if (index === undefined) {
-                return;  // item not found
+        while (index > ROOT_INDEX) {
+            // get its parent item
+            const parentIndex = index >>> 1;
+            if (this._priorities[parentIndex] <= priority) {
+                break;  // if parent priority is smaller, heap property is satisfied
             }
+            // bubble parent down so the item can go up
+            this._writeAtIndex(index, this._keys[parentIndex], this._priorities[parentIndex]);
 
-            this._removeAtIndex(index);
-            this._indexByKey.delete(key);
+            // repeat for the next level
+            index = parentIndex;
         }
+
+        // we finally found the place where the initial item should be; write it there
+        this._writeAtIndex(index, key, priority);
+    }
+
+    _copyItem(sourceIndex, targetIndex) {
+        const key = this._keys[sourceIndex];
+        const priority = this._priorities[sourceIndex];
+        this._writeAtIndex(targetIndex, key, priority);
     }
 
     _removeAtIndex(index) {
@@ -232,37 +242,27 @@ export default class Heapify {
         }
     }
 
-    _copyItem(sourceIndex, targetIndex) {
-        const key = this._keys[sourceIndex];
-        const priority = this._priorities[sourceIndex];
-        this._writeAtIndex(targetIndex, key, priority);
+    _removePoppedElement() {
+        if (this._hasPoppedElement) {
+            // since root element was already deleted from pop, replace with last and bubble down
+            const lastIndex = this.length + ROOT_INDEX;  // actually one beyond last (length was already decremented)
+            this._copyItem(lastIndex, ROOT_INDEX);
+            this._bubbleDown(ROOT_INDEX);
+            this._hasPoppedElement = false;
+        }
     }
 
-    containsKey(key) {
-        return this._indexByKey.has(key);
+    _writeAtIndex(index, key, priority) {
+        this._keys[index] = key;
+        this._priorities[index] = priority;
+        this._indexByKey.set(key, index);
+    }
+
+    get capacity() {
+        return this._capacity;
     }
 
     get size() {
         return this.length;
-    }
-
-    dumpRawPriorities() {
-        this._removePoppedElement();
-
-        const result = Array(this.length);
-        for (let i = 0; i < this.length; i++) {
-            result[i] = this._priorities[i + ROOT_INDEX];
-        }
-        return `[${result.join(" ")}]`;
-    }
-
-    dumpRawKeys() {
-        this._removePoppedElement();
-
-        const result = Array(this.length);
-        for (let i = 0; i < this.length; i++) {
-            result[i] = this._keys[i + ROOT_INDEX];
-        }
-        return `[${result.join(" ")}]`;
     }
 }
