@@ -11,7 +11,7 @@
     "linter": "eslint **/*.js **/*.mjs"
   },
   "config": {
-    "max-loc": 100
+    "max-loc": 200
   },
   "keywords": [
     "priority queue",
