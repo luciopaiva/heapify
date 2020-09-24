@@ -2,6 +2,10 @@
   "name": "heapify",
   "version": "0.4.0",
   "description": "Blazing fast JavaScript priority queue",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/luciopaiva/heapify.git"
+  },
   "main": "heapify.mjs",
   "scripts": {
     "test": "c8 --reporter=html --reporter=text mocha --recursive",
