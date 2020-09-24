@@ -105,7 +105,7 @@ You are welcome to contribute, but please take the time to read and follow [thes
 
 ## API
 
-### new Heapify(capacity = 64, keys = [], priorities = [], KeysBackingArrayType = Uint32Array, PrioritiesBackingArrayType = Uint32Array)
+### new Heapify(capacity = 64, keys = [], priorities = [], KeysBackingArrayType = Uint32Array, PrioritiesBackingArrayType = Uint32Array, options = {})
 
 Creates a new priority queue. Parameters are:
 
@@ -113,7 +113,8 @@ Creates a new priority queue. Parameters are:
 - `keys`: an optional array of pre-existing keys. Provide `[]` to skip this field;
 - `priorities`: an optional array of pre-existing priorities. Must match number of keys above. Provide `[]` to skip this field;
 - `KeysBackingArrayType`: the array type to be used for keys;
-- `PrioritiesBackingArrayType`: the array type to be used for priorities.
+- `PrioritiesBackingArrayType`: the array type to be used for priorities;
+- `options`: an object that right now can only have a single boolean property called `wantsKeyUpdates` that enables the ability to update the priority of existing keys (at the cost of making Heapify run much slower).
 
 Example:
 

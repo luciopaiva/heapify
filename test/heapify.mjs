@@ -220,4 +220,145 @@ describe("Heapify", () => {
         queue.push(2, 10);
         assert.strictEqual(queue.dumpRawPriorities(), "[10 20]");
     });
+
+    it("should remove item by key in queue with a single item", () => {
+        const queue = new Heapify(64, [], [], Uint32Array, Uint32Array, {
+            wantsKeyUpdates: true
+        });
+
+        queue.push(1, 10);
+        assert.strictEqual(queue.containsKey(1), true);
+        queue.remove(1);
+        assert.strictEqual(queue.containsKey(1), false);
+        assert.strictEqual(queue.size, 0);
+        assert.strictEqual(queue.pop(), undefined);
+    });
+
+    it("should remove item by key in last position in queue with more than one item", () => {
+        const priorities = [10, 20, 30];
+        const keys = Array.from(priorities, (_, i) => i + 1);
+        const queue = new Heapify(keys.length, keys, priorities, Uint32Array, Uint32Array, {
+            wantsKeyUpdates: true
+        });
+
+        // remove right child
+        queue.remove(3);
+        assert.strictEqual(queue.dumpRawPriorities(), "[10 20]");
+
+        // remove left child
+        queue.remove(2);
+        assert.strictEqual(queue.dumpRawPriorities(), "[10]");
+    });
+
+    it("should remove item by key, requiring bubbling down", () => {
+        const priorities = [10, 20, 30];
+        const keys = Array.from(priorities, (_, i) => i + 1);
+        const queue = new Heapify(keys.length, keys, priorities, Uint32Array, Uint32Array, {
+            wantsKeyUpdates: true
+        });
+
+        /*
+         * Here we remove the item with priority 10, which happens to be at the root index. We expect that the
+         * algorithm replaces it with the last item (priority 30) and then bubble it down so that the item with
+         * priority 20 assumes the root position.
+         */
+        queue.remove(1);
+
+        assert.strictEqual(queue.dumpRawPriorities(), "[20 30]");
+    });
+
+    it("should remove item by key, requiring bubbling up", () => {
+        const priorities = [1, 10, 5, 20, 30, 6];
+        const keys = Array.from(priorities, (_, i) => i + 1);
+        const queue = new Heapify(keys.length, keys, priorities, Uint32Array, Uint32Array, {
+            wantsKeyUpdates: true
+        });
+
+        /*
+         * Here we remove the item with priority 20. The last item (the one with priority 6) should be used to
+         * overwrite that position, and then it should be bubbled up since its new parent (priority 10) is greater.
+         */
+        queue.remove(4);
+
+        assert.strictEqual(queue.dumpRawPriorities(), "[1 6 5 10 30]");
+    });
+
+    it("should do nothing when removing non-existent key", () => {
+        const queue = new Heapify(64, [], [], Uint32Array, Uint32Array, {
+            wantsKeyUpdates: true
+        });
+
+        queue.remove(1);
+        assert.strictEqual(queue.size, 0);
+
+        queue.push(2, 10);
+
+        queue.remove(1);
+        assert.strictEqual(queue.dumpRawPriorities(), "[10]");
+        assert.strictEqual(queue.pop(), 2);
+    });
+
+    it("should correctly pop-remove-pop", () => {
+        const queue = new Heapify(64, [], [], Uint32Array, Uint32Array, {
+            wantsKeyUpdates: true
+        });
+
+        queue.push(1, 10);
+        queue.push(2, 20);
+        queue.push(3, 30);
+
+        // removes key 1, but the optimized logic won't heapify yet
+        queue.pop();
+        // now remove key 2
+        queue.remove(2);
+        // we should see key 3 popping here, not key 2
+        assert.strictEqual(queue.pop(), 3);
+    });
+
+    it("should not duplicate existing key", () => {
+        const queue = new Heapify(64, [], [], Uint32Array, Uint32Array, {
+            wantsKeyUpdates: true
+        });
+        queue.push(1, 10);
+        queue.push(1, 10);
+        assert.strictEqual(queue.dumpRawPriorities(), "[10]");
+    });
+
+    it("should update key priority in queue of size 1", () => {
+        const queue = new Heapify(64, [], [], Uint32Array, Uint32Array, {
+            wantsKeyUpdates: true
+        });
+        queue.push(1, 10);
+        queue.push(1, 20);
+        assert.strictEqual(queue.dumpRawPriorities(), "[20]");
+        queue.push(1, 15);
+        assert.strictEqual(queue.dumpRawPriorities(), "[15]");
+    });
+
+    it("should update key priority that requires item to change position in queue", () => {
+        const queue = new Heapify(64, [], [], Uint32Array, Uint32Array, {
+            wantsKeyUpdates: true
+        });
+
+        queue.push(1, 10);
+        queue.push(2, 20);
+        assert.strictEqual(queue.dumpRawKeys(), "[1 2]");
+        assert.strictEqual(queue.dumpRawPriorities(), "[10 20]");
+
+        queue.push(2, 5);
+        assert.strictEqual(queue.dumpRawKeys(), "[2 1]");
+        assert.strictEqual(queue.dumpRawPriorities(), "[5 10]");
+
+        queue.push(2, 15);
+        assert.strictEqual(queue.dumpRawKeys(), "[1 2]");
+        assert.strictEqual(queue.dumpRawPriorities(), "[10 15]");
+
+        queue.push(3, 12);
+        assert.strictEqual(queue.dumpRawKeys(), "[1 2 3]");
+        assert.strictEqual(queue.dumpRawPriorities(), "[10 15 12]");
+
+        queue.push(1, 30);
+        assert.strictEqual(queue.dumpRawKeys(), "[3 2 1]");
+        assert.strictEqual(queue.dumpRawPriorities(), "[12 15 30]");
+    });
 });

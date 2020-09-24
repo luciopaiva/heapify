@@ -90,12 +90,13 @@
         "lines-around-directive": "error",
         "lines-between-class-members": [
             "error",
-            "always"
+            "always",
+            { "exceptAfterSingleLine": true }
         ],
-        "max-classes-per-file": "error",
+        "max-classes-per-file": "off",
         "max-depth": "error",
         "max-len": "off",
-        "max-lines": "error",
+        "max-lines": "off",
         "max-lines-per-function": "error",
         "max-nested-callbacks": "error",
         "max-params": "off",
