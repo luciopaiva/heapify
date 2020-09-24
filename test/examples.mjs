@@ -8,9 +8,9 @@ const {describe, it} = mocha;
 describe("Examples", () => {
 
     /*
-     * This example shows how to use Heapify with custom objects. The idea here is using their ids as keys so we're still
-     * able to take advantage of the speed of typed arrays, but still have some way of translating the ids back to objects
-     * when needed.
+     * This example shows how to use Heapify with custom objects. The idea here is using their ids as keys so we're
+     * still able to take advantage of the speed of typed arrays, but still have some way of translating the ids back
+     * to objects when needed.
      */
     it("Handling custom objects", () => {
         // some sample objects
