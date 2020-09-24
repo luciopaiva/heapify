@@ -3,6 +3,7 @@ v0.5.0
 
 - added ability to update priorities of existing keys
 - will now break the build if LoC goes above 200
+- adopted leading underscore to mark class members as private 
 
 v0.4.0
 

@@ -2,6 +2,7 @@
 # Contributing
 
 - [General guidelines](#general-guidelines)
+  - [Naming convention](#naming-convention)
   - [Pull requests](#pull-requests)
   - [Commit messages](#commit-messages)
 - [Running tests](#running-tests)
@@ -9,6 +10,16 @@
 ## General guidelines
 
 These are the general guidelines you should follow when contributing with PRs to this project:
+
+### Naming convention
+
+Variables, methods and instance properties should be lower `camelCase`, class names should be upper `CamelCase`, constants should be upper flat case.
+
+Avoid single-letter and cryptic names - be descriptive.
+
+Internal properties and methods should be prefixed with `_`.
+
+When in doubt, use existing names as reference. If still in doubt, please ask :-).
 
 ### Pull requests
 
