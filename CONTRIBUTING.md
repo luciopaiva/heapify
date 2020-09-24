@@ -13,7 +13,7 @@ These are the general guidelines you should follow when contributing with PRs to
 
 ### Naming convention
 
-Variables, methods and instance properties should be lower `camelCase`, class names should be upper `CamelCase`, constants should be upper flat case.
+Variables, methods and instance properties should be `lowerCamelCase`, class names should be `UpperCamelCase`, constants should be `UPPER_FLAT_CASE`.
 
 Avoid single-letter and cryptic names - be descriptive.
 
