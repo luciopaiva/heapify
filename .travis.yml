@@ -1,5 +1,6 @@
 language: node_js
 script:
   - npm run linter
+  - node ./tools/cloc-check
   - npm run test
   - npm run report-coverage
