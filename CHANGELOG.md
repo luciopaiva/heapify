@@ -1,4 +1,9 @@
 
+v0.5.0
+
+- added ability to update priorities of existing keys
+- will now break the build if LoC goes above 200
+
 v0.4.0
 
 - added performance improvement for successive push & pop calls
