@@ -55,7 +55,7 @@ Supported queue operations:
 Other features:
 
 - runs on browser and Node.js with support to ES6 modules
-- tiny code base (under 200 LoC)
+- tiny code base (~200 LoC)
 - no dependencies
 - supports several types of priorities and keys
 
