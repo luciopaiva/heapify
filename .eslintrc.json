@@ -63,7 +63,7 @@
         "func-call-spacing": "error",
         "func-name-matching": "error",
         "func-names": "error",
-        "func-style": "error",
+        "func-style": ["error", "declaration"],
         "function-call-argument-newline": ["error", "consistent"],
         "function-paren-newline": "off",
         "generator-star-spacing": "off",

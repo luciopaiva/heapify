@@ -15,6 +15,7 @@ class MapStub {
  * @property {Array} keys
  * @property {Array} priorities
  * @property {Boolean} wantsKeyUpdates
+ * @property {Boolean} autoGrow
  * @property {*} keysBackingArrayType
  * @property {*} prioritiesBackingArrayType
  */
@@ -24,6 +25,7 @@ const DEFAULT_OPTIONS = Object.freeze(/** @type {HeapifyOptions} */ {
     keys: [],
     priorities: [],
     wantsKeyUpdates: false,
+    autoGrow: true,
     keysBackingArrayType: Uint32Array,
     prioritiesBackingArrayType: Uint32Array,
 });
@@ -44,13 +46,13 @@ export default class Heapify {
             Object.assign(options, capacityOrOptions);
         }
         this._areKeyUpdatesEnabled = Boolean(options.wantsKeyUpdates);
+        this._autoGrow = Boolean(options.autoGrow);
 
         this._capacity = Math.max(options.capacity, options.keys.length);
 
-        const KeysArrayType = options.keysBackingArrayType;
-        const PrioritiesArrayType = options.prioritiesBackingArrayType;
-        this._keys = new KeysArrayType(this._capacity + ROOT_INDEX);
-        this._priorities = new PrioritiesArrayType(this._capacity + ROOT_INDEX);
+        this._KeysArrayType = options.keysBackingArrayType;
+        this._PrioritiesArrayType = options.prioritiesBackingArrayType;
+        this._allocateBackingArrays();
 
         // to keep track of whether the first element is a deleted one
         this._hasPoppedElement = false;
@@ -65,14 +67,14 @@ export default class Heapify {
         for (let i = 0; i < options.keys.length; i++) {
             this._writeAtIndex(i + ROOT_INDEX, options.keys[i], options.priorities[i]);
         }
-        this.length = options.keys.length;
+        this._size = options.keys.length;
         for (let i = options.keys.length >>> 1; i >= ROOT_INDEX; i--) {
             this._bubbleDown(i);
         }
     }
 
     clear() {
-        this.length = 0;
+        this._size = 0;
         this._hasPoppedElement = false;
         this._indexByKey.clear();
     }
@@ -82,8 +84,12 @@ export default class Heapify {
      * @param {Number} priority 32-bit value corresponding to the priority of this key
      */
     push(key, priority) {
-        if (this.length === this._capacity) {
-            throw new Error("Heap has reached capacity, can't push new items");
+        if (this._size === this._capacity) {
+            if (this._autoGrow) {
+                this._doubleCapacity();
+            } else {
+                throw new Error("Heap has reached capacity, can't push new items");
+            }
         }
 
         this.remove(key);
@@ -95,21 +101,21 @@ export default class Heapify {
             this._bubbleDown(ROOT_INDEX);
             this._hasPoppedElement = false;
         } else {
-            const pos = this.length + ROOT_INDEX;
+            const pos = this._size + ROOT_INDEX;
             this._writeAtIndex(pos, key, priority);
             this._bubbleUp(pos);
         }
 
-        this.length++;
+        this._size++;
     }
 
     pop() {
-        if (this.length === 0) {
+        if (this._size === 0) {
             return undefined;
         }
         this._removePoppedElement();
 
-        this.length--;
+        this._size--;
         this._hasPoppedElement = true;
 
         const key = this._keys[ROOT_INDEX];
@@ -148,8 +154,8 @@ export default class Heapify {
     dumpRawKeys() {
         this._removePoppedElement();
 
-        const result = Array(this.length);
-        for (let i = 0; i < this.length; i++) {
+        const result = Array(this._size);
+        for (let i = 0; i < this._size; i++) {
             result[i] = this._keys[i + ROOT_INDEX];
         }
         return `[${result.join(" ")}]`;
@@ -158,8 +164,8 @@ export default class Heapify {
     dumpRawPriorities() {
         this._removePoppedElement();
 
-        const result = Array(this.length);
-        for (let i = 0; i < this.length; i++) {
+        const result = Array(this._size);
+        for (let i = 0; i < this._size; i++) {
             result[i] = this._priorities[i + ROOT_INDEX];
         }
         return `[${result.join(" ")}]`;
@@ -175,9 +181,9 @@ export default class Heapify {
         const key = this._keys[index];
         const priority = this._priorities[index];
 
-        const halfLength = ROOT_INDEX + (this.length >>> 1);  // no need to check the last level
-        const boundaryIndex = this.length + ROOT_INDEX;
-        while (index < halfLength) {
+        const halfSize = ROOT_INDEX + (this._size >>> 1);  // no need to check the last level
+        const boundaryIndex = this._size + ROOT_INDEX;
+        while (index < halfSize) {
             const left = index << 1;
 
             // pick the left child
@@ -246,9 +252,9 @@ export default class Heapify {
 
     _removeAtIndex(index) {
         // remove by replacing it with last item
-        const lastIndex = this.length - 1 + ROOT_INDEX;
+        const lastIndex = this._size - 1 + ROOT_INDEX;
         this._copyItem(lastIndex, index);
-        this.length--;
+        this._size--;
         if (index !== ROOT_INDEX &&  // items at root position do not have a parent
             this._priorities[index] < this._priorities[index >>> 1]) {  // item priority is lower than parent's
             this._bubbleUp(index);
@@ -260,7 +266,7 @@ export default class Heapify {
     _removePoppedElement() {
         if (this._hasPoppedElement) {
             // since root element was already deleted from pop, replace with last and bubble down
-            const lastIndex = this.length + ROOT_INDEX;  // actually one beyond last (length was already decremented)
+            const lastIndex = this._size + ROOT_INDEX;  // actually one beyond last (size was already decremented)
             this._copyItem(lastIndex, ROOT_INDEX);
             this._bubbleDown(ROOT_INDEX);
             this._hasPoppedElement = false;
@@ -273,11 +279,29 @@ export default class Heapify {
         this._indexByKey.set(key, index);
     }
 
+    _doubleCapacity() {
+        this._capacity <<= 1;
+        const [oldKeys, oldPriorities] = [this._keys, this._priorities];
+        this._allocateBackingArrays();
+
+        for (let i = 0; i < this._size; i++) {
+            this._keys[i] = oldKeys[i];
+        }
+        for (let i = 0; i < this._size; i++) {
+            this._priorities[i] = oldPriorities[i];
+        }
+    }
+
+    _allocateBackingArrays() {
+        this._keys = new this._KeysArrayType(this._capacity + ROOT_INDEX);
+        this._priorities = new this._PrioritiesArrayType(this._capacity + ROOT_INDEX);
+    }
+
     get capacity() {
         return this._capacity;
     }
 
     get size() {
-        return this.length;
+        return this._size;
     }
 }

@@ -199,8 +199,41 @@ describe("Heapify", () => {
         assert.strictEqual(queue.size, 1);
     });
 
-    it("should not be able to push new items beyond capacity", () => {
-        const queue = new Heapify(1);
+    it("should be able to push beyond capacity if auto grow is enabled", () => {
+
+        /**
+         * Will push two items and verify that size and capacity are ok
+         */
+        function pushTwice(queue) {
+            assert.strictEqual(queue.size, 0);
+            assert.strictEqual(queue.capacity, 1);
+            queue.push(1, 10);
+            assert.strictEqual(queue.size, 1);
+            assert.strictEqual(queue.capacity, 1);
+            queue.push(2, 20);
+            assert.strictEqual(queue.size, 2);
+            assert.strictEqual(queue.capacity, 2);
+        }
+
+        // test explicitly passing autoGrow true
+        const queue1 = new Heapify(/** @type {HeapifyOptions} */ {
+            capacity: 1,
+            autoGrow: true,
+        });
+        pushTwice(queue1);
+
+        // test the default value, which should be true
+        const queue2 = new Heapify(/** @type {HeapifyOptions} */ {
+            capacity: 1,
+        });
+        pushTwice(queue2);
+    });
+
+    it("should not be able to push beyond capacity if auto grow is disabled", () => {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            capacity: 1,
+            autoGrow: false,
+        });
         assert.strictEqual(queue.size, 0);
         queue.push(1, 10);
         assert.strictEqual(queue.size, 1);
