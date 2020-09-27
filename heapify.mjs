@@ -43,7 +43,7 @@ export default class Heapify {
         } else {
             Object.assign(options, capacityOrOptions);
         }
-        this.areKeyUpdatesEnabled = Boolean(options.wantsKeyUpdates);
+        this._areKeyUpdatesEnabled = Boolean(options.wantsKeyUpdates);
 
         this._capacity = Math.max(options.capacity, options.keys.length);
 
@@ -56,7 +56,7 @@ export default class Heapify {
         this._hasPoppedElement = false;
 
         /** @type {Map<Number, Number>|MapStub} */
-        this._indexByKey = this.areKeyUpdatesEnabled ? new Map() : new MapStub();
+        this._indexByKey = this._areKeyUpdatesEnabled ? new Map() : new MapStub();
 
         if (options.keys.length !== options.priorities.length) {
             throw new Error("Number of keys does not match number of priorities provided.");
@@ -128,7 +128,7 @@ export default class Heapify {
     }
 
     remove(key) {
-        if (this.areKeyUpdatesEnabled) {
+        if (this._areKeyUpdatesEnabled) {
             this._removePoppedElement();
 
             const index = this._indexByKey.get(key);
