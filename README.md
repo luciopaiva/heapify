@@ -111,7 +111,7 @@ Creates a new priority queue. Parameters are:
 
 * `options` `<Object>`
   * `capacity` `<Number>` the maximum length that the heap can grow (defaults to `64`);
-  * `keys` `Array<Number>` an optional array of pre-existing keys (defaults to an empty array);
+  * `keys` `Array<Number>` an optional array of pre-existing keys (defaults to an empty array). If both `keys` and `capacity` are provided, the effective capacity will be calculated as `Math.max(keys.length, capacity)`;
   * `priorities` `Array<Number>` an optional array of pre-existing priorities whose length must match that of `keys` (defaults to an empty array);
   * `wantsKeyUpdates` `Boolean` this toggles on the capability of updating keys' priorities. Although it may be desired in some situations, bear in mind that toggling it off makes Heapify run considerably faster (defaults to `false`);
   * `keysBackingArrayType` `Function` the array type to be used for keys. Possible types are:

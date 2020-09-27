@@ -45,12 +45,12 @@ export default class Heapify {
         }
         this.areKeyUpdatesEnabled = Boolean(options.wantsKeyUpdates);
 
-        this._capacity = options.capacity;
+        this._capacity = Math.max(options.capacity, options.keys.length);
 
         const KeysArrayType = options.keysBackingArrayType;
         const PrioritiesArrayType = options.prioritiesBackingArrayType;
-        this._keys = new KeysArrayType(options.capacity + ROOT_INDEX);
-        this._priorities = new PrioritiesArrayType(options.capacity + ROOT_INDEX);
+        this._keys = new KeysArrayType(this._capacity + ROOT_INDEX);
+        this._priorities = new PrioritiesArrayType(this._capacity + ROOT_INDEX);
 
         // to keep track of whether the first element is a deleted one
         this._hasPoppedElement = false;
@@ -60,9 +60,6 @@ export default class Heapify {
 
         if (options.keys.length !== options.priorities.length) {
             throw new Error("Number of keys does not match number of priorities provided.");
-        }
-        if (options.capacity < options.keys.length) {
-            throw new Error("Capacity less than number of provided keys.");
         }
         // copy data from user
         for (let i = 0; i < options.keys.length; i++) {

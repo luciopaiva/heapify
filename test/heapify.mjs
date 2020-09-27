@@ -183,12 +183,13 @@ describe("Heapify", () => {
         assert.strictEqual(queue.dumpRawKeys(), "[-2 1 -3]");
     });
 
-    it("should only create a priority queue if has enough capacity", () => {
-        assert.throws(() => new Heapify(/** @type {HeapifyOptions} */ {
+    it("should override capacity if number of keys provided is greater", () => {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
             capacity: 1,
             keys: [1, 2],
             priorities: [50, 1]
-        }));
+        });
+        assert.strictEqual(queue.capacity, 2);
     });
 
     it("should be able to push new items", () => {
