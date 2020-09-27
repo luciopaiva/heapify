@@ -229,6 +229,32 @@ describe("Heapify", () => {
         pushTwice(queue2);
     });
 
+    it("queue should double capacity when full and auto grow is on", () => {
+        let next = 1;
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            capacity: 1,
+            autoGrow: true,
+        });
+
+        /**
+         * Will push a dummy item to the queue
+         */
+        function push() {
+            queue.push(next, next);
+            next++;
+        }
+
+        push();
+        assert.strictEqual(queue.capacity, 1);
+        push();
+        assert.strictEqual(queue.capacity, 2);
+        push();
+        assert.strictEqual(queue.capacity, 4);
+        push();
+        push();
+        assert.strictEqual(queue.capacity, 8);
+    });
+
     it("should not be able to push beyond capacity if auto grow is disabled", () => {
         const queue = new Heapify(/** @type {HeapifyOptions} */ {
             capacity: 1,
