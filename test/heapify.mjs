@@ -1,3 +1,4 @@
+/* global BigUint64Array, BigInt64Array */
 
 import assert from "assert";
 import Heapify from "../heapify.mjs";
@@ -70,6 +71,116 @@ describe("Heapify", () => {
         });
         assert.strictEqual(queue.dumpRawKeys(), "[1 2 3]");
         assert.strictEqual(queue.dumpRawPriorities(), "[16 32 48]");
+    });
+
+    it("should work with Uint8Array types", () => {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            keys: [1, 2, 3],
+            priorities: [20, 30, 10],
+            keysBackingArrayType: Uint8Array,
+            prioritiesBackingArrayType: Uint8Array,
+        });
+        assert.strictEqual(queue.dumpRawKeys(), "[3 2 1]");
+    });
+
+    it("should work with Uint8ClampedArray types", () => {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            keys: [1, 2, 3],
+            priorities: [20, 30, 10],
+            keysBackingArrayType: Uint8ClampedArray,
+            prioritiesBackingArrayType: Uint8ClampedArray,
+        });
+        assert.strictEqual(queue.dumpRawKeys(), "[3 2 1]");
+    });
+
+    it("should work with Int8Array types", () => {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            keys: [-1, 2, -3],
+            priorities: [20, -30, -10],
+            keysBackingArrayType: Int8Array,
+            prioritiesBackingArrayType: Int8Array,
+        });
+        assert.strictEqual(queue.dumpRawKeys(), "[2 -1 -3]");
+    });
+
+    it("should work with Uint16Array types", () => {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            keys: [1, 2, 3],
+            priorities: [20, 30, 10],
+            keysBackingArrayType: Uint16Array,
+            prioritiesBackingArrayType: Uint16Array,
+        });
+        assert.strictEqual(queue.dumpRawKeys(), "[3 2 1]");
+    });
+
+    it("should work with Int16Array types", () => {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            keys: [-1, -2, 3],
+            priorities: [20, -30, -10],
+            keysBackingArrayType: Int16Array,
+            prioritiesBackingArrayType: Int16Array,
+        });
+        assert.strictEqual(queue.dumpRawKeys(), "[-2 -1 3]");
+    });
+
+    it("should work with Uint32Array types", () => {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            keys: [1, 2, 3],
+            priorities: [20, 30, 10],
+            keysBackingArrayType: Uint32Array,
+            prioritiesBackingArrayType: Uint32Array,
+        });
+        assert.strictEqual(queue.dumpRawKeys(), "[3 2 1]");
+    });
+
+    it("should work with Int32Array types", () => {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            keys: [1, -2, -3],
+            priorities: [20, -30, -10],
+            keysBackingArrayType: Int32Array,
+            prioritiesBackingArrayType: Int32Array,
+        });
+        assert.strictEqual(queue.dumpRawKeys(), "[-2 1 -3]");
+    });
+
+    it("should work with Float32Array types", () => {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            keys: [1, -2, 3],
+            priorities: [10.2, 30.1, 10.1],
+            keysBackingArrayType: Float32Array,
+            prioritiesBackingArrayType: Float32Array,
+        });
+        assert.strictEqual(queue.dumpRawKeys(), "[3 -2 1]");
+    });
+
+    it("should work with Float64Array types", () => {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            keys: [1, 2, -3],
+            priorities: [10.2, -30.1, -10.1],
+            keysBackingArrayType: Float64Array,
+            prioritiesBackingArrayType: Float64Array,
+        });
+        assert.strictEqual(queue.dumpRawKeys(), "[2 1 -3]");
+    });
+
+    it("should work with BigUint64Array types", () => {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            keys: [1n, 2n, 3n],
+            priorities: [20n, 30n, 10n],
+            keysBackingArrayType: BigUint64Array,
+            prioritiesBackingArrayType: BigUint64Array,
+        });
+        assert.strictEqual(queue.dumpRawKeys(), "[3 2 1]");
+    });
+
+    it("should work with BigInt64Array types", () => {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            keys: [1n, -2n, -3n],
+            priorities: [20n, -30n, -10n],
+            keysBackingArrayType: BigInt64Array,
+            prioritiesBackingArrayType: BigInt64Array,
+        });
+        assert.strictEqual(queue.dumpRawKeys(), "[-2 1 -3]");
     });
 
     it("should only create a priority queue if has enough capacity", () => {

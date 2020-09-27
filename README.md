@@ -114,8 +114,9 @@ Creates a new priority queue. Parameters are:
   * `keys` `Array<Number>` an optional array of pre-existing keys (defaults to an empty array);
   * `priorities` `Array<Number>` an optional array of pre-existing priorities whose length must match that of `keys` (defaults to an empty array);
   * `wantsKeyUpdates` `Boolean` this toggles on the capability of updating keys' priorities. Although it may be desired in some situations, bear in mind that toggling it off makes Heapify run considerably faster (defaults to `false`);
-  * `keysBackingArrayType` `Function` the array type to be used for keys (defaults to `Uint32Array`);
-  * `prioritiesBackingArrayType` `Function` the array type to be used for priorities (defaults to `Uint32Array`);
+  * `keysBackingArrayType` `Function` the array type to be used for keys. Possible types are:
+`Uint8Array`, `Int8Array`, `Uint8ClampedArray`, `Uint16Array`, `Int16Array`, `Uint32Array`, `Int32Array`, `Float32Array`, `Float64Array`, `BigUint64Array` and `BigInt64Array` (defaults to `Uint32Array`);
+  * `prioritiesBackingArrayType` `Function` the array type to be used for priorities. The same types available for keys are also available here (defaults to `Uint32Array`);
 
 Example:
 
