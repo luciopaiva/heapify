@@ -11,47 +11,65 @@ class MapStub {
 
 /**
  * @typedef {Object} HeapifyOptions
+ * @property {Number} capacity
+ * @property {Array} keys
+ * @property {Array} priorities
  * @property {Boolean} wantsKeyUpdates
+ * @property {*} keysBackingArrayType
+ * @property {*} prioritiesBackingArrayType
  */
+
+const DEFAULT_OPTIONS = Object.freeze(/** @type {HeapifyOptions} */ {
+    capacity: DEFAULT_CAPACITY,
+    keys: [],
+    priorities: [],
+    wantsKeyUpdates: false,
+    keysBackingArrayType: Uint32Array,
+    prioritiesBackingArrayType: Uint32Array,
+});
 
 export default class Heapify {
 
     /**
-     * @param {Number} capacity
-     * @param {Array} keys
-     * @param {Array} priorities
-     * @param {*} KeysBackingArrayType
-     * @param {*} PrioritiesBackingArrayType
-     * @param {HeapifyOptions} options
+     * @param {Number|HeapifyOptions} capacityOrOptions
      */
-    constructor(capacity = DEFAULT_CAPACITY, keys = [], priorities = [],
-        KeysBackingArrayType = Uint32Array,
-        PrioritiesBackingArrayType = Uint32Array,
-        options = {}) {
-
+    constructor(capacityOrOptions = DEFAULT_OPTIONS) {
+        if (arguments.length > 1) {
+            throw new Error("Invalid number of arguments");
+        }
+        const options = { ...DEFAULT_OPTIONS };  // take a copy
+        if (typeof capacityOrOptions === "number") {
+            options.capacity = capacityOrOptions;
+        } else {
+            Object.assign(options, capacityOrOptions);
+        }
         this.areKeyUpdatesEnabled = Boolean(options.wantsKeyUpdates);
 
-        this._capacity = capacity;
-        this._keys = new KeysBackingArrayType(capacity + ROOT_INDEX);
-        this._priorities = new PrioritiesBackingArrayType(capacity + ROOT_INDEX);
+        this._capacity = options.capacity;
+
+        const KeysArrayType = options.keysBackingArrayType;
+        const PrioritiesArrayType = options.prioritiesBackingArrayType;
+        this._keys = new KeysArrayType(options.capacity + ROOT_INDEX);
+        this._priorities = new PrioritiesArrayType(options.capacity + ROOT_INDEX);
+
         // to keep track of whether the first element is a deleted one
         this._hasPoppedElement = false;
 
         /** @type {Map<Number, Number>|MapStub} */
         this._indexByKey = this.areKeyUpdatesEnabled ? new Map() : new MapStub();
 
-        if (keys.length !== priorities.length) {
+        if (options.keys.length !== options.priorities.length) {
             throw new Error("Number of keys does not match number of priorities provided.");
         }
-        if (capacity < keys.length) {
+        if (options.capacity < options.keys.length) {
             throw new Error("Capacity less than number of provided keys.");
         }
         // copy data from user
-        for (let i = 0; i < keys.length; i++) {
-            this._writeAtIndex(i + ROOT_INDEX, keys[i], priorities[i]);
+        for (let i = 0; i < options.keys.length; i++) {
+            this._writeAtIndex(i + ROOT_INDEX, options.keys[i], options.priorities[i]);
         }
-        this.length = keys.length;
-        for (let i = keys.length >>> 1; i >= ROOT_INDEX; i--) {
+        this.length = options.keys.length;
+        for (let i = options.keys.length >>> 1; i >= ROOT_INDEX; i--) {
             this._bubbleDown(i);
         }
     }

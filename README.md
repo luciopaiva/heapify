@@ -105,22 +105,37 @@ You are welcome to contribute, but please take the time to read and follow [thes
 
 ## API
 
-### new Heapify(capacity = 64, keys = [], priorities = [], KeysBackingArrayType = Uint32Array, PrioritiesBackingArrayType = Uint32Array, options = {})
+### new Heapify(options = {})
 
 Creates a new priority queue. Parameters are:
 
-- `capacity`: the size of the underlying typed arrays backing the heap;
-- `keys`: an optional array of pre-existing keys. Provide `[]` to skip this field;
-- `priorities`: an optional array of pre-existing priorities. Must match number of keys above. Provide `[]` to skip this field;
-- `KeysBackingArrayType`: the array type to be used for keys;
-- `PrioritiesBackingArrayType`: the array type to be used for priorities;
-- `options`: an object that right now can only have a single boolean property called `wantsKeyUpdates` that enables the ability to update the priority of existing keys (at the cost of making Heapify run much slower).
+* `options` `<Object>`
+  * `capacity` `<Number>` the maximum length that the heap can grow (defaults to `64`);
+  * `keys` `Array<Number>` an optional array of pre-existing keys (defaults to an empty array);
+  * `priorities` `Array<Number>` an optional array of pre-existing priorities whose length must match that of `keys` (defaults to an empty array);
+  * `wantsKeyUpdates` `Boolean` this toggles on the capability of updating keys' priorities. Although it may be desired in some situations, bear in mind that toggling it off makes Heapify run considerably faster (defaults to `false`);
+  * `keysBackingArrayType` `Function` the array type to be used for keys (defaults to `Uint32Array`);
+  * `prioritiesBackingArrayType` `Function` the array type to be used for priorities (defaults to `Uint32Array`);
 
 Example:
 
 ```js
-const queue1 = new Heapify(32);
-const queue2 = new Heapify(16, [], [], Uint16Array, Uint32Array);
+const queue = new Heapify({
+    capacity: 64,
+    keys: [1, 2, 3],
+    priorities: [10, 20, 30],
+    wantsKeyUpdates: false,
+    keysBackingArrayType: Uint32Array,
+    prioritiesBackingArrayType: Uint32Array,
+});
+```
+
+### new Heapify(capacity = 64);
+
+Simpler constructor that only accepts `capacity` (see above for details).
+
+```js
+const queue = new Heapify(32);
 ```
 
 ### capacity

@@ -25,19 +25,59 @@ describe("Heapify", () => {
         assert.strictEqual(queue.size, 0);
     });
 
+    it("should create a priority queue with a specified capacity via object", () => {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            capacity: 123
+        });
+        assert.strictEqual(queue.capacity, 123);
+        assert.strictEqual(queue.size, 0);
+    });
+
+    it("should throw if more than one argument provided to constructor", () => {
+        assert.throws(() => new Heapify(1, 2));
+    });
+
     it("should create a priority queue with given keys and priorities", () => {
-        const queue = new Heapify(100, [1, 2], [50, 1]);
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            capacity: 2,
+            keys: [1, 2],
+            priorities: [50, 1],
+        });
         assert.strictEqual(queue.size, 2);
-        const key = queue.peek();
-        assert.strictEqual(key, 2);
+        assert.strictEqual(queue.dumpRawKeys(), "[2 1]");
+        assert.strictEqual(queue.dumpRawPriorities(), "[1 50]");
     });
 
     it("should only create a priority queue with same number of keys and priorities", () => {
-        assert.throws(() => new Heapify(30, [1, 2], [3, 4, 5]));
+        assert.throws(() => new Heapify(/** @type {HeapifyOptions} */ {
+            capacity: 3,
+            keys: [1, 2],
+            priorities: [3, 4, 5],
+        }));
+        assert.throws(() => new Heapify(/** @type {HeapifyOptions} */ {
+            capacity: 3,
+            keys: [1, 2, 3],
+            priorities: [3, 4],
+        }));
+    });
+
+    it("should accept different array types", () => {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            keys: [1, 2, 0x10003],  // 0x10003 should get truncated to 3 due to the use of the 16-bit array type
+            priorities: [0x10, 0x20, 0x10030],  // 0x10030 should get truncated to 3 due to the 16-bit array type
+            keysBackingArrayType: Uint16Array,
+            prioritiesBackingArrayType: Uint16Array,
+        });
+        assert.strictEqual(queue.dumpRawKeys(), "[1 2 3]");
+        assert.strictEqual(queue.dumpRawPriorities(), "[16 32 48]");
     });
 
     it("should only create a priority queue if has enough capacity", () => {
-        assert.throws(() => new Heapify(1, [1, 2], [50, 1]));
+        assert.throws(() => new Heapify(/** @type {HeapifyOptions} */ {
+            capacity: 1,
+            keys: [1, 2],
+            priorities: [50, 1]
+        }));
     });
 
     it("should be able to push new items", () => {
@@ -222,7 +262,7 @@ describe("Heapify", () => {
     });
 
     it("should remove item by key in queue with a single item", () => {
-        const queue = new Heapify(64, [], [], Uint32Array, Uint32Array, {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
             wantsKeyUpdates: true
         });
 
@@ -237,8 +277,11 @@ describe("Heapify", () => {
     it("should remove item by key in last position in queue with more than one item", () => {
         const priorities = [10, 20, 30];
         const keys = Array.from(priorities, (_, i) => i + 1);
-        const queue = new Heapify(keys.length, keys, priorities, Uint32Array, Uint32Array, {
-            wantsKeyUpdates: true
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            capacity: keys.length,
+            keys,
+            priorities,
+            wantsKeyUpdates: true,
         });
 
         // remove right child
@@ -253,8 +296,11 @@ describe("Heapify", () => {
     it("should remove item by key, requiring bubbling down", () => {
         const priorities = [10, 20, 30];
         const keys = Array.from(priorities, (_, i) => i + 1);
-        const queue = new Heapify(keys.length, keys, priorities, Uint32Array, Uint32Array, {
-            wantsKeyUpdates: true
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
+            capacity: keys.length,
+            keys,
+            priorities,
+            wantsKeyUpdates: true,
         });
 
         /*
@@ -270,8 +316,11 @@ describe("Heapify", () => {
     it("should remove item by key, requiring bubbling up", () => {
         const priorities = [1, 10, 5, 20, 30, 6];
         const keys = Array.from(priorities, (_, i) => i + 1);
-        const queue = new Heapify(keys.length, keys, priorities, Uint32Array, Uint32Array, {
-            wantsKeyUpdates: true
+        const queue = new Heapify({
+            capacity: keys.length,
+            keys,
+            priorities,
+            wantsKeyUpdates: true,
         });
 
         /*
@@ -284,7 +333,7 @@ describe("Heapify", () => {
     });
 
     it("should do nothing when removing non-existent key", () => {
-        const queue = new Heapify(64, [], [], Uint32Array, Uint32Array, {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
             wantsKeyUpdates: true
         });
 
@@ -299,7 +348,7 @@ describe("Heapify", () => {
     });
 
     it("should correctly pop-remove-pop", () => {
-        const queue = new Heapify(64, [], [], Uint32Array, Uint32Array, {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
             wantsKeyUpdates: true
         });
 
@@ -316,7 +365,7 @@ describe("Heapify", () => {
     });
 
     it("should not duplicate existing key", () => {
-        const queue = new Heapify(64, [], [], Uint32Array, Uint32Array, {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
             wantsKeyUpdates: true
         });
         queue.push(1, 10);
@@ -325,7 +374,7 @@ describe("Heapify", () => {
     });
 
     it("should update key priority in queue of size 1", () => {
-        const queue = new Heapify(64, [], [], Uint32Array, Uint32Array, {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
             wantsKeyUpdates: true
         });
         queue.push(1, 10);
@@ -336,7 +385,7 @@ describe("Heapify", () => {
     });
 
     it("should update key priority that requires item to change position in queue", () => {
-        const queue = new Heapify(64, [], [], Uint32Array, Uint32Array, {
+        const queue = new Heapify(/** @type {HeapifyOptions} */ {
             wantsKeyUpdates: true
         });
 
