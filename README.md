@@ -171,7 +171,9 @@ queue.peekPriority();  // 10
 
 ### pop()
 
-Removes the smallest priority item from the queue, returning its key. Returns `undefined` if the queue is empty. 
+Removes the smallest priority item from the queue, returning its key. Returns `undefined` if the queue is empty.
+
+Note that Heapify's heap implementation is not [stable](https://ece.uwaterloo.ca/~dwharder/aads/Projects/4/Stable_binary_heap/#:~:text=A%20heap%20is%20said%20to,were%20placed%20into%20the%20heap.). If multiple keys have the same priority, there are no guarantees about the order in which they will be popped.
 
 Example:
 
