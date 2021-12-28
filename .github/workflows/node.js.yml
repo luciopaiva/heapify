@@ -5,7 +5,7 @@ on:
   push:
     branches: [ $default-branch, github-actions ]
   pull_request:
-    branches: [ $default-branch, github-actions ]
+    branches: [ $default-branch ]
 
 jobs:
   build:
@@ -24,4 +24,3 @@ jobs:
       - run: npm ci
       - run: npm run linter
       - run: npm test
-      - run: npm run report-coverage
