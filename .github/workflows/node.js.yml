@@ -3,7 +3,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ $default-branch, github-actions ]
+    branches: [ $default-branch ]
   pull_request:
     branches: [ $default-branch ]
 
