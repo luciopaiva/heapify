@@ -1,4 +1,12 @@
 
+v0.5.0
+
+- added TypeScript typings
+
+v0.4.1
+
+- fixed heap after bug introduced in v0.4.0 
+
 v0.4.0
 
 - added performance improvement for successive push & pop calls
