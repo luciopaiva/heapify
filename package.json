@@ -8,8 +8,8 @@
   },
   "main": "heapify.mjs",
   "scripts": {
-    "test": "c8 --reporter=html --reporter=text mocha --recursive",
-    "report-coverage": "c8 report --reporter=text-lcov > coverage.lcov && codecov",
+    "test": "c8 mocha --recursive",
+    "report-coverage": "c8 report --reporter=text-lcov > coverage.lcov",
     "count": "cloc heapify.mjs",
     "bench": "node benchmark/index.mjs",
     "linter": "eslint *.mjs test/**/*.mjs benchmark/**/*.mjs"
