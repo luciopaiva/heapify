@@ -130,17 +130,16 @@ export default class Heapify {
             // replace root element (which was deleted from the last pop)
             this._keys[ROOT_INDEX] = key;
             this._priorities[ROOT_INDEX] = priority;
-
+            this.length++;
             this.bubbleDown(ROOT_INDEX);
             this._hasPoppedElement = false;
         } else {
             const pos = this.length + ROOT_INDEX;
             this._keys[pos] = key;
             this._priorities[pos] = priority;
+            this.length++;
             this.bubbleUp(pos);
         }
-
-        this.length++;
     }
 
     pop() {

@@ -220,4 +220,23 @@ describe("Heapify", () => {
         queue.push(2, 10);
         assert.strictEqual(queue.dumpRawPriorities(), "[10 20]");
     });
+
+    it("should correctly bubble down after a fast pop", () => {
+        /*
+         * this reproduces a situation caused by a bug introduced in 0.4.0 in
+         * which a fast pop followed by a push breaks the bubble down algorithm
+         */
+        const queue = new Heapify();
+        queue.push(1, 1);
+        queue.push(3, 3);
+        queue.push(2, 2);
+        // this is where the fast pop decreases length, but keeps the popped root there
+        assert.strictEqual(queue.pop(), 1);
+        // This inserts 4 at the root and then bubbles it down. Since length was incorrectly
+        // not incremented yet (v0.4.0), the algorithm misses element 2, bubbling 4 down to
+        // the left instead of to the right as it should
+        queue.push(4, 4);
+        // v0.4.0 returns 3 here
+        assert.strictEqual(queue.pop(), 2);
+    });
 });
