@@ -44,4 +44,49 @@ describe("Examples", () => {
         const message = ids.map(id => objectById.get(id).token).join(" ");
         assert.strictEqual(message, "Failure is success in progress");
     });
+
+    /*
+     * This is an example of how to use Heapify to merge previously sorted arrays.
+     * https://www.wikiwand.com/en/K-way_merge_algorithm
+     */
+    it("k-way merge", () => {
+        function *merge(sortedSequences) {
+            const seqs = sortedSequences.filter(seq => seq.length > 0);
+            const k = seqs.length;
+
+            const heap = new Heapify(k);
+            const pointers = new Int32Array(k);
+
+            for (const [i, seq] of seqs.entries()) {
+                heap.push(i, seq[0]);
+            }
+
+            while (heap.size > 0) {
+                const i = heap.pop();
+
+                const seq = seqs[i];
+                let pointer = pointers[i];
+                const element = seq[pointer++];
+
+                yield element;
+
+                if (pointer < seq.length) {
+                    heap.push(i, seq[pointer]);
+                    pointers[i] = pointer;
+                }
+            }
+        }
+
+        const sortedSequences = [
+            [],
+            [0],
+            [1, 1],
+            [1, 2, 4],
+        ];
+
+        const merged = Array.from(merge(sortedSequences));
+        const expected = sortedSequences.flat().sort((a, b) => a - b);
+
+        assert.deepStrictEqual(merged, expected);
+    });
 });
