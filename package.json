@@ -6,13 +6,14 @@
     "type": "git",
     "url": "git://github.com/luciopaiva/heapify.git"
   },
-  "main": "heapify.mjs",
+  "main": "dist/heapify.js",
+  "types": "dist/heapify.d.ts",
   "scripts": {
     "test": "c8 mocha --recursive",
     "report-coverage": "c8 report --reporter=text-lcov > coverage.lcov",
-    "count": "cloc heapify.mjs",
+    "count": "cloc heapify.ts",
     "bench": "node benchmark/index.mjs",
-    "linter": "eslint *.mjs test/**/*.mjs benchmark/**/*.mjs"
+    "linter": "eslint . --ext .ts test/**/*.mjs benchmark/**/*.mjs"
   },
   "keywords": [
     "priority queue",
@@ -29,6 +30,9 @@
   "homepage": "https://github.com/luciopaiva/heapify",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^17.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.8.1",
+    "@typescript-eslint/parser": "^5.8.1",
     "c8": "^7.3.0",
     "cloc": "^2.5.1",
     "codecov": "^3.6.5",
@@ -37,6 +41,7 @@
     "flatqueue": "1.1.0",
     "google-closure-library": "20200830.0.0",
     "mocha": "^9.1.3",
-    "tinyqueue": "2.0.3"
+    "tinyqueue": "2.0.3",
+    "typescript": "^4.5.4"
   }
 }

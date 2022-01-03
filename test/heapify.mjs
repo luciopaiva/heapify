@@ -1,54 +1,54 @@
 
 import assert from "assert";
-import Heapify from "../heapify.mjs";
+import {MinQueue} from "../dist/heapify.js";
 import mocha from "mocha";
 
 const {describe, it} = mocha;
 
 /* eslint-disable max-lines-per-function */
-describe("Heapify", () => {
+describe("MinQueue", () => {
     /* eslint-enable max-lines-per-function */
 
     it("should create a priority queue", () => {
-        const queue = new Heapify();
-        assert(queue instanceof Heapify);
+        const queue = new MinQueue();
+        assert(queue instanceof MinQueue);
     });
 
     it("should have a default capacity", () => {
-        const queue = new Heapify();
+        const queue = new MinQueue();
         assert.strictEqual(queue.capacity, 64);
     });
 
     it("should create a priority queue with a specified capacity", () => {
-        const queue = new Heapify(123);
+        const queue = new MinQueue(123);
         assert.strictEqual(queue.capacity, 123);
         assert.strictEqual(queue.size, 0);
     });
 
     it("should create a priority queue with given keys and priorities", () => {
-        const queue = new Heapify(100, [1, 2], [50, 1]);
+        const queue = new MinQueue(100, [1, 2], [50, 1]);
         assert.strictEqual(queue.size, 2);
         const key = queue.peek();
         assert.strictEqual(key, 2);
     });
 
     it("should only create a priority queue with same number of keys and priorities", () => {
-        assert.throws(() => new Heapify(30, [1, 2], [3, 4, 5]));
+        assert.throws(() => new MinQueue(30, [1, 2], [3, 4, 5]));
     });
 
     it("should only create a priority queue if has enough capacity", () => {
-        assert.throws(() => new Heapify(1, [1, 2], [50, 1]));
+        assert.throws(() => new MinQueue(1, [1, 2], [50, 1]));
     });
 
     it("should be able to push new items", () => {
-        const queue = new Heapify();
+        const queue = new MinQueue();
         assert.strictEqual(queue.size, 0);
         queue.push(1, 10);
         assert.strictEqual(queue.size, 1);
     });
 
     it("should not be able to push new items beyond capacity", () => {
-        const queue = new Heapify(1);
+        const queue = new MinQueue(1);
         assert.strictEqual(queue.size, 0);
         queue.push(1, 10);
         assert.strictEqual(queue.size, 1);
@@ -57,7 +57,7 @@ describe("Heapify", () => {
     });
 
     it("should be able to pop an item", () => {
-        const queue = new Heapify();
+        const queue = new MinQueue();
         queue.push(123, 456);
         assert.strictEqual(queue.size, 1);
         const key = queue.pop();
@@ -66,12 +66,12 @@ describe("Heapify", () => {
     });
 
     it("should pop undefined when queue is empty", () => {
-        const queue = new Heapify();
+        const queue = new MinQueue();
         assert.strictEqual(queue.pop(), undefined);
     });
 
     it("should be able to peek an item", () => {
-        const queue = new Heapify();
+        const queue = new MinQueue();
         queue.push(123, 456);
         assert.strictEqual(queue.size, 1);
         const key = queue.peek();
@@ -80,7 +80,7 @@ describe("Heapify", () => {
     });
 
     it("should be able to peek the priority of an item", () => {
-        const queue = new Heapify();
+        const queue = new MinQueue();
         queue.push(123, 456);
         assert.strictEqual(queue.size, 1);
         const priority = queue.peekPriority();
@@ -92,7 +92,7 @@ describe("Heapify", () => {
         const VALID_32BIT_KEY = 2 ** 32 - 1;  // greatest 32-bit value
         const INVALID_32BIT_KEY = VALID_32BIT_KEY + 1;
 
-        const queue = new Heapify();
+        const queue = new MinQueue();
 
         queue.push(VALID_32BIT_KEY, 456);
         const key1 = queue.pop();
@@ -111,7 +111,7 @@ describe("Heapify", () => {
         const VALID_32BIT_PRIORITY = 2 ** 32 - 1;  // greatest 32-bit value
         const INVALID_32BIT_PRIORITY = VALID_32BIT_PRIORITY + 1;
 
-        const queue = new Heapify();
+        const queue = new MinQueue();
 
         queue.push(123, VALID_32BIT_PRIORITY);
         const priority1 = queue.peekPriority();
@@ -130,7 +130,7 @@ describe("Heapify", () => {
 
     it("should correctly pop root and then its child", () => {
         // this triggers the logic that moves a child to the top, but still without any bubbling to fix the heap
-        const queue = new Heapify();
+        const queue = new MinQueue();
         queue.push(1, 10);
         queue.push(2, 20);
         assert.strictEqual(queue.pop(), 1);
@@ -139,7 +139,7 @@ describe("Heapify", () => {
 
     it("should correctly bubble down to the left after pop", () => {
         // similar to the previous test, but now we need an item to be bubbled down after the first item is removed
-        const queue = new Heapify();
+        const queue = new MinQueue();
 
         /*
          *       10
@@ -162,7 +162,7 @@ describe("Heapify", () => {
 
     it("should correctly bubble down to the right after pop", () => {
         // similar to the previous test, but now we need an item to be bubbled down to the right
-        const queue = new Heapify();
+        const queue = new MinQueue();
 
         /*
          *       10
@@ -190,7 +190,7 @@ describe("Heapify", () => {
          * down to the left and stop somewhere before reaching a leaf, so we
          * can test the logic that evaluates when to stop bubbling
          */
-        const queue = new Heapify();
+        const queue = new MinQueue();
 
         /*
          *         10
@@ -213,7 +213,7 @@ describe("Heapify", () => {
     });
 
     it("should correctly bubble up when inserting a higher priority item in a non-empty queue", () => {
-        const queue = new Heapify();
+        const queue = new MinQueue();
 
         queue.push(1, 20);
         // now we insert a higher priority and it should bubble to the top
@@ -227,7 +227,7 @@ describe("Heapify", () => {
          * this reproduces a situation caused by a bug introduced in 0.4.0 in
          * which a fast pop followed by a push breaks the bubble down algorithm
          */
-        const queue = new Heapify();
+        const queue = new MinQueue();
         queue.push(1, 1);
         queue.push(3, 3);
         queue.push(2, 2);

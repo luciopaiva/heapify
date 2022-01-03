@@ -32,7 +32,7 @@ Heapify's design strives for reliability, with strong test coverage and focus on
 - [Basic usage](#basic-usage)
 - [Contributing](#contributing)
 - [API](#api)
-  - [new Heapify()](#new-heapifycapacity--64-keys---priorities---keysbackingarraytype--uint32array-prioritiesbackingarraytype--uint32array)
+  - [new MinQueue()](#new-heapifycapacity--64-keys---priorities---keysbackingarraytype--uint32array-prioritiesbackingarraytype--uint32array)
   - [capacity](#capacity)
   - [clear()](#clear)
   - [peek()](#peek)
@@ -74,21 +74,22 @@ yarn add heapify
 If you're on a browser, there's also the option of using a CDN:
 
 ```js
-import Heapify from "https://unpkg.com/heapify"
+import {MinQueue} from "https://unpkg.com/heapify"
 ```
 
 And to import a specific version:
 
 ```js
-import Heapify from "https://unpkg.com/heapify@0.2.1"
+import {MinQueue} from "https://unpkg.com/heapify@0.2.1"
 ```
 
 ## Basic usage
 
 ```js
-import Heapify from "heapify";
+import {MinQueue} from "heapify";
+// const {MinQueue} = require("heapify");  // <-- require() also works!
 
-const queue = new Heapify();
+const queue = new MinQueue();
 queue.push(1, 10);
 queue.push(2, 5);
 queue.pop();  // 2
@@ -105,7 +106,7 @@ You are welcome to contribute, but please take the time to read and follow [thes
 
 ## API
 
-### new Heapify(capacity = 64, keys = [], priorities = [], KeysBackingArrayType = Uint32Array, PrioritiesBackingArrayType = Uint32Array)
+### new MinQueue(capacity = 64, keys = [], priorities = [], KeysBackingArrayType = Uint32Array, PrioritiesBackingArrayType = Uint32Array)
 
 Creates a new priority queue. Parameters are:
 
@@ -118,8 +119,8 @@ Creates a new priority queue. Parameters are:
 Example:
 
 ```js
-const queue1 = new Heapify(32);
-const queue2 = new Heapify(16, [], [], Uint16Array, Uint32Array);
+const queue1 = new MinQueue(32);
+const queue2 = new MinQueue(16, [], [], Uint16Array, Uint32Array);
 ```
 
 ### capacity
@@ -127,7 +128,7 @@ const queue2 = new Heapify(16, [], [], Uint16Array, Uint32Array);
 A read-only property that returns the maximum capacity of the queue. Example:
 
 ```js
-const queue = new Heapify(32);
+const queue = new MinQueue(32);
 queue.capacity;  // 32
 ```
 
@@ -138,7 +139,7 @@ Effectively empties the queue. The heap capacity is not changed, nor its element
 Example:
 
 ```js
-const queue = new Heapify();
+const queue = new MinQueue();
 queue.push(1, 10);
 console.info(queue.size);  // 1
 queue.clear();
@@ -152,7 +153,7 @@ Gets the key with the smallest priority, but does not remove it from the queue.
 Example:
 
 ```js
-const queue = new Heapify();
+const queue = new MinQueue();
 queue.push(1, 10);
 queue.peek();  // 1
 ```
@@ -164,7 +165,7 @@ Gets the _priority_ of the key with the smallest priority, but does not remove t
 Example:
 
 ```js
-const queue = new Heapify();
+const queue = new MinQueue();
 queue.push(1, 10);
 queue.peekPriority();  // 10
 ```
@@ -178,7 +179,7 @@ Note that Heapify's heap implementation is not [stable](https://ece.uwaterloo.ca
 Example:
 
 ```js
-const queue = new Heapify();
+const queue = new MinQueue();
 queue.push(1, 10);
 queue.pop();  // 1
 ```
@@ -190,7 +191,7 @@ Adds a new item to the queue with a given `key` and `priority`. Will throw an er
 Example:
 
 ```js
-const queue = new Heapify();
+const queue = new MinQueue();
 queue.push(1, 10);
 queue.size;  // 1
 queue.peek();  // 1
@@ -204,7 +205,7 @@ A read-only property that returns the current size of the queue.
 Example:
 
 ```js
-const queue = new Heapify();
+const queue = new MinQueue();
 queue.size;  // 0
 queue.push(1, 10);
 queue.size;  // 1

@@ -1,6 +1,6 @@
 
 import assert from "assert";
-import Heapify from "../heapify.mjs";
+import {MinQueue} from "../dist/heapify.js";
 import mocha from "mocha";
 
 const {describe, it} = mocha;
@@ -27,7 +27,7 @@ function customObjectsExample() {
     }
 
     // prepare priority queue
-    const queue = new Heapify();
+    const queue = new MinQueue();
     for (const obj of objects) {
         queue.push(obj.id, obj.priority);
     }
@@ -52,7 +52,7 @@ function kWayMergeExample() {
         const seqs = sortedSequences.filter(seq => seq.length > 0);
         const k = seqs.length;
 
-        const heap = new Heapify(k);
+        const heap = new MinQueue(k);
         const pointers = new Int32Array(k);
 
         for (const [i, seq] of seqs.entries()) {

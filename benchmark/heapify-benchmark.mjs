@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import Benchmark from "./benchmark.mjs";
-import Heapify from "../heapify.mjs";
+import {MinQueue} from "../dist/heapify.js";
 
 export default class HeapifyBenchmark extends Benchmark {
 
@@ -11,12 +11,12 @@ export default class HeapifyBenchmark extends Benchmark {
     }
 
     reset() {
-        this.q = new Heapify(this.numberOfKeys);
+        this.q = new MinQueue(this.numberOfKeys);
     }
 
     buildTest(indexes, data) {
         // eslint-disable-next-line no-new
-        new Heapify(this.numberOfKeys, indexes, data);
+        new MinQueue(this.numberOfKeys, indexes, data);
     }
 
     pushTest(data) {
