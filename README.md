@@ -61,6 +61,8 @@ Other features:
 
 ## How to install
 
+### Node.js
+
 ```sh
 npm i heapify
 ```
@@ -71,16 +73,43 @@ Or if you're a yarn person:
 yarn add heapify
 ```
 
+Then to use it:
+
+```js
+import {MinQueue} from "heapify";
+```
+
+Or `require()` it:
+
+```js
+const {MinQueue} = require("heapify");
+```
+
+### Browser
+
 If you're on a browser, there's also the option of using a CDN:
 
 ```js
-import {MinQueue} from "https://unpkg.com/heapify"
+import {MinQueue} from "https://unpkg.com/heapify/dist/heapify.mjs"
 ```
+
+Notice the imported script needs to be `.mjs` in this case, not `.js`.
 
 And to import a specific version:
 
 ```js
-import {MinQueue} from "https://unpkg.com/heapify@0.2.1"
+import {MinQueue} from "https://unpkg.com/heapify@0.6.0/dist/heapify.mjs"
+```
+
+See [unpkg](https://unpkg.com/) for more importing options.
+
+Script tags also work, but you need to reference the `.js` script instead:
+
+```html
+<script src="https://unpkg.com/heapify/dist/heapify.js"></script>
+<script>
+  const {MinQueue} = Heapify;
+</script>
 ```
 
 ## Basic usage
