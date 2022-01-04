@@ -10,6 +10,7 @@
   "types": "dist/heapify.d.ts",
   "scripts": {
     "test": "c8 mocha --recursive",
+    "integration": "cd test/integration && node run.js",
     "report-coverage": "c8 report --reporter=text-lcov > coverage.lcov",
     "count": "cloc src/heapify.ts",
     "bench": "node benchmark/index.mjs",
