@@ -3,7 +3,7 @@ const path = require("path");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV === "production";
-let shouldClean = true;
+let isFirstTarget = true;
 
 function makeConfig(target, filename, module) {
     const config = {
@@ -14,7 +14,7 @@ function makeConfig(target, filename, module) {
             outputModule: module,
         },
         output: {
-            clean: shouldClean,
+            clean: isFirstTarget,
             filename: filename,
             path: path.resolve(__dirname, "dist"),
             library: {
@@ -36,14 +36,20 @@ function makeConfig(target, filename, module) {
             ],
         },
         plugins: [
-            new ForkTsCheckerWebpackPlugin(),
+            new ForkTsCheckerWebpackPlugin({
+                // we want to generate d.ts files, but only for the first target (no need to generate them 3 times!)
+                ...(isFirstTarget && { typescript: {
+                        build: true,  // see https://github.com/TypeStrong/fork-ts-checker-webpack-plugin/issues/689#issuecomment-1005020849
+                        mode: "write-dts",
+                    }}),
+            }),
         ],
         resolve: {
             extensions: [".tsx", ".ts", ".js"],
         },
     };
 
-    shouldClean = false;
+    isFirstTarget = false;
     return config;
 }
 
