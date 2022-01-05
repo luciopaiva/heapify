@@ -10,7 +10,7 @@
   "types": "dist/heapify.d.ts",
   "scripts": {
     "test": "jest --coverage",
-    "integration": "npm run build && cd test/integration && node run.js",
+    "integration": "npm run build && cd test/integration && node scripts/run.js",
     "count": "cloc src/heapify.ts",
     "bench": "node benchmark/index.mjs",
     "linter": "eslint . --ext js,ts benchmark/**/*.mjs",
