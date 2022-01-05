@@ -1,5 +1,5 @@
-
-const spawn = require("child_process").spawn;
+/* eslint-disable no-console */
+import {spawn} from "child_process";
 
 const TESTS = ["node-import", "node-require", "node-typescript"];
 const SCRIPTS_FOLDER = "scripts";
@@ -13,8 +13,10 @@ async function exec(cmd: string, args: string[] = []) {
 async function runTest(folder: string) {
     try {
         await exec(`${SCRIPTS_FOLDER}/run-integration-test.sh`, [folder]);
-    } catch (e: any) {
-        console.error(e.message.trim());
+    } catch (e) {
+        if (e instanceof Error) {
+            console.error(e.message.trim());
+        }
         throw e;
     }
 }
@@ -26,7 +28,7 @@ async function run() {
     if (results.some(result => result.status === "rejected")) {
         console.error("There are failing integration tests.");
     } else {
-        console.info("All integration tests passed.")
+        console.info("All integration tests passed.");
     }
 }
 

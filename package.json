@@ -10,13 +10,13 @@
   "types": "dist/heapify.d.ts",
   "scripts": {
     "test": "jest --coverage",
-    "integration": "npm run build && cd test/integration && ts-node scripts/run.ts",
+    "integration": "npm run build --silent && cd test/integration && ts-node --project scripts/run.tsconfig.json scripts/run.ts",
     "count": "cloc src/heapify.ts",
     "bench": "node benchmark/index.mjs",
     "linter": "eslint . --ext js,ts benchmark/**/*.mjs",
-    "build": "webpack --mode=production --node-env=production",
+    "build": "webpack --stats errors-warnings --mode=production",
     "build:dev": "webpack --mode=development",
-    "build:prod": "webpack --mode=production --node-env=production",
+    "build:prod": "webpack --mode=production",
     "watch": "webpack --watch"
   },
   "keywords": [
