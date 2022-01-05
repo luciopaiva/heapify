@@ -1,5 +1,5 @@
 {
-  "name": "browser-import",
+  "name": "browser-script",
   "version": "1.0.0",
   "description": "",
   "main": "index.mjs",
@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "common": "file:../common",
-    "heapify": "file:../../.."
+    "common": "file:../common"
   }
 }

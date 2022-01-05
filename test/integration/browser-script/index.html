@@ -5,14 +5,14 @@
     <title>Browser import test</title>
 </head>
 <body>
-<script type="module">
-    import {MinQueue} from "./heapify.mjs";
-
+<script src="heapify.js"></script>
+<script>
+    const {MinQueue} = Heapify;
     const queue = new MinQueue();
 
     <!--TEST-->
 
-    await fetch("/answer", {
+    fetch("/answer", {
         method: "POST",
         body: testFunction(queue),
     });
