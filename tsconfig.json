@@ -3,12 +3,11 @@
   "compilerOptions": {
     "module": "es2015",
     "target": "es2015",
-    "moduleResolution": "classic",
+    "moduleResolution": "node",
     "declaration": true,
     "sourceMap": true,
     "declarationDir": "./dist/",
     "emitDeclarationOnly": true,
-
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,

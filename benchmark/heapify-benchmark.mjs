@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import Benchmark from "./benchmark.mjs";
-import {MinQueue} from "../dist/heapify.js";
+import {MinQueue} from "../dist/heapify.mjs";
 
 export default class HeapifyBenchmark extends Benchmark {
 
