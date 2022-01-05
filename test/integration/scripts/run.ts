@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {spawn} from "child_process";
 
-const TESTS = ["node-import", "node-require", "node-typescript"];
+const TESTS = ["node-import", "node-require", "node-typescript", "browser-import"];
 const SCRIPTS_FOLDER = "scripts";
 
 async function exec(cmd: string, args: string[] = []) {

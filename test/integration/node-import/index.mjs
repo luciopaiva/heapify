@@ -1,5 +1,6 @@
 
+import * as assert from "assert";
 import Heapify from "heapify";
 const {MinQueue} = Heapify;
 import {test} from "common";
-test(new MinQueue());
+assert.ok(test(new MinQueue()));

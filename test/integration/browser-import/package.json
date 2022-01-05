@@ -1,0 +1,19 @@
+{
+  "name": "browser-import",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "common": "file:../common",
+    "heapify": "file:../../.."
+  },
+  "devDependencies": {
+    "puppeteer": "^13.0.1"
+  }
+}

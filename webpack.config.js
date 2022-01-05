@@ -4,9 +4,9 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 let isFirstTarget = true;
 
-function makeConfig(target, filename, module) {
+function makeConfig(mode, target, filename, module) {
     const config = {
-        mode: "development",
+        mode: mode,
         entry: "./src/heapify.ts",
         target: target,
         experiments: {
@@ -21,7 +21,7 @@ function makeConfig(target, filename, module) {
                 type: module ? "module" : "umd",
             },
         },
-        devtool: "inline-source-map",
+        devtool: mode === "development" && "inline-source-map",
         module: {
             rules: [
                 {
@@ -52,8 +52,8 @@ function makeConfig(target, filename, module) {
     return config;
 }
 
-module.exports = [
-    makeConfig("node", "heapify.node.js", false),
-    makeConfig("web", "heapify.js", false),
-    makeConfig("web", "heapify.mjs", true),
+module.exports = (mode) => [
+    makeConfig(mode, "node", "heapify.node.js", false),
+    makeConfig(mode, "web", "heapify.js", false),
+    makeConfig(mode, "web", "heapify.mjs", true),
 ];

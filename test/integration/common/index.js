@@ -11,9 +11,8 @@ function test(queue) {
 
     const outcome = results.join(",");
     const expected = "1,2,3";
-    if (outcome !== expected) {
-        throw new Error(`Expected "${expected}" but got "${outcome}".`);
-    }
+
+    return outcome === expected;
 }
 
 module.exports = {test};
