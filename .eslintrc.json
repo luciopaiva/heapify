@@ -271,7 +271,7 @@
         "space-before-function-paren": ["error", {
             "anonymous": "always",
             "named": "never",
-            "asyncArrow": "never"
+            "asyncArrow": "always"
         }],
         "space-in-parens": "error",
         "space-infix-ops": "error",
