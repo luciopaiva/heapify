@@ -35,13 +35,14 @@ function makeConfig(mode: string, target: string, filename: string, module: bool
             ],
         },
         plugins: [
-            new ForkTsCheckerWebpackPlugin({
-                // we want to generate a d.ts file, but only for the first target (no need to generate it 3 times!)
-                ...isFirstTarget && { typescript: {
-                    // build: true,  // see https://github.com/TypeStrong/fork-ts-checker-webpack-plugin/issues/689#issuecomment-1005020849
-                    mode: "write-dts",
-                }},
-            }),
+            ...isFirstTarget ? [  // although we have multiple configurations, we just need to type-check once
+                new ForkTsCheckerWebpackPlugin({
+                    typescript: {
+                        build: true,
+                        mode: "write-dts",  // output a declaration file as well
+                    },
+                })
+            ] : [],
         ],
         resolve: {
             extensions: [".tsx", ".ts", ".js"],

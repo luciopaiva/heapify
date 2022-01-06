@@ -24,7 +24,7 @@
     },
     "rules": {
         "accessor-pairs": "error",
-        "array-bracket-newline": "error",
+        "array-bracket-newline": ["error", { "multiline": true }],
         "array-bracket-spacing": [
             "error",
             "never"
@@ -223,7 +223,7 @@
         "one-var": "off",
         "one-var-declaration-per-line": "error",
         "operator-assignment": "error",
-        "operator-linebreak": "error",
+        "operator-linebreak": ["error", "after"],
         "padded-blocks": "off",
         "padding-line-between-statements": "error",
         "prefer-arrow-callback": "error",
