@@ -14,10 +14,10 @@
     "count": "cloc src/heapify.ts",
     "bench": "node benchmark/index.mjs",
     "linter": "eslint . --ext js,mjs,ts",
-    "build": "webpack --stats errors-warnings --mode=production",
-    "build:dev": "webpack --mode=development",
-    "build:prod": "webpack --mode=production",
-    "watch": "webpack --watch --mode=development"
+    "build": "rm -fr dist && webpack --stats errors-warnings --mode=production",
+    "build:dev": "rm -fr dist && webpack --mode=development",
+    "build:prod": "rm -fr dist && webpack --mode=production",
+    "watch": "rm -fr dist && webpack --watch --mode=development"
   },
   "keywords": [
     "priority queue",

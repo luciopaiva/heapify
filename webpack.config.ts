@@ -13,7 +13,6 @@ function makeConfig(mode: string, target: string, filename: string, module: bool
             outputModule: module,
         },
         output: {
-            clean: isFirstTarget,
             filename: filename,
             path: path.resolve(__dirname, "dist"),
             library: {
