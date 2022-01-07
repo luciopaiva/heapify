@@ -23,7 +23,7 @@ function makeConfig(mode: string, filename: string, module: boolean) {
             outputModule: module,
         },
         output: {
-            filename: filename,
+            filename: path.basename(filename),
             path: path.resolve(__dirname, "dist"),
 
             /*
@@ -66,6 +66,6 @@ function makeConfig(mode: string, filename: string, module: boolean) {
 }
 
 export default (_env: unknown, argv: {mode: string}) => [
-    makeConfig(argv.mode, path.basename(pkg.main), false),
-    makeConfig(argv.mode, path.basename(pkg.module), true),
+    makeConfig(argv.mode, pkg.main, false),
+    makeConfig(argv.mode, pkg.module, true),
 ];
