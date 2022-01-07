@@ -1,7 +1,7 @@
 
 # Frequently asked questions
 
-## How do I import Heapify in a Node.js ES6 module?
+## How do I import Heapify on a Node.js native ES6 module?
 
 One could innocently try this:
 

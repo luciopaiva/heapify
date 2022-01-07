@@ -1,6 +1,7 @@
 
 import * as path from "path";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+import pkg from "./package.json";
 
 let shouldCheckTypeScript = true;
 
@@ -64,7 +65,7 @@ function makeConfig(mode: string, filename: string, module: boolean) {
     return config;
 }
 
-export default (mode: string) => [
-    makeConfig(mode, "heapify.js", false),
-    makeConfig(mode, "heapify.mjs", true),
+export default (_env: unknown, argv: {mode: string}) => [
+    makeConfig(argv.mode, path.basename(pkg.main), false),
+    makeConfig(argv.mode, path.basename(pkg.module), true),
 ];
