@@ -1,6 +1,6 @@
 
-import * as path from "path";
-import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+const path = require("path");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 let isFirstTarget = true;
 
@@ -52,7 +52,7 @@ function makeConfig(mode: string, target: string, filename: string, module: bool
     return config;
 }
 
-export default (mode: string) => [
+module.exports = (mode: string) => [
     makeConfig(mode, "node", "heapify.node.js", false),
     makeConfig(mode, "web", "heapify.js", false),
     makeConfig(mode, "web", "heapify.mjs", true),
