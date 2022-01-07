@@ -1,7 +1,7 @@
 {
   "files": ["src/heapify.ts"],
   "compilerOptions": {
-    "module": "esnext",
+    "module": "CommonJS",
     "target": "es2015",
     "moduleResolution": "node",
     "declaration": true,

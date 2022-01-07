@@ -24,6 +24,14 @@ export default class BrowserTest {
 
     async run(indexHtml) {
         const page = await this.#browser.newPage();
+
+        page.on("pageerror", (error) => {
+            throw error;
+        });
+        page.on("error", (error) => {
+            throw error;
+        });
+
         const url = `http://localhost:${this.#server.port}/${indexHtml}`;
         await page.goto(url);
         assert.ok(await this.#server.waitForAnswer(), "Test failed!");

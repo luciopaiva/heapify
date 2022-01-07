@@ -1,20 +1,37 @@
 
-const path = require("path");
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+import * as path from "path";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 
-let isFirstTarget = true;
+let shouldCheckTypeScript = true;
 
-function makeConfig(mode: string, target: string, filename: string, module: boolean) {
+function checkTypeScript(plugins: Array<unknown>) {
+    plugins.push(new ForkTsCheckerWebpackPlugin({
+        typescript: {
+            build: true,
+            mode: "write-dts",  // output a declaration file as well
+        },
+    }));
+}
+
+function makeConfig(mode: string, filename: string, module: boolean) {
     const config = {
         mode: mode,
         entry: "./src/heapify.ts",
-        target: target,
+        target: "web",  // works for Node.js too as long as globalObject is set to `this` (see below)
         experiments: {
             outputModule: module,
         },
         output: {
             filename: filename,
             path: path.resolve(__dirname, "dist"),
+
+            /*
+             * Here, `globalObject` must be set to `this` so the same output can work for both Node.js and the browser.
+             * See:
+             * - https://stackoverflow.com/a/64639975/778272
+             * - https://webpack.js.org/configuration/output/#outputglobalobject
+             */
+            globalObject: "this",
             library: {
                 ...!module && {name: "Heapify"},
                 type: module ? "module" : "umd",
@@ -33,27 +50,21 @@ function makeConfig(mode: string, target: string, filename: string, module: bool
                 },
             ],
         },
-        plugins: [
-            ...isFirstTarget ? [  // although we have multiple configurations, we just need to type-check once
-                new ForkTsCheckerWebpackPlugin({
-                    typescript: {
-                        build: true,
-                        mode: "write-dts",  // output a declaration file as well
-                    },
-                })
-            ] : [],
-        ],
+        plugins: [],
         resolve: {
             extensions: [".tsx", ".ts", ".js"],
         },
     };
 
-    isFirstTarget = false;
+    if (shouldCheckTypeScript) {  // although we have multiple configurations, we just need to type-check once
+        checkTypeScript(config.plugins);
+        shouldCheckTypeScript = false;
+    }
+
     return config;
 }
 
-module.exports = (mode: string) => [
-    makeConfig(mode, "node", "heapify.node.js", false),
-    makeConfig(mode, "web", "heapify.js", false),
-    makeConfig(mode, "web", "heapify.mjs", true),
+export default (mode: string) => [
+    makeConfig(mode, "heapify.js", false),
+    makeConfig(mode, "heapify.mjs", true),
 ];

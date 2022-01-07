@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git://github.com/luciopaiva/heapify.git"
   },
-  "main": "dist/heapify.node.js",
+  "main": "dist/heapify.js",
   "module": "dist/heapify.mjs",
   "browser": "dist/heapify.js",
   "types": "dist/heapify.d.ts",
