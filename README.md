@@ -9,19 +9,31 @@
 
 A very fast JavaScript priority queue, implemented using a binary heap, which in turn is implemented using two underlying parallel [typed arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray). No dependencies whatsoever; just plain, vanilla JS.
 
-It's the fastest publicly available JavaScript library implementation of a priority queue. Here's a benchmark comparing Heapify with other popular libraries:
+```js
+import {MinQueue} from "heapify";
+// const {MinQueue} = require("heapify");  // alternatively, require() also works
 
-```
-                             Closure  FlatQueue  TinyQueue    Heapify
-build                            201          -          -         18
-push                             222         66         75         24
-pop                              496        137        917        110
-push/pop batch                   279         83        280         89
-push/pop interleaved             315         50        265         34
-push/pop random                  186         50        257         48
+const queue = new MinQueue();
+queue.push(1, 10);
+queue.push(2, 5);
+queue.pop();  // 2
+queue.peek();  // 1
+queue.clear();
+queue.pop();  // undefined
 ```
 
-See the [benchmark](#benchmark) section below for more details.
+It's the fastest publicly available JavaScript library implementation of a priority queue. Here's a benchmark comparing Heapify to other popular libraries:
+
+| Operation            | Closure | FlatQueue | TinyQueue | Heapify |
+|----------------------|---------|-----------|-----------|---------|
+| build                | 201     | n/a       | n/a       | 18      |
+| push                 | 222     | 66        | 75        | 24      |
+| pop                  | 496     | 137       | 917       | 110     |
+| push/pop batch       | 279     | 83        | 280       | 89      |
+| push/pop interleaved | 315     | 50        | 265       | 34      |
+| push/pop random      | 186     | 50        | 257       | 48      |
+
+See the [benchmark](#benchmark) section for more details.
 
 Heapify's design strives for reliability, with strong test coverage and focus on code readability. It should be easy to understand what the library is doing. The library is also very lean, with no dependencies and a small and concise source code. 
 
@@ -29,10 +41,10 @@ Heapify's design strives for reliability, with strong test coverage and focus on
 
 - [Features](#features)
 - [How to install](#how-to-install)
-- [Basic usage](#basic-usage)
+- [How to import](#how-to-import)
 - [Contributing](#contributing)
 - [API](#api)
-  - [new MinQueue()](#new-heapifycapacity--64-keys---priorities---keysbackingarraytype--uint32array-prioritiesbackingarraytype--uint32array)
+  - [constructor](#constructorcapacity--64-keys---priorities---keysbackingarraytype--uint32array-prioritiesbackingarraytype--uint32array)
   - [capacity](#capacity)
   - [clear()](#clear)
   - [peek()](#peek)
@@ -54,14 +66,12 @@ Supported queue operations:
 
 Other features:
 
-- runs on browser and Node.js with support to ES6 modules
+- runs on browser and Node.js with ES5 and ES6 support
 - tiny code base (under 200 LoC)
-- no dependencies
+- no runtime dependencies
 - supports several types of priorities and keys
 
 ## How to install
-
-### Node.js
 
 ```sh
 npm i heapify
@@ -73,13 +83,17 @@ Or if you're a yarn person:
 yarn add heapify
 ```
 
-Then to use it:
+## How to import
+
+### Node.js
+
+You can `import` it in your Node.js project using TypeScript or directly via [native ES6 module support](https://nodejs.org/api/esm.html):
 
 ```js
 import {MinQueue} from "heapify";
 ```
 
-Or `require()` it:
+Or just `require()` it:
 
 ```js
 const {MinQueue} = require("heapify");
@@ -87,23 +101,7 @@ const {MinQueue} = require("heapify");
 
 ### Browser
 
-If you're on a browser, there's also the option of using a CDN:
-
-```js
-import {MinQueue} from "https://unpkg.com/heapify/dist/heapify.mjs"
-```
-
-Notice the imported script needs to be `.mjs` in this case, not `.js`.
-
-And to import a specific version:
-
-```js
-import {MinQueue} from "https://unpkg.com/heapify@0.6.0/dist/heapify.mjs"
-```
-
-See [unpkg](https://unpkg.com/) for more importing options.
-
-Script tags also work, but you need to reference the `.js` script instead:
+Heapify can be included via regular script tags, where `Heapify` will be exposed globally:
 
 ```html
 <script src="https://unpkg.com/heapify/dist/heapify.js"></script>
@@ -112,22 +110,19 @@ Script tags also work, but you need to reference the `.js` script instead:
 </script>
 ```
 
-## Basic usage
+The example above uses [unpkg](https://unpkg.com), but you can of course reference a local copy installed either manually or via npm/yarn.
+
+For projects using either TypeScript or native ES6 modules, `import` also works, but make sure to import the `.mjs` bundle instead:
 
 ```js
-import {MinQueue} from "heapify";
-// const {MinQueue} = require("heapify");  // <-- require() also works!
-
-const queue = new MinQueue();
-queue.push(1, 10);
-queue.push(2, 5);
-queue.pop();  // 2
-queue.peek();  // 1
-queue.clear();
-queue.pop();  // undefined
+import {MinQueue} from "https://unpkg.com/heapify/dist/heapify.mjs"
 ```
 
-See the API section below for more details.
+And to import a specific version:
+
+```js
+import {MinQueue} from "https://unpkg.com/heapify@0.6.0/dist/heapify.mjs"
+```
 
 ## Contributing
 
@@ -135,7 +130,7 @@ You are welcome to contribute, but please take the time to read and follow [thes
 
 ## API
 
-### new MinQueue(capacity = 64, keys = [], priorities = [], KeysBackingArrayType = Uint32Array, PrioritiesBackingArrayType = Uint32Array)
+### constructor(capacity = 64, keys = [], priorities = [], KeysBackingArrayType = Uint32Array, PrioritiesBackingArrayType = Uint32Array)
 
 Creates a new priority queue. Parameters are:
 

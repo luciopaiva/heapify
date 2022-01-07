@@ -45,3 +45,15 @@ const {MinQueue} = Heapify;
 ```
 
 It is weird that this works at all while the one-line version doesn't, but it does 🤷.
+
+## How to import a specific version of Heapify?
+
+Using npm, just specify the version when installing Heapify:
+
+    npm install heapify@0.6.0
+
+Or using unpkg.com:
+
+    import {MinQueue} from "https://unpkg.com/heapify@0.6.0/dist/heapify.mjs"
+
+See [unpkg](https://unpkg.com/) for more importing options.
