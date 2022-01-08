@@ -1,7 +1,7 @@
 {
   "name": "heapify",
   "version": "0.5.0",
-  "description": "Blazing fast JavaScript priority queue",
+  "description": "Blazing fast priority queue",
   "repository": {
     "type": "git",
     "url": "git://github.com/luciopaiva/heapify.git"
@@ -27,7 +27,8 @@
     "heap",
     "minheap",
     "maxheap",
-    "binary heap"
+    "binary heap",
+    "heapsort"
   ],
   "author": {
     "name": "Lucio Paiva",
