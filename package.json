@@ -6,10 +6,10 @@
     "type": "git",
     "url": "git://github.com/luciopaiva/heapify.git"
   },
-  "main": "dist/heapify.js",
-  "module": "dist/heapify.mjs",
-  "browser": "dist/heapify.js",
-  "types": "dist/heapify.d.ts",
+  "main": "heapify.js",
+  "browser": "heapify.js",
+  "module": "heapify.mjs",
+  "types": "heapify.d.ts",
   "scripts": {
     "test": "jest --coverage",
     "integration": "npm run build:prod --silent && cd test/integration && ts-node --project scripts/run.tsconfig.json scripts/run.ts",
@@ -19,7 +19,10 @@
     "build": "rm -fr dist && webpack --stats errors-warnings --mode=production",
     "build:dev": "rm -fr dist && webpack --mode=development",
     "build:prod": "rm -fr dist && webpack --mode=production",
-    "watch": "rm -fr dist && webpack --watch --mode=development"
+    "watch": "rm -fr dist && webpack --watch --mode=development",
+    "prepublishOnly": "ts-node ../scripts/prepublish.ts",
+    "prerelease": "ts-node scripts/prerelease.ts",
+    "release": "ENABLE_PUBLISH=true npm publish ./dist --dry-run"
   },
   "keywords": [
     "priority queue",
