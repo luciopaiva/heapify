@@ -1,4 +1,4 @@
-
+<!--trigger ci-->
 ![Heapify](https://raw.githubusercontent.com/luciopaiva/heapify/master/logo.png)
 
 [![codecov](https://img.shields.io/codecov/c/github/luciopaiva/heapify)](https://codecov.io/gh/luciopaiva/heapify)
