@@ -5,7 +5,7 @@
 
 This version brings an important major update to Heapify. Until v0.5.x, Heapify could only be used via ES6 modules, forcing the use of `import` statements both in Node.js and the browser. Starting with v0.6, Heapify is now much more accessible, enabling `require()` and non-module script tag usages.
 
-As [is naturally expected](https://semver.org/#spec-item-4) in v0.x versions, this new version introduces a breaking change. The priority queue class is now called `MinQueue` and must be accessed like this:
+As [is naturally expected](https://semver.org/#spec-item-4) in v0.x versions, this new version also introduces a breaking change: the priority queue class is now called `MinQueue` and must be accessed like this:
 
     import {MinQueue} from "heapify";
 
@@ -14,7 +14,7 @@ This change prepares the field for upcoming API additions, starting a journey th
 List of changes:
 
 - completely ported Heapify to TypeScript (with no performance penalty 🎉)
-- added Webpack as builder, generating builds for Node.js and the browser
+- added Webpack as the builder, generating scripts for Node.js and the browser
 - besides `import`, Heapify can now be `require()`d in Node.js as well
 - pre-ES6 browser scripts can now use Heapify too
 - replaced Mocha/c8 with Jest for unit tests and code coverage
