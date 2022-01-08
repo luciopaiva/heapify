@@ -2,9 +2,18 @@
 // this is just to make it clear that we are using a 1-based array; changing it to zero won't work without code changes
 const ROOT_INDEX = 1;
 
-export default class Heapify {
+type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array |
+    Float32Array | Float64Array;
 
-    constructor(capacity = 64, keys = [], priorities = [],
+export class MinQueue {
+    private readonly _capacity: number;
+    private readonly _keys: TypedArray;
+    private readonly _priorities: TypedArray;
+
+    private length: number;
+    private _hasPoppedElement: boolean;
+
+    constructor(capacity = 64, keys: number[] = [], priorities: number[] = [],
         KeysBackingArrayType = Uint32Array,
         PrioritiesBackingArrayType = Uint32Array) {
 
@@ -31,22 +40,19 @@ export default class Heapify {
         }
     }
 
-    get capacity() {
+    get capacity(): number {
         return this._capacity;
     }
 
-    clear() {
+    clear(): void {
         this.length = 0;
         this._hasPoppedElement = false;
     }
 
     /**
      * Bubble an item up until its heap property is satisfied.
-     *
-     * @param {Number} index
-     * @private
      */
-    bubbleUp(index) {
+    private bubbleUp(index: number): void {
         const key = this._keys[index];
         const priority = this._priorities[index];
 
@@ -71,11 +77,8 @@ export default class Heapify {
 
     /**
      * Bubble an item down until its heap property is satisfied.
-     *
-     * @param {Number} index
-     * @private
      */
-    bubbleDown(index) {
+    private bubbleDown(index: number): void {
         const key = this._keys[index];
         const priority = this._priorities[index];
 
@@ -118,10 +121,10 @@ export default class Heapify {
     }
 
     /**
-     * @param {*} key the identifier of the object to be pushed into the heap
-     * @param {Number} priority 32-bit value corresponding to the priority of this key
+     * @param key the identifier of the object to be pushed into the heap
+     * @param priority the priority associated with the key
      */
-    push(key, priority) {
+    push(key: number, priority: number): void {
         if (this.length === this._capacity) {
             throw new Error("Heap has reached capacity, can't push new items");
         }
@@ -142,7 +145,10 @@ export default class Heapify {
         }
     }
 
-    pop() {
+    /**
+     * @return the key with the highest priority, or undefined if the heap is empty
+     */
+    pop(): number | undefined {
         if (this.length === 0) {
             return undefined;
         }
@@ -154,17 +160,17 @@ export default class Heapify {
         return this._keys[ROOT_INDEX];
     }
 
-    peekPriority() {
+    peekPriority(): number {
         this.removePoppedElement();
         return this._priorities[ROOT_INDEX];
     }
 
-    peek() {
+    peek(): number {
         this.removePoppedElement();
         return this._keys[ROOT_INDEX];
     }
 
-    removePoppedElement() {
+    removePoppedElement(): void {
         if (this._hasPoppedElement) {
             // since root element was already deleted from pop, replace with last and bubble down
             this._keys[ROOT_INDEX] = this._keys[this.length + ROOT_INDEX];
@@ -175,11 +181,11 @@ export default class Heapify {
         }
     }
 
-    get size() {
+    get size(): number {
         return this.length;
     }
 
-    dumpRawPriorities() {
+    dumpRawPriorities(): string {
         this.removePoppedElement();
 
         const result = Array(this.length - ROOT_INDEX);

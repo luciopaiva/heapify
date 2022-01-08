@@ -1,9 +1,6 @@
 
-import assert from "assert";
-import Heapify from "../heapify.mjs";
-import mocha from "mocha";
-
-const {describe, it} = mocha;
+import * as assert from "assert";
+import {MinQueue} from "../src/heapify";
 
 /**
  * This example shows how to use Heapify with custom objects. The idea here is using their ids as keys so we're still
@@ -27,7 +24,7 @@ function customObjectsExample() {
     }
 
     // prepare priority queue
-    const queue = new Heapify();
+    const queue = new MinQueue();
     for (const obj of objects) {
         queue.push(obj.id, obj.priority);
     }
@@ -48,11 +45,11 @@ function customObjectsExample() {
  * https://www.wikiwand.com/en/K-way_merge_algorithm
  */
 function kWayMergeExample() {
-    function *merge(sortedSequences) {
-        const seqs = sortedSequences.filter(seq => seq.length > 0);
+    function *merge(sortedSequences: number[][]) {
+        const seqs: number[][] = sortedSequences.filter(seq => seq.length > 0);
         const k = seqs.length;
 
-        const heap = new Heapify(k);
+        const heap = new MinQueue(k);
         const pointers = new Int32Array(k);
 
         for (const [i, seq] of seqs.entries()) {
@@ -60,7 +57,7 @@ function kWayMergeExample() {
         }
 
         while (heap.size > 0) {
-            const i = heap.pop();
+            const i = heap.pop() as number;
 
             const seq = seqs[i];
             let pointer = pointers[i];
@@ -89,6 +86,6 @@ function kWayMergeExample() {
 }
 
 describe("Examples", () => {
-    it("Handling custom objects", customObjectsExample);
-    it("k-way merge", kWayMergeExample);
+    test("how to queue custom objects", customObjectsExample);
+    test("k-way merge", kWayMergeExample);
 });

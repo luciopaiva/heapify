@@ -1,0 +1,30 @@
+{
+  "files": ["src/heapify.ts"],
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "module": "CommonJS",
+    "target": "es2015",
+    "moduleResolution": "node",
+    "declaration": true,
+    "sourceMap": true,
+    "declarationDir": "./dist/",
+    "outDir": "./dist/",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "skipLibCheck": true
+  }
+}

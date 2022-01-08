@@ -9,19 +9,31 @@
 
 A very fast JavaScript priority queue, implemented using a binary heap, which in turn is implemented using two underlying parallel [typed arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray). No dependencies whatsoever; just plain, vanilla JS.
 
-It's the fastest publicly available JavaScript library implementation of a priority queue. Here's a benchmark comparing Heapify with other popular libraries:
+```js
+import {MinQueue} from "heapify";
+// const {MinQueue} = require("heapify");  // alternatively, require() also works
 
-```
-                             Closure  FlatQueue  TinyQueue    Heapify
-build                            201          -          -         18
-push                             222         66         75         24
-pop                              496        137        917        110
-push/pop batch                   279         83        280         89
-push/pop interleaved             315         50        265         34
-push/pop random                  186         50        257         48
+const queue = new MinQueue();
+queue.push(1, 10);
+queue.push(2, 5);
+queue.pop();  // 2
+queue.peek();  // 1
+queue.clear();
+queue.pop();  // undefined
 ```
 
-See the [benchmark](#benchmark) section below for more details.
+It's the fastest publicly available JavaScript library implementation of a priority queue. Here's a benchmark comparing Heapify to other popular libraries:
+
+| Operation            | Closure | FlatQueue | TinyQueue | Heapify |
+|----------------------|---------|-----------|-----------|---------|
+| build                | 201     | n/a       | n/a       | 18      |
+| push                 | 222     | 66        | 75        | 24      |
+| pop                  | 496     | 137       | 917       | 110     |
+| push/pop batch       | 279     | 83        | 280       | 89      |
+| push/pop interleaved | 315     | 50        | 265       | 34      |
+| push/pop random      | 186     | 50        | 257       | 48      |
+
+See the [benchmark](#benchmark) section for more details.
 
 Heapify's design strives for reliability, with strong test coverage and focus on code readability. It should be easy to understand what the library is doing. The library is also very lean, with no dependencies and a small and concise source code. 
 
@@ -29,10 +41,9 @@ Heapify's design strives for reliability, with strong test coverage and focus on
 
 - [Features](#features)
 - [How to install](#how-to-install)
-- [Basic usage](#basic-usage)
-- [Contributing](#contributing)
+- [How to import](#how-to-import)
 - [API](#api)
-  - [new Heapify()](#new-heapifycapacity--64-keys---priorities---keysbackingarraytype--uint32array-prioritiesbackingarraytype--uint32array)
+  - [constructor](#constructorcapacity--64-keys---priorities---keysbackingarraytype--uint32array-prioritiesbackingarraytype--uint32array)
   - [capacity](#capacity)
   - [clear()](#clear)
   - [peek()](#peek)
@@ -41,6 +52,7 @@ Heapify's design strives for reliability, with strong test coverage and focus on
   - [push(key, priority)](#pushkey-priority)
   - [size](#size)
 - [Benchmark](#benchmark)
+- [Contributing](#contributing)
 
 ## Features
 
@@ -54,9 +66,9 @@ Supported queue operations:
 
 Other features:
 
-- runs on browser and Node.js with support to ES6 modules
+- runs on browser and Node.js with ES5 and ES6 support
 - tiny code base (under 200 LoC)
-- no dependencies
+- no runtime dependencies
 - supports several types of priorities and keys
 
 ## How to install
@@ -71,41 +83,50 @@ Or if you're a yarn person:
 yarn add heapify
 ```
 
-If you're on a browser, there's also the option of using a CDN:
+## How to import
+
+### Node.js
+
+You can `import` it in your Node.js project using TypeScript:
 
 ```js
-import Heapify from "https://unpkg.com/heapify"
+import {MinQueue} from "heapify";
 ```
 
-And to import a specific version:
+Or directly via [native ES6 module support](https://nodejs.org/api/esm.html), using the `mjs` ES6 module bundle:
 
 ```js
-import Heapify from "https://unpkg.com/heapify@0.2.1"
+import {MinQueue} from "heapify/heapify.mjs";
 ```
 
-## Basic usage
+Or just `require()` it in your good old CommonJS project:
 
 ```js
-import Heapify from "heapify";
-
-const queue = new Heapify();
-queue.push(1, 10);
-queue.push(2, 5);
-queue.pop();  // 2
-queue.peek();  // 1
-queue.clear();
-queue.pop();  // undefined
+const {MinQueue} = require("heapify");
 ```
 
-See the API section below for more details.
+### Browser
 
-## Contributing
+Heapify can be included via regular script tags, where `Heapify` will be exposed globally:
 
-You are welcome to contribute, but please take the time to read and follow [these guidelines](CONTRIBUTING.md).
+```html
+<script src="https://unpkg.com/heapify"></script>
+<script>
+  const {MinQueue} = Heapify;
+</script>
+```
+
+The example above uses [unpkg](https://unpkg.com), but you can of course reference a local copy installed either manually or via npm/yarn.
+
+For projects using native ES6 modules, make sure to import the `mjs` ES6 module bundle instead:
+
+```js
+import {MinQueue} from "https://unpkg.com/heapify/heapify.mjs"
+```
 
 ## API
 
-### new Heapify(capacity = 64, keys = [], priorities = [], KeysBackingArrayType = Uint32Array, PrioritiesBackingArrayType = Uint32Array)
+### constructor(capacity = 64, keys = [], priorities = [], KeysBackingArrayType = Uint32Array, PrioritiesBackingArrayType = Uint32Array)
 
 Creates a new priority queue. Parameters are:
 
@@ -118,8 +139,8 @@ Creates a new priority queue. Parameters are:
 Example:
 
 ```js
-const queue1 = new Heapify(32);
-const queue2 = new Heapify(16, [], [], Uint16Array, Uint32Array);
+const queue1 = new MinQueue(32);
+const queue2 = new MinQueue(16, [], [], Uint16Array, Uint32Array);
 ```
 
 ### capacity
@@ -127,7 +148,7 @@ const queue2 = new Heapify(16, [], [], Uint16Array, Uint32Array);
 A read-only property that returns the maximum capacity of the queue. Example:
 
 ```js
-const queue = new Heapify(32);
+const queue = new MinQueue(32);
 queue.capacity;  // 32
 ```
 
@@ -138,7 +159,7 @@ Effectively empties the queue. The heap capacity is not changed, nor its element
 Example:
 
 ```js
-const queue = new Heapify();
+const queue = new MinQueue();
 queue.push(1, 10);
 console.info(queue.size);  // 1
 queue.clear();
@@ -152,7 +173,7 @@ Gets the key with the smallest priority, but does not remove it from the queue.
 Example:
 
 ```js
-const queue = new Heapify();
+const queue = new MinQueue();
 queue.push(1, 10);
 queue.peek();  // 1
 ```
@@ -164,7 +185,7 @@ Gets the _priority_ of the key with the smallest priority, but does not remove t
 Example:
 
 ```js
-const queue = new Heapify();
+const queue = new MinQueue();
 queue.push(1, 10);
 queue.peekPriority();  // 10
 ```
@@ -178,7 +199,7 @@ Note that Heapify's heap implementation is not [stable](https://ece.uwaterloo.ca
 Example:
 
 ```js
-const queue = new Heapify();
+const queue = new MinQueue();
 queue.push(1, 10);
 queue.pop();  // 1
 ```
@@ -190,7 +211,7 @@ Adds a new item to the queue with a given `key` and `priority`. Will throw an er
 Example:
 
 ```js
-const queue = new Heapify();
+const queue = new MinQueue();
 queue.push(1, 10);
 queue.size;  // 1
 queue.peek();  // 1
@@ -204,7 +225,7 @@ A read-only property that returns the current size of the queue.
 Example:
 
 ```js
-const queue = new Heapify();
+const queue = new MinQueue();
 queue.size;  // 0
 queue.push(1, 10);
 queue.size;  // 1
@@ -243,3 +264,7 @@ Tested libraries:
 - [Google Closure library](https://github.com/google/closure-library/blob/master/closure/goog/structs/heap.js) - a hugely popular library, but is the worst implementation with respect to performance;
 - [Fast Priority Queue](https://github.com/lemire/FastPriorityQueue.js) - runs comparably fast, but doesn't support inserting keys as well, so its implementation significantly limits what the user is able to achieve with it;
 - [FlatQueue](https://github.com/mourner/flatqueue) and [TinyQueue](https://github.com/mourner/flatqueue) - two very nice queue implementations by Vladimir Agafonkin. They don't support the build method and that's why they're missing this benchmark. FlatQueue performs considerably well for an implementation that is not based on typed arrays.
+
+## Contributing
+
+You are welcome to contribute, but please take the time to read and follow [these guidelines](CONTRIBUTING.md).

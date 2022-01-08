@@ -1,10 +1,19 @@
 {
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
     "env": {
         "browser": true,
         "es6": true,
         "node": true
     },
-    "extends": "eslint:recommended",
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -15,7 +24,7 @@
     },
     "rules": {
         "accessor-pairs": "error",
-        "array-bracket-newline": "error",
+        "array-bracket-newline": ["error", { "multiline": true }],
         "array-bracket-spacing": [
             "error",
             "never"
@@ -75,8 +84,8 @@
         "id-length": "off",
         "id-match": "error",
         "implicit-arrow-linebreak": "error",
-        "indent": "off",
-        "indent-legacy": "error",
+        "indent": ["error", 4],
+        "indent-legacy": "off",
         "init-declarations": "error",
         "jsx-quotes": "error",
         "key-spacing": "error",
@@ -90,7 +99,8 @@
         "lines-around-directive": "error",
         "lines-between-class-members": [
             "error",
-            "always"
+            "always",
+            { "exceptAfterSingleLine": true }
         ],
         "max-classes-per-file": "error",
         "max-depth": "error",
@@ -115,7 +125,7 @@
         "no-buffer-constructor": "error",
         "no-caller": "error",
         "no-catch-shadow": "error",
-        "no-confusing-arrow": "error",
+        "no-confusing-arrow": "off",
         "no-console": "error",
         "no-constructor-return": "error",
         "no-continue": "error",
@@ -156,7 +166,7 @@
         "no-multi-str": "error",
         "no-multiple-empty-lines": "error",
         "no-native-reassign": "error",
-        "no-negated-condition": "error",
+        "no-negated-condition": "off",
         "no-negated-in-lhs": "error",
         "no-nested-ternary": "error",
         "no-new": "error",
@@ -209,11 +219,11 @@
         "object-curly-newline": "error",
         "object-curly-spacing": "off",
         "object-property-newline": "off",
-        "object-shorthand": "error",
+        "object-shorthand": "off",
         "one-var": "off",
         "one-var-declaration-per-line": "error",
         "operator-assignment": "error",
-        "operator-linebreak": "error",
+        "operator-linebreak": ["error", "after"],
         "padded-blocks": "off",
         "padding-line-between-statements": "error",
         "prefer-arrow-callback": "error",
@@ -261,7 +271,7 @@
         "space-before-function-paren": ["error", {
             "anonymous": "always",
             "named": "never",
-            "asyncArrow": "never"
+            "asyncArrow": "always"
         }],
         "space-in-parens": "error",
         "space-infix-ops": "error",
@@ -290,7 +300,7 @@
         ],
         "valid-jsdoc": "off",
         "vars-on-top": "error",
-        "wrap-iife": "error",
+        "wrap-iife": ["error", "inside"],
         "wrap-regex": "error",
         "yield-star-spacing": "error",
         "yoda": [
