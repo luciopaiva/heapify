@@ -96,7 +96,7 @@ import {MinQueue} from "heapify";
 Or directly via [native ES6 module support](https://nodejs.org/api/esm.html), using the `mjs` ES6 module bundle:
 
 ```js
-import {MinQueue} from "heapify/mjs";
+import {MinQueue} from "heapify/heapify.mjs";
 ```
 
 Or just `require()` it in your good old CommonJS project:
@@ -121,7 +121,7 @@ The example above uses [unpkg](https://unpkg.com), but you can of course referen
 For projects using native ES6 modules, make sure to import the `mjs` ES6 module bundle instead:
 
 ```js
-import {MinQueue} from "https://unpkg.com/heapify/mjs"
+import {MinQueue} from "https://unpkg.com/heapify/heapify.mjs"
 ```
 
 ## API

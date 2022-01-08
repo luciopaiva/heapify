@@ -38,7 +38,7 @@ Developer note: the error is only seen in the Heapify production build. If I bui
 This is the correct way of doing it:
 
 ```js
-import {MinQueue} from "heapify/mjs";
+import {MinQueue} from "heapify/heapify.mjs";
 ```
 
 The `main` script exported by Heapify's `package.json` is a CommonJS module, but current Node.js versions still have trouble handling CommonJS modules imported by ES6 module scripts. [There are ways](https://techsparx.com/nodejs/esnext/dynamic-import-2.html) to do it, but they are not very pretty.
