@@ -55,12 +55,17 @@ async function stage(command: string) {
 }
 
 (async function main() {
-    console.info("> running prerelease procedure");
-    await stage("npm run build:prod");
-    await stage("npm run lint");
-    await stage("npm test");
-    await stage("npm run integration");
-    copyBaseFiles();
-    verifyFiles();
-    checkForExtranousFiles();
+    try {
+        console.info("> running prerelease procedure");
+        await stage("npm run build:prod");
+        await stage("npm run lint");
+        await stage("npm test");
+        await stage("npm run integration");
+        copyBaseFiles();
+        verifyFiles();
+        checkForExtranousFiles();
+    } catch (e) {
+        console.error("Prerelease script failed");
+        throw e;
+    }
 })();
