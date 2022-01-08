@@ -42,7 +42,6 @@ Heapify's design strives for reliability, with strong test coverage and focus on
 - [Features](#features)
 - [How to install](#how-to-install)
 - [How to import](#how-to-import)
-- [Contributing](#contributing)
 - [API](#api)
   - [constructor](#constructorcapacity--64-keys---priorities---keysbackingarraytype--uint32array-prioritiesbackingarraytype--uint32array)
   - [capacity](#capacity)
@@ -53,6 +52,7 @@ Heapify's design strives for reliability, with strong test coverage and focus on
   - [push(key, priority)](#pushkey-priority)
   - [size](#size)
 - [Benchmark](#benchmark)
+- [Contributing](#contributing)
 
 ## Features
 
@@ -87,13 +87,19 @@ yarn add heapify
 
 ### Node.js
 
-You can `import` it in your Node.js project using TypeScript or directly via [native ES6 module support](https://nodejs.org/api/esm.html):
+You can `import` it in your Node.js project using TypeScript:
 
 ```js
 import {MinQueue} from "heapify";
 ```
 
-Or just `require()` it:
+Or directly via [native ES6 module support](https://nodejs.org/api/esm.html), using the `mjs` ES6 module bundle:
+
+```js
+import {MinQueue} from "heapify/mjs";
+```
+
+Or just `require()` it in your good old CommonJS project:
 
 ```js
 const {MinQueue} = require("heapify");
@@ -104,7 +110,7 @@ const {MinQueue} = require("heapify");
 Heapify can be included via regular script tags, where `Heapify` will be exposed globally:
 
 ```html
-<script src="https://unpkg.com/heapify/dist/heapify.js"></script>
+<script src="https://unpkg.com/heapify"></script>
 <script>
   const {MinQueue} = Heapify;
 </script>
@@ -112,21 +118,11 @@ Heapify can be included via regular script tags, where `Heapify` will be exposed
 
 The example above uses [unpkg](https://unpkg.com), but you can of course reference a local copy installed either manually or via npm/yarn.
 
-For projects using either TypeScript or native ES6 modules, `import` also works, but make sure to import the `.mjs` bundle instead:
+For projects using native ES6 modules, make sure to import the `mjs` ES6 module bundle instead:
 
 ```js
-import {MinQueue} from "https://unpkg.com/heapify/dist/heapify.mjs"
+import {MinQueue} from "https://unpkg.com/heapify/mjs"
 ```
-
-And to import a specific version:
-
-```js
-import {MinQueue} from "https://unpkg.com/heapify@0.6.0/dist/heapify.mjs"
-```
-
-## Contributing
-
-You are welcome to contribute, but please take the time to read and follow [these guidelines](CONTRIBUTING.md).
 
 ## API
 
@@ -268,3 +264,7 @@ Tested libraries:
 - [Google Closure library](https://github.com/google/closure-library/blob/master/closure/goog/structs/heap.js) - a hugely popular library, but is the worst implementation with respect to performance;
 - [Fast Priority Queue](https://github.com/lemire/FastPriorityQueue.js) - runs comparably fast, but doesn't support inserting keys as well, so its implementation significantly limits what the user is able to achieve with it;
 - [FlatQueue](https://github.com/mourner/flatqueue) and [TinyQueue](https://github.com/mourner/flatqueue) - two very nice queue implementations by Vladimir Agafonkin. They don't support the build method and that's why they're missing this benchmark. FlatQueue performs considerably well for an implementation that is not based on typed arrays.
+
+## Contributing
+
+You are welcome to contribute, but please take the time to read and follow [these guidelines](CONTRIBUTING.md).
