@@ -9,14 +9,46 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import pkg from "../package.json";
 
-const FILES = [
+const DIST_FOLDER = "dist";
+
+const BASE_FILES = [
     "package.json",
     "README.md",
     "LICENSE.md",
 ];
 
-FILES.forEach(source => {
-    const destination = path.resolve("dist", source);
-    fs.copyFileSync(source, destination);
-});
+const ALL_FILES = new Set(BASE_FILES.concat(pkg.main, pkg.module, pkg.browser, pkg.types));
+
+function copyBaseFiles() {
+    BASE_FILES.forEach(source => {
+        const destination = path.resolve("dist", source);
+        fs.copyFileSync(source, destination);
+    });
+    console.info("✓ base files copies");
+}
+
+function verifyFiles() {
+    for (const file of ALL_FILES) {
+        const fullPath = path.resolve(DIST_FOLDER, file);
+        if (!fs.existsSync(fullPath)) {
+            throw new Error(`File "${file}" was not found, but is expected for the release.`);
+        }
+    }
+    console.info("✓ file list verified");
+}
+
+function checkForExtranousFiles() {
+    for (const file of fs.readdirSync(DIST_FOLDER)) {
+        if (!ALL_FILES.has(file)) {
+            throw new Error(`Extraneous file "${file}" found in release folder.`);
+        }
+    }
+    console.info("✓ no extraneous files found");
+}
+
+console.info("> running prerelease procedure");
+copyBaseFiles();
+verifyFiles();
+checkForExtranousFiles();
