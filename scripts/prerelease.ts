@@ -9,6 +9,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import {exec} from "./exec";
 import pkg from "../package.json";
 
 const DIST_FOLDER = "dist";
@@ -48,7 +49,18 @@ function checkForExtranousFiles() {
     console.info("✓ no extraneous files found");
 }
 
-console.info("> running prerelease procedure");
-copyBaseFiles();
-verifyFiles();
-checkForExtranousFiles();
+async function stage(command: string) {
+    await exec(command.split(/\s+/u));
+    console.info(`✓ ${command}`);
+}
+
+(async function main() {
+    console.info("> running prerelease procedure");
+    await stage("npm run build:prod");
+    await stage("npm run lint");
+    await stage("npm test");
+    await stage("npm run integration");
+    copyBaseFiles();
+    verifyFiles();
+    checkForExtranousFiles();
+})();

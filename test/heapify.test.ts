@@ -8,7 +8,7 @@ describe("MinQueue", () => {
 
     test("create simple priority queue", () => {
         const queue = new MinQueue();
-        assert(queue instanceof MinQueue);
+        assert.ok(queue instanceof MinQueue);
     });
 
     test("default capacity", () => {
