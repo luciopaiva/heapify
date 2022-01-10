@@ -170,7 +170,7 @@ export class MinQueue {
         return this._keys[ROOT_INDEX];
     }
 
-    removePoppedElement(): void {
+    private removePoppedElement(): void {
         if (this._hasPoppedElement) {
             // since root element was already deleted from pop, replace with last and bubble down
             this._keys[ROOT_INDEX] = this._keys[this.length + ROOT_INDEX];
