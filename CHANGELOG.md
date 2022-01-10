@@ -1,6 +1,10 @@
 
 # CHANGELOG
 
+## v0.6.1
+
+- hide internal method
+
 ## v0.6.0
 
 This version brings an important major update to Heapify. Until v0.5.x, Heapify could only be used via ES6 modules, forcing the use of `import` statements both in Node.js and the browser. Starting with v0.6, Heapify is now much more accessible, enabling `require()` and non-module script tag usages.
