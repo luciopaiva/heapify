@@ -40,7 +40,7 @@ function verifyFiles() {
     console.info("✓ file list verified");
 }
 
-function checkForExtranousFiles() {
+function checkForExtraneousFiles() {
     for (const file of fs.readdirSync(DIST_FOLDER)) {
         if (!ALL_FILES.has(file)) {
             throw new Error(`Extraneous file "${file}" found in release folder.`);
@@ -63,7 +63,7 @@ async function stage(command: string) {
         await stage("npm run integration");
         copyBaseFiles();
         verifyFiles();
-        checkForExtranousFiles();
+        checkForExtraneousFiles();
     } catch (e) {
         console.error("Prerelease script failed");
         throw e;
