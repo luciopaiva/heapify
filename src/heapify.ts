@@ -1,6 +1,6 @@
 
-// this is just to make it clear that we are using a 1-based array; changing it to zero won't work without code changes
-const ROOT_INDEX = 1;
+// this is just to make it clear that we are using a 0-based array
+const ROOT_INDEX = 0;
 
 type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array |
     Float32Array | Float64Array;
@@ -58,7 +58,7 @@ export class MinQueue {
 
         while (index > ROOT_INDEX) {
             // get its parent item
-            const parentIndex = index >>> 1;
+            const parentIndex = index - 1 >>> 1;
             if (this._priorities[parentIndex] <= priority) {
                 break;  // if parent priority is smaller, heap property is satisfied
             }
@@ -85,7 +85,7 @@ export class MinQueue {
         const halfLength = ROOT_INDEX + (this.length >>> 1);  // no need to check the last level
         const lastIndex = this.length + ROOT_INDEX;
         while (index < halfLength) {
-            const left = index << 1;
+            const left = (index << 1) + 1;
 
             // pick the left child
             let childPriority = this._priorities[left];
