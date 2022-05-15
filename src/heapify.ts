@@ -14,8 +14,8 @@ export class MinQueue {
     private _hasPoppedElement: boolean;
 
     constructor(capacity = 64, keys: number[] = [], priorities: number[] = [],
-        KeysBackingArrayType = Uint32Array,
-        PrioritiesBackingArrayType = Uint32Array) {
+        KeysBackingArrayType: TypedArray = Uint32Array,
+        PrioritiesBackingArrayType: TypedArray = Uint32Array) {
 
         this._capacity = capacity;
         this._keys = new KeysBackingArrayType(capacity + ROOT_INDEX);
