@@ -5,6 +5,10 @@ const ROOT_INDEX = 1;
 type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array |
     Float32Array | Float64Array;
 
+interface TypedArrayConstructor {
+    new(capacity: number): TypedArray;
+}
+
 export class MinQueue {
     private readonly _capacity: number;
     private readonly _keys: TypedArray;
@@ -14,8 +18,8 @@ export class MinQueue {
     private _hasPoppedElement: boolean;
 
     constructor(capacity = 64, keys: number[] = [], priorities: number[] = [],
-        KeysBackingArrayType: TypedArray = Uint32Array,
-        PrioritiesBackingArrayType: TypedArray = Uint32Array) {
+        KeysBackingArrayType: TypedArrayConstructor = Uint32Array,
+        PrioritiesBackingArrayType: TypedArrayConstructor = Uint32Array) {
 
         this._capacity = capacity;
         this._keys = new KeysBackingArrayType(capacity + ROOT_INDEX);
