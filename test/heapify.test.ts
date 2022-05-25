@@ -240,4 +240,20 @@ describe("MinQueue", () => {
         // v0.4.0 returns 3 here
         assert.strictEqual(queue.pop(), 2);
     });
+
+    test("get priority of given key", () => {
+        const queue = new MinQueue();
+        queue.push(1, 10);
+        queue.push(2, 20);
+        queue.push(3, 15);
+        assert.strictEqual(queue.getPriority(1), 10);
+        assert.strictEqual(queue.getPriority(2), 20);
+        assert.strictEqual(queue.getPriority(3), 15);
+    })
+
+    test("get priority returns undefined if key not found", () => {
+        const queue = new MinQueue();
+        queue.push(1, 10);
+        assert.strictEqual(queue.getPriority(2), undefined);
+    })
 });
