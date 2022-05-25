@@ -51,6 +51,7 @@ Heapify's design strives for reliability, with strong test coverage and focus on
   - [pop()](#pop)
   - [push(key, priority)](#pushkey-priority)
   - [size](#size)
+  - [getPriority(key)](#getpriority-key)
 - [Benchmark](#benchmark)
 - [Contributing](#contributing)
 
@@ -231,6 +232,18 @@ queue.push(1, 10);
 queue.size;  // 1
 queue.pop();
 queue.size;  // 0
+```
+
+### getPriority(key)
+
+Gets the _priority_ of the given `key`.
+
+Example:
+
+```js
+const queue = new MinQueue();
+queue.push(1, 10);
+queue.getPriority(1); // 10
 ```
 
 ## Benchmark
