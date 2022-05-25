@@ -170,6 +170,11 @@ export class MinQueue {
         return this._keys[ROOT_INDEX];
     }
 
+    getPriority(key: number): number | undefined {
+        const index = this._keys.findIndex(k => k === key);
+        return index === -1 ? undefined : this._priorities[index];
+    }
+
     private removePoppedElement(): void {
         if (this._hasPoppedElement) {
             // since root element was already deleted from pop, replace with last and bubble down
