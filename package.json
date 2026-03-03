@@ -11,8 +11,8 @@
   "module": "heapify.mjs",
   "types": "heapify.d.ts",
   "scripts": {
-    "test": "vitest --coverage",
-    "integration": "npm run build:prod --silent && cd test/integration && ts-node --project scripts/run.tsconfig.json scripts/run.ts",
+    "test": "vitest run --coverage",
+    "integration": "npm run build:prod && vitest run --config vitest.integration.config.ts",
     "count": "cloc src/heapify.ts",
     "bench": "node benchmark/index.mjs",
     "lint": "eslint .",
@@ -52,6 +52,7 @@
     "flatqueue": "1.1.0",
     "globals": "^17.4.0",
     "google-closure-library": "20200830.0.0",
+    "playwright": "^1.58.2",
     "tinyqueue": "2.0.3",
     "ts-node": "^10.4.0",
     "typescript": "^5.9.3",

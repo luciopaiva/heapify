@@ -1,6 +1,10 @@
 
 # CHANGELOG
 
+## v1.0.0
+
+- modernize project (use vite, vitetest)
+
 ## v0.6.1
 
 - hide internal method

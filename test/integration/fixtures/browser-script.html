@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Browser script tag test</title>
+</head>
+<body>
+<script src="./heapify.js"></script>
+<script>
+    const {MinQueue} = Heapify;
+
+    const queue = new MinQueue();
+    queue.push(3, 3);
+    queue.push(2, 2);
+    queue.push(1, 1);
+
+    const results = [];
+    while (queue.size > 0) {
+        results.push(queue.pop());
+    }
+
+    globalThis.__TEST_RESULT__ = results.join(",") === "1,2,3";
+</script>
+</body>
+</html>
