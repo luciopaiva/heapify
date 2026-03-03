@@ -1,4 +1,4 @@
-/* eslint-disable no-sync */
+ 
 import fs from "fs";
 import http from "http";
 import {testFunction} from "common";

@@ -1,5 +1,4 @@
-
-/* eslint-disable no-console */
+ 
 
 const ONE_MILLI_IN_NANOS = 1000000n;
 

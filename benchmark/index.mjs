@@ -1,4 +1,4 @@
-/* eslint-disable no-console,func-style */
+/* eslint-disable no-console */
 
 import ClosureBenchmark from "./closure-benchmark.mjs";
 import FastPriorityQueueBenchmark from "./fast-priority-queue-benchmark.mjs";

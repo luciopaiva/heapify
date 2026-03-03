@@ -3,7 +3,7 @@
  * https://stackoverflow.com/a/51651639/778272
  */
 
-/* eslint-disable no-process-env, no-console, no-process-exit */
+/* eslint-disable no-console */
 
 const ENABLE_PUBLISH = Boolean(process.env.ENABLE_PUBLISH);
 

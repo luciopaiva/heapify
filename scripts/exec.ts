@@ -1,4 +1,4 @@
-/* eslint-disable no-console, no-empty-function, @typescript-eslint/no-empty-function */
+/* eslint-disable no-console, no-empty-function */
 import {spawn} from "child_process";
 
 interface CompletablePromise<T> extends PromiseLike<T> {
@@ -18,7 +18,7 @@ function makeCompletablePromise(): CompletablePromise<unknown> {
     return promise;
 }
 
-export async function exec(cmd: string|string[], timeout = 60_000) {
+export async function exec(cmd: string | string[], timeout = 60_000) {
     try {
         const [command, ...args] = typeof cmd === "string" ? [cmd] : cmd;
         const child = spawn(command, args, {

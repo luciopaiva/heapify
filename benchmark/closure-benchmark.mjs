@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 /* global goog */
 
 import "google-closure-library";

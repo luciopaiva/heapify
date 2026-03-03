@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 
 import Benchmark from "./benchmark.mjs";
 import {MinQueue} from "../dist/heapify.mjs";

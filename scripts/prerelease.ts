@@ -5,7 +5,7 @@
  * one can now import `heapify/heapify.mjs`.
  */
 
-/* eslint-disable no-process-env, no-console, no-process-exit, no-sync */
+/* eslint-disable no-console */
 
 import * as fs from "fs";
 import * as path from "path";
