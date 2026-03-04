@@ -28,10 +28,7 @@
     "build": "npm run clean && vite build",
     "build:dev": "npm run clean && vite build --mode development",
     "build:prod": "npm run clean && vite build",
-    "watch": "vite build --watch",
-    "prepublishOnly": "ts-node ../scripts/prepublish.ts",
-    "prerelease": "ts-node scripts/prerelease.ts",
-    "release": "ENABLE_PUBLISH=true npm publish ./dist --dry-run"
+    "watch": "vite build --watch"
   },
   "keywords": [
     "priority queue",
@@ -57,7 +54,6 @@
     "eslint": "^10.0.2",
     "globals": "^17.4.0",
     "playwright": "^1.58.2",
-    "ts-node": "^10.4.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.56.1",
     "vite": "^7.3.1",

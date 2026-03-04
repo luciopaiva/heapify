@@ -1,0 +1,91 @@
+name: Release to npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (e.g. 0.7.0)"
+        required: true
+        type: string
+      dry-run:
+        description: "Dry run (skip actual publish)"
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Set version
+        run: npm version "${{ inputs.version }}" --no-git-tag-version
+
+      - name: Build
+        run: npm run build:prod
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Integration tests
+        run: npm run integration
+
+      - name: Prepare dist for publishing
+        run: |
+          cp package.json dist/
+          cp README.md dist/
+          cp LICENSE.md dist/
+
+      - name: Verify dist contents
+        run: |
+          echo "Contents of dist/:"
+          ls -la dist/
+          # Verify expected files exist
+          for f in package.json README.md LICENSE.md heapify.js heapify.mjs heapify.d.ts; do
+            if [ ! -f "dist/$f" ]; then
+              echo "ERROR: expected file dist/$f not found"
+              exit 1
+            fi
+          done
+          echo "All expected files present."
+
+      - name: Publish (dry run)
+        if: inputs.dry-run
+        run: npm publish ./dist --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish
+        if: ${{ !inputs.dry-run }}
+        run: npm publish ./dist
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create git tag
+        if: ${{ !inputs.dry-run }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "v${{ inputs.version }}"
+          git push origin "v${{ inputs.version }}"
