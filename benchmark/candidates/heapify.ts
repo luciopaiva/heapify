@@ -1,85 +1,71 @@
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import Benchmark from "../benchmark.js";
+import { MinQueue } from "heapify";
 
-import "google-closure-library";
-import Benchmark from "./benchmark.js";
+export default class HeapifyBenchmark extends Benchmark<number> {
 
-declare const goog: any;
-
-goog.require("goog.structs.Heap");
-
-export default class ClosureBenchmark extends Benchmark<number> {
-
-    q: any;
-    buildQ: any;
+    q: MinQueue;
 
     constructor(indexes: number[], data: number[], numberOfKeys: number, batchSize: number) {
-        super("Closure", indexes, data, numberOfKeys, batchSize);
-        this.q = new goog.structs.Heap();
-        this.buildQ = new goog.structs.Heap();
-        this.reset();
+        super("Heapify", indexes, data, numberOfKeys, batchSize);
+        this.q = new MinQueue(this.numberOfKeys);
     }
 
     reset(): void {
-        this.q = new goog.structs.Heap();
-
-        this.buildQ = new goog.structs.Heap();
-        for (let i = 0; i < this.numberOfKeys; i++) {
-            this.buildQ.insert(this.indexes[i], this.data[i]);
-        }
+        this.q = new MinQueue(this.numberOfKeys);
     }
 
-    buildTest(): void {
-        this.q.insertAll(this.buildQ);
+    buildTest(indexes: number[], data: number[]): void {
+        // eslint-disable-next-line no-new
+        new MinQueue(this.numberOfKeys, indexes, data);
     }
 
     pushTest(data: number[]): void {
         for (let i = 0; i < this.numberOfKeys; i++) {
-            this.q.insert(data[i], i);
+            this.q.push(i, data[i]);
         }
     }
 
     popTest(): void {
         for (let i = 0; i < this.numberOfKeys; i++) {
-            this.q.remove();
+            this.q.pop();
         }
     }
 
     pushPopBatchTest(data: number[]): void {
         for (let i = 0; i < this.numberOfKeys; i += this.batchSize) {
             for (let j = 0; j < this.batchSize; j++) {
-                this.q.insert(data[i + j], i);
+                this.q.push(i, data[i + j]);
             }
             for (let j = 0; j < this.batchSize; j++) {
-                this.q.remove();
+                this.q.pop();
             }
         }
     }
 
     preparePushPopInterleaved(data: number[], prepareSize: number): void {
         for (let i = 0; i < prepareSize; i++) {
-            this.q.insert(data[i], i);
+            this.q.push(i, data[i]);
         }
     }
 
     pushPopInterleaved(data: number[], prepareSize: number, remainingSize: number): void {
         for (let i = prepareSize; i < remainingSize; i++) {
-            this.q.insert(data[i], i);
-            this.q.remove();
+            this.q.push(i, data[i]);
+            this.q.pop();
         }
     }
 
     preparePushPopRandom(data: number[], prepareSize: number): Array<() => void> {
-        // add a few before starting
         for (let i = 0; i < prepareSize; i++) {
-            this.q.insert(data[i], i);
+            this.q.push(i, data[i]);
         }
         const remainingSize = this.numberOfKeys - prepareSize;
 
         const walk: Array<() => void> = [];
-        const pop = this.q.remove.bind(this.q);
+        const pop = this.q.pop.bind(this.q);
         for (let i = prepareSize; i < remainingSize; i++) {
-            walk.push(Math.random() < 0.5 ? () => this.q.insert(data[i], i) : pop);
+            walk.push(Math.random() < 0.5 ? () => this.q.push(i, data[i]) : pop);
         }
         return walk;
     }

@@ -1,27 +1,29 @@
 
-import Benchmark from "./benchmark.js";
-import FlatQueue from "flatqueue";
+import Benchmark from "../benchmark.js";
+import TinyQueue from "tinyqueue";
 
-export default class FlatQueueBenchmark extends Benchmark<number> {
+type Item = { value: number };
 
-    q: FlatQueue<number>;
+export default class TinyQueueBenchmark extends Benchmark<Item> {
 
-    constructor(indexes: number[], data: number[], numberOfKeys: number, batchSize: number) {
-        super("FlatQueue", indexes, data, numberOfKeys, batchSize);
-        this.q = new FlatQueue<number>();
+    q: TinyQueue<Item>;
+
+    constructor(indexes: number[], data: Item[], numberOfKeys: number, batchSize: number) {
+        super("TinyQueue", indexes, data, numberOfKeys, batchSize);
+        this.q = new TinyQueue<Item>([], (a, b) => a.value - b.value);
     }
 
     reset(): void {
-        this.q = new FlatQueue<number>();
+        this.q = new TinyQueue<Item>([], (a, b) => a.value - b.value);
     }
 
     buildTest(): void {
         // override parent class and do nothing
     }
 
-    pushTest(data: number[]): void {
+    pushTest(data: Item[]): void {
         for (let i = 0; i < this.numberOfKeys; i++) {
-            this.q.push(i, data[i]);
+            this.q.push(data[i]);
         }
     }
 
@@ -31,10 +33,10 @@ export default class FlatQueueBenchmark extends Benchmark<number> {
         }
     }
 
-    pushPopBatchTest(data: number[]): void {
+    pushPopBatchTest(data: Item[]): void {
         for (let i = 0; i < this.numberOfKeys; i += this.batchSize) {
             for (let j = 0; j < this.batchSize; j++) {
-                this.q.push(i, data[i + j]);
+                this.q.push(data[i + j]);
             }
             for (let j = 0; j < this.batchSize; j++) {
                 this.q.pop();
@@ -42,30 +44,30 @@ export default class FlatQueueBenchmark extends Benchmark<number> {
         }
     }
 
-    preparePushPopInterleaved(data: number[], prepareSize: number): void {
+    preparePushPopInterleaved(data: Item[], prepareSize: number): void {
         for (let i = 0; i < prepareSize; i++) {
-            this.q.push(i, data[i]);
+            this.q.push(data[i]);
         }
     }
 
-    pushPopInterleaved(data: number[], prepareSize: number, remainingSize: number): void {
+    pushPopInterleaved(data: Item[], prepareSize: number, remainingSize: number): void {
         for (let i = prepareSize; i < remainingSize; i++) {
-            this.q.push(i, data[i]);
+            this.q.push(data[i]);
             this.q.pop();
         }
     }
 
-    preparePushPopRandom(data: number[], prepareSize: number): Array<() => void> {
+    preparePushPopRandom(data: Item[], prepareSize: number): Array<() => void> {
         // add a few before starting
         for (let i = 0; i < prepareSize; i++) {
-            this.q.push(i, data[i]);
+            this.q.push(data[i]);
         }
         const remainingSize = this.numberOfKeys - prepareSize;
 
         const walk: Array<() => void> = [];
         const pop = this.q.pop.bind(this.q);
         for (let i = prepareSize; i < remainingSize; i++) {
-            walk.push(Math.random() < 0.5 ? () => this.q.push(i, data[i]) : pop);
+            walk.push(Math.random() < 0.5 ? () => this.q.push(data[i]) : pop);
         }
         return walk;
     }

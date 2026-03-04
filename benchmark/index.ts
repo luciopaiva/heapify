@@ -3,12 +3,12 @@
 import { type BenchmarkData, generateMarkdownTable, updateReadme, writeCsv } from "./utils/publish.js";
 import { dirname, resolve } from "node:path";
 import Benchmark from "./benchmark.js";
-import ClosureBenchmark from "./closure-benchmark.js";
-import FastPriorityQueueBenchmark from "./fast-priority-queue-benchmark.js";
+import ClosureBenchmark from "./candidates/closure.js";
+import FastPriorityQueueBenchmark from "./candidates/fast-priority-queue.js";
 import { fileURLToPath } from "node:url";
-import FlatQueueBenchmark from "./flat-queue-benchmark.js";
-import HeapifyBenchmark from "./heapify-benchmark.js";
-import TinyQueueBenchmark from "./tiny-queue-benchmark.js";
+import FlatQueueBenchmark from "./candidates/flat-queue.js";
+import HeapifyBenchmark from "./candidates/heapify.js";
+import TinyQueueBenchmark from "./candidates/tiny-queue.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, "..");
