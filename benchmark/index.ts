@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
 
+import { type BenchmarkData, generateMarkdownTable, updateReadme, writeCsv } from "./utils/publish.js";
 import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
 import Benchmark from "./benchmark.js";
 import ClosureBenchmark from "./closure-benchmark.js";
 import FastPriorityQueueBenchmark from "./fast-priority-queue-benchmark.js";
+import { fileURLToPath } from "node:url";
 import FlatQueueBenchmark from "./flat-queue-benchmark.js";
 import HeapifyBenchmark from "./heapify-benchmark.js";
 import TinyQueueBenchmark from "./tiny-queue-benchmark.js";
-import { type BenchmarkData, generateMarkdownTable, updateReadme, writeCsv } from "./utils/publish.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, "..");
@@ -40,8 +40,7 @@ function consolidate(benchs: Benchmark<unknown>[]): BenchmarkData {
     const rows: Array<{ tag: string; values: string[] }> = [];
     for (const tag of tags) {
         const times = benchTimes.map(timesByTag => timesByTag.get(tag));
-        const values = times.map(time =>
-            time === null || time === undefined || time < 1n ? "-" : time.toString());
+        const values = times.map(time => time === null || time === undefined || time < 1n ? "-" : time.toString());
         const paddedValues = values.map(v => v.padStart(10)).join(" ");
         console.info(`${tag.padEnd(25)} ${paddedValues}`);
         rows.push({ tag, values });

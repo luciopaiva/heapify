@@ -25,6 +25,7 @@
     "bench:publish": "bash scripts/bench.sh --publish",
     "typecheck": "tsc --project tsconfig.check.json",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "clean": "rm -fr dist",
     "build": "npm run build:prod",
     "build:dev": "npm run clean && vite build --mode development",

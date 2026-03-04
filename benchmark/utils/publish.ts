@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
-import { execSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
+import { execSync } from "node:child_process";
 
 export interface BenchmarkData {
     names: string[];
@@ -14,7 +14,7 @@ const END_MARKER = "<!-- BENCHMARK_TABLE_END -->";
 export function writeCsv(data: BenchmarkData, outputPath: string): void {
     const header = ["Operation", ...data.names].join(",");
     const lines = data.rows.map(row => [row.tag, ...row.values].join(","));
-    writeFileSync(outputPath, [header, ...lines].join("\n") + "\n", "utf-8");
+    writeFileSync(outputPath, `${[header, ...lines].join("\n")}\n`, "utf-8");
     console.info(`\nCSV written to ${outputPath}`);
 }
 
@@ -27,10 +27,9 @@ export function generateMarkdownTable(data: BenchmarkData): string {
         return Math.max(h.length, maxValueWidth);
     });
 
-    const formatRow = (cells: string[]) =>
-        "| " + cells.map((c, i) => c.padEnd(colWidths[i])).join(" | ") + " |";
+    const formatRow = (cells: string[]) => `| ${cells.map((c, i) => c.padEnd(colWidths[i])).join(" | ")} |`;
     const separator =
-        "|" + colWidths.map(w => "-".repeat(w + 2)).join("|") + "|";
+        `|${colWidths.map(w => "-".repeat(w + 2)).join("|")}|`;
 
     return [
         formatRow(headers),
