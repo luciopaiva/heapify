@@ -1,0 +1,47 @@
+name: Publish to npm
+description: Prepare dist and publish to npm (assumes build already ran)
+
+inputs:
+  dry-run:
+    description: "Dry run (skip actual publish)"
+    required: false
+    default: "false"
+
+runs:
+  using: composite
+  steps:
+    - name: Prepare dist for publishing
+      run: |
+        cp package.json dist/
+        cp README.md dist/
+        cp LICENSE.md dist/
+      shell: bash
+
+    - name: Verify dist contents
+      run: |
+        echo "Contents of dist/:"
+        ls -la dist/
+        # Verify expected files exist
+        for f in package.json README.md LICENSE.md heapify.js heapify.mjs heapify.d.ts; do
+          if [ ! -f "dist/$f" ]; then
+            echo "ERROR: expected file dist/$f not found"
+            exit 1
+          fi
+        done
+        echo "All expected files present."
+      shell: bash
+
+    # Ensure npm 11.5.1 or later for trusted publishing
+    - name: Update npm
+      run: npm install -g npm@latest
+      shell: bash
+
+    - name: Publish (dry run)
+      if: ${{ inputs.dry-run == 'true' }}
+      run: npm publish ./dist --dry-run
+      shell: bash
+
+    - name: Publish
+      if: ${{ inputs.dry-run != 'true' }}
+      run: npm publish ./dist
+      shell: bash

@@ -4,9 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version to release (e.g. 0.7.0)"
+        description: "Version bump type"
         required: true
-        type: string
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
       dry-run:
         description: "Dry run (skip actual publish)"
         required: false
@@ -18,10 +22,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write  # Required for OIDC npm publish
     steps:
       - uses: actions/checkout@v4
 
       - uses: ./.github/actions/ci
+        with:
+          registry-url: "https://registry.npmjs.org"
 
       - name: Configure git
         run: |
@@ -29,31 +36,17 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Set version
-        run: npm version "${{ inputs.version }}"
-
-      - name: Prepare dist for publishing
-        run: |
-          cp package.json dist/
-          cp README.md dist/
-          cp LICENSE.md dist/
-
-      - name: Verify dist contents
-        run: |
-          echo "Contents of dist/:"
-          ls -la dist/
-          # Verify expected files exist
-          for f in package.json README.md LICENSE.md heapify.js heapify.mjs heapify.d.ts; do
-            if [ ! -f "dist/$f" ]; then
-              echo "ERROR: expected file dist/$f not found"
-              exit 1
-            fi
-          done
-          echo "All expected files present."
+        id: set-version
+        run: echo "new-tag=$(npm version ${{ inputs.version }})" >> "$GITHUB_OUTPUT"
 
       - name: Push commit and tag
         if: ${{ !inputs.dry-run }}
-        run: git push origin HEAD "v${{ inputs.version }}"
+        run: git push origin HEAD "${{ steps.set-version.outputs.new-tag }}"
 
       - name: Update version badge
         if: ${{ !inputs.dry-run }}
         uses: ./.github/actions/update-version-badge
+
+      - uses: ./.github/actions/publish
+        with:
+          dry-run: ${{ inputs.dry-run }}
