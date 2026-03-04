@@ -5,8 +5,11 @@
     <title>Browser ESM module test</title>
 </head>
 <body>
+<script type="importmap">
+    { "imports": { "heapify": "./heapify.mjs" } }
+</script>
 <script type="module">
-    import {MinQueue} from "./heapify.mjs";
+    import {MinQueue} from "heapify";
 
     const queue = new MinQueue();
     queue.push(3, 3);

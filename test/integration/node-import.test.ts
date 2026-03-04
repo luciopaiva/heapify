@@ -7,7 +7,7 @@ describe("node ESM import", () => {
     it("imports and uses heapify via ESM import", () => {
         const testFile = path.join(TEMP_DIR, "test-import.mjs");
         fs.writeFileSync(testFile, `
-import {MinQueue} from "heapify/heapify.mjs";
+import {MinQueue} from "heapify";
 
 const queue = new MinQueue();
 queue.push(3, 3);
