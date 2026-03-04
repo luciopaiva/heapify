@@ -1,5 +1,4 @@
 
-/* global goog */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import "google-closure-library";
