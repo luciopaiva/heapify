@@ -1,5 +1,5 @@
-import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
-import { join, dirname } from "node:path";
+import { dirname, join } from "node:path";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -9,17 +9,24 @@ const root = join(__dirname, "..");
 const summaryPath = join(root, "coverage", "coverage-summary.json");
 const summary = JSON.parse(readFileSync(summaryPath, "utf8"));
 
-const total = summary.total;
+const {total} = summary;
 const { covered, total: count } = total.lines;
-const pct = count > 0 ? Math.floor((covered / count) * 100) : 0;
+const pct = count > 0 ? Math.floor(covered / count * 100) : 0;
 
 // Colour thresholds
+// eslint-disable-next-line init-declarations
 let color;
-if (pct >= 90) color = "#4c1";
-else if (pct >= 80) color = "#a3c51c";
-else if (pct >= 70) color = "#dfb317";
-else if (pct >= 60) color = "#fe7d37";
-else color = "#e05d44";
+if (pct >= 90) {
+    color = "#4c1"; 
+} else if (pct >= 80) {
+    color = "#a3c51c"; 
+} else if (pct >= 70) {
+    color = "#dfb317"; 
+} else if (pct >= 60) {
+    color = "#fe7d37"; 
+} else {
+    color = "#e05d44"; 
+}
 
 const label = "coverage";
 const value = `${pct}%`;
@@ -55,4 +62,5 @@ const badgesDir = join(root, "badges");
 mkdirSync(badgesDir, { recursive: true });
 writeFileSync(join(badgesDir, "coverage.svg"), svg, "utf8");
 
+// eslint-disable-next-line no-console
 console.log(`Coverage badge generated: ${pct}% (${covered}/${count} lines)`);
