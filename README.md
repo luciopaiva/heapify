@@ -27,14 +27,14 @@ It's the fastest publicly available JavaScript library implementation of a prior
 <!-- BENCHMARK_TABLE_START -->
 | Operation            | Closure | FastPQ | FlatQueue | TinyQueue | Heapify |
 |----------------------|---------|--------|-----------|-----------|---------|
-| build                | 35      | 5      | -         | -         | 6       |
-| push                 | 65      | 12     | 18        | 27        | 20      |
-| pop                  | 277     | 58     | 58        | 320       | 48      |
-| push/pop batch       | 78      | 57     | 33        | 122       | 42      |
-| push/pop interleaved | 136     | 24     | 31        | 107       | 13      |
-| push/pop random      | 104     | 35     | 50        | 106       | 35      |
+| build                | 41      | 6      | -         | -         | 5       |
+| push                 | 66      | 13     | 18        | 26        | 9       |
+| pop                  | 286     | 60     | 58        | 327       | 48      |
+| push/pop batch       | 123     | 56     | 33        | 122       | 44      |
+| push/pop interleaved | 131     | 23     | 30        | 108       | 13      |
+| push/pop random      | 116     | 35     | 49        | 109       | 35      |
 
-_Generated from commit `0bc384f` on 2026-03-04T11:40:04.050Z._
+_Generated from commit `97ff2c2` on 2026-03-04T11:46:43.158Z._
 <!-- BENCHMARK_TABLE_END -->
 
 See the [benchmark](#benchmark) section for more details.
