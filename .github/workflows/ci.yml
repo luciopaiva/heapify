@@ -17,5 +17,19 @@ jobs:
       - uses: ./.github/actions/ci
 
       - name: Update coverage badge
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && env.ACT != 'true'
         uses: ./.github/actions/update-coverage-badge
+
+      - name: Update coverage badge (skipped)
+        if: github.event_name == 'push' && env.ACT == 'true'
+        run: echo "Running locally via act – skipping coverage badge update"
+        shell: bash
+
+      - name: Update lines-of-code badge
+        if: github.event_name == 'push' && env.ACT != 'true'
+        uses: ./.github/actions/update-loc-badge
+
+      - name: Update lines-of-code badge (skipped)
+        if: github.event_name == 'push' && env.ACT == 'true'
+        run: echo "Running locally via act – skipping lines-of-code badge update"
+        shell: bash

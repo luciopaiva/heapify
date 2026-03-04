@@ -1,0 +1,23 @@
+name: Update lines-of-code badge
+description: Generates the lines-of-code SVG badge and commits it back to the repository
+
+runs:
+  using: composite
+  steps:
+    - name: Install cloc
+      run: sudo apt-get install -y cloc
+      shell: bash
+
+    - name: Generate lines-of-code badge
+      run: node scripts/generate-loc-badge.mjs
+      shell: bash
+
+    - name: Commit lines-of-code badge
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add badges/loc.svg
+        # [skip ci] prevents this bot commit from triggering another CI run
+        git diff --cached --quiet || git commit -m "[ci] Update lines-of-code badge [skip ci]"
+        git push
+      shell: bash
