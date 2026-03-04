@@ -50,6 +50,14 @@ jobs:
           done
           echo "All expected files present."
 
+      - name: Create git tag
+        if: ${{ !inputs.dry-run }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "v${{ inputs.version }}"
+          git push origin "v${{ inputs.version }}"
+
       - name: Publish (dry run)
         if: inputs.dry-run
         run: npm publish ./dist --dry-run
@@ -62,10 +70,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Create git tag
-        if: ${{ !inputs.dry-run }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag "v${{ inputs.version }}"
-          git push origin "v${{ inputs.version }}"
+      - name: Delete tag on publish failure
+        if: ${{ failure() && !inputs.dry-run }}
+        run: git push origin --delete "v${{ inputs.version }}"
