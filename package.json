@@ -10,11 +10,18 @@
   "browser": "heapify.js",
   "module": "heapify.mjs",
   "types": "heapify.d.ts",
+  "exports": {
+    ".": {
+      "types": "./heapify.d.ts",
+      "import": "./heapify.mjs",
+      "require": "./heapify.js"
+    }
+  },
   "scripts": {
     "test": "vitest run --coverage",
     "integration": "npm run build:prod && vitest run --config vitest.integration.config.ts",
     "count": "cloc src/heapify.ts",
-    "bench": "node benchmark/index.mjs",
+    "bench": "npm run build && cp package.json dist/ && rm -f heapify-local.tgz && npm pack ./dist && mv heapify-*.tgz heapify-local.tgz && rm -rf benchmark/node_modules/heapify && npm -C benchmark install && node benchmark/index.mjs",
     "lint": "eslint .",
     "clean": "rm -fr dist",
     "build": "npm run clean && vite build",
@@ -47,12 +54,8 @@
     "@vitest/coverage-v8": "^4.0.18",
     "cloc": "^2.5.1",
     "eslint": "^10.0.2",
-    "fastpriorityqueue": "0.6.3",
-    "flatqueue": "1.1.0",
     "globals": "^17.4.0",
-    "google-closure-library": "20200830.0.0",
     "playwright": "^1.58.2",
-    "tinyqueue": "2.0.3",
     "ts-node": "^10.4.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.56.1",

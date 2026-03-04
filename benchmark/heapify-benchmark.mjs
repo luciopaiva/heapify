@@ -1,7 +1,7 @@
  
 
 import Benchmark from "./benchmark.mjs";
-import {MinQueue} from "../dist/heapify.mjs";
+import {MinQueue} from "heapify";
 
 export default class HeapifyBenchmark extends Benchmark {
 
