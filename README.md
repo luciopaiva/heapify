@@ -111,7 +111,13 @@ const {MinQueue} = require("heapify");
 
 ### Browser
 
-Heapify can be included via regular script tags, where `Heapify` will be exposed globally:
+If you're using npm/pnpm/yarn/etc with a traditional bunlder (e.g.: vite), you can just import it as usual from your JS/TS file:
+
+```js
+const {MinQueue} = require("heapify");
+```
+
+But you can also import it from a CDN like [unpkg](https://unpkg.com):
 
 ```html
 <script src="https://unpkg.com/heapify"></script>
@@ -120,12 +126,19 @@ Heapify can be included via regular script tags, where `Heapify` will be exposed
 </script>
 ```
 
-The example above uses [unpkg](https://unpkg.com), but you can of course reference a local copy installed either manually or via npm/yarn.
+For projects using native ES6 modules:
 
-For projects using native ES6 modules, make sure to import the `mjs` ES6 module bundle instead:
+```html
+<script type="importmap">
+{
+  "imports": {
+    "heapify": "https://unpkg.com/heapify/heapify.mjs"
+  }
+}
+</script>
 
-```js
-import {MinQueue} from "https://unpkg.com/heapify/heapify.mjs"
+<script type="module">
+    import { MinQueue } from "heapify";
 ```
 
 ## API

@@ -1,7 +1,15 @@
 
 # CHANGELOG
 
-## Unreleased
+## 1.0.2
+
+- GitHub workflow setup
+
+## 1.0.1
+
+- GitHub workflow setup
+
+## 1.0.0
 
 This version is a major repository infrastructure modernization to make it more robust when running tests, benchmarks and pipeline jobs, giving the project a more professional working environment. No actual library code was changed.
 
