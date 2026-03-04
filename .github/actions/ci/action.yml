@@ -1,6 +1,12 @@
 name: CI
 description: Shared CI steps — setup, build, lint, typecheck, test, integration
 
+inputs:
+  registry-url:
+    description: "npm registry URL to configure (e.g. https://registry.npmjs.org)"
+    required: false
+    default: ""
+
 runs:
   using: composite
   steps:
@@ -9,6 +15,7 @@ runs:
       with:
         node-version: "22.x"
         cache: npm
+        registry-url: ${{ inputs.registry-url }}
 
     - name: Install dependencies
       run: npm ci
