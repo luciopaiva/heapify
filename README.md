@@ -117,7 +117,8 @@ If you're using npm/pnpm/yarn/etc with a traditional bunlder (e.g.: vite), you c
 const {MinQueue} = require("heapify");
 ```
 
-But you can also import it from a CDN like [unpkg](https://unpkg.com):
+<details>
+<summary>But you can also import it from a CDN like <a href="https://unpkg.com">unpkg</a> (click to expand)</summary>
 
 ```html
 <script src="https://unpkg.com/heapify"></script>
@@ -140,6 +141,8 @@ For projects using native ES6 modules:
 <script type="module">
     import { MinQueue } from "heapify";
 ```
+
+</details>
 
 ## API
 
