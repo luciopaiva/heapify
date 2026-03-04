@@ -47,6 +47,10 @@ jobs:
           done
           echo "All expected files present."
 
+      # Ensure npm 11.5.1 or later for trusted publishing
+      - name: Update npm
+        run: npm install -g npm@latest
+
       - name: Publish (dry run)
         if: inputs.dry-run
         run: npm publish ./dist --dry-run
