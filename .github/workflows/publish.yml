@@ -1,10 +1,10 @@
-name: Release to npm
+name: Publish to npm
 
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: "Version to release (e.g. 0.7.0)"
+      tag:
+        description: "Git tag to publish (e.g. v0.7.0)"
         required: true
         type: string
       dry-run:
@@ -14,22 +14,18 @@ on:
         default: false
 
 jobs:
-  release:
+  publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      id-token: write  # Required for OIDC
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
 
       - uses: ./.github/actions/ci
-
-      - name: Configure git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Set version
-        run: npm version "${{ inputs.version }}"
+        with:
+          registry-url: "https://registry.npmjs.org"
 
       - name: Prepare dist for publishing
         run: |
@@ -50,10 +46,10 @@ jobs:
           done
           echo "All expected files present."
 
-      - name: Push commit and tag
-        if: ${{ !inputs.dry-run }}
-        run: git push origin HEAD "v${{ inputs.version }}"
+      - name: Publish (dry run)
+        if: inputs.dry-run
+        run: npm publish ./dist --dry-run
 
-      - name: Update version badge
+      - name: Publish
         if: ${{ !inputs.dry-run }}
-        uses: ./.github/actions/update-version-badge
+        run: npm publish ./dist
