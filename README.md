@@ -3,6 +3,7 @@
 
 ![coverage](badges/coverage.svg)
 ![version](badges/version.svg)
+![lines of code](badges/loc.svg)
 
 🚑 🚴 🚌 🚕 🚗 🚚 🚛
 
