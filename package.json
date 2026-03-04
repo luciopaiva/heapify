@@ -46,7 +46,6 @@
     "@types/node": "^22.19.13",
     "@vitest/coverage-v8": "^4.0.18",
     "cloc": "^2.5.1",
-    "codecov": "^3.6.5",
     "eslint": "^10.0.2",
     "fastpriorityqueue": "0.6.3",
     "flatqueue": "1.1.0",
