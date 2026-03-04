@@ -22,10 +22,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write  # Required for OIDC npm publish
     steps:
       - uses: actions/checkout@v4
 
       - uses: ./.github/actions/ci
+        with:
+          registry-url: "https://registry.npmjs.org"
 
       - name: Configure git
         run: |
@@ -43,3 +46,7 @@ jobs:
       - name: Update version badge
         if: ${{ !inputs.dry-run }}
         uses: ./.github/actions/update-version-badge
+
+      - uses: ./.github/actions/publish
+        with:
+          dry-run: ${{ inputs.dry-run }}
