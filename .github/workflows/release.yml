@@ -26,8 +26,13 @@ jobs:
         with:
           registry-url: "https://registry.npmjs.org"
 
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Set version
-        run: npm version "${{ inputs.version }}" --no-git-tag-version
+        run: npm version "${{ inputs.version }}"
 
       - name: Prepare dist for publishing
         run: |
@@ -48,13 +53,9 @@ jobs:
           done
           echo "All expected files present."
 
-      - name: Create git tag
+      - name: Push commit and tag
         if: ${{ !inputs.dry-run }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag "v${{ inputs.version }}"
-          git push origin "v${{ inputs.version }}"
+        run: git push origin HEAD "v${{ inputs.version }}"
 
       - name: Publish (dry run)
         if: inputs.dry-run
