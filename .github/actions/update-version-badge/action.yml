@@ -1,0 +1,19 @@
+name: Update version badge
+description: Generates the version SVG badge and commits it back to the repository
+
+runs:
+  using: composite
+  steps:
+    - name: Generate version badge
+      run: node scripts/generate-version-badge.mjs
+      shell: bash
+
+    - name: Commit version badge
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add badges/version.svg
+        # [skip ci] prevents this bot commit from triggering another CI run
+        git diff --cached --quiet || git commit -m "[ci] Update version badge [skip ci]"
+        git push
+      shell: bash

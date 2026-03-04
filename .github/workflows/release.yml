@@ -73,3 +73,7 @@ jobs:
       - name: Delete tag on publish failure
         if: ${{ failure() && !inputs.dry-run }}
         run: git push origin --delete "v${{ inputs.version }}"
+
+      - name: Update version badge
+        if: ${{ !inputs.dry-run }}
+        uses: ./.github/actions/update-version-badge
