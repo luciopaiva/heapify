@@ -21,11 +21,11 @@
     "test": "vitest run --coverage",
     "integration": "npm run build:prod && vitest run --config vitest.integration.config.ts",
     "count": "cloc src/heapify.ts",
-    "bench": "npm run build && cp package.json dist/ && rm -f heapify-local.tgz && npm pack ./dist && mv heapify-*.tgz heapify-local.tgz && rm -rf benchmark/node_modules/heapify && npm -C benchmark install && ./benchmark/node_modules/.bin/tsx benchmark/index.ts",
+    "bench": "bash scripts/bench.sh",
     "typecheck": "tsc --project tsconfig.check.json",
     "lint": "eslint .",
     "clean": "rm -fr dist",
-    "build": "npm run clean && vite build",
+    "build": "npm run build:prod",
     "build:dev": "npm run clean && vite build --mode development",
     "build:prod": "npm run clean && vite build",
     "watch": "vite build --watch"
