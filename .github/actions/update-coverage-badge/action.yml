@@ -1,0 +1,19 @@
+name: Update coverage badge
+description: Generates the coverage SVG badge and commits it back to the repository
+
+runs:
+  using: composite
+  steps:
+    - name: Generate coverage badge
+      run: node scripts/generate-coverage-badge.mjs
+      shell: bash
+
+    - name: Commit coverage badge
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add badges/coverage.svg
+        # [skip ci] prevents this bot commit from triggering another CI run
+        git diff --cached --quiet || git commit -m "[ci] Update coverage badge [skip ci]"
+        git push
+      shell: bash

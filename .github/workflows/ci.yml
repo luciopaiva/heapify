@@ -10,6 +10,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/ci
+
+      - name: Update coverage badge
+        if: github.event_name == 'push'
+        uses: ./.github/actions/update-coverage-badge
