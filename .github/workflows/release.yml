@@ -4,9 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version to release (e.g. 0.7.0)"
+        description: "Version bump type"
         required: true
-        type: string
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
       dry-run:
         description: "Dry run (skip actual publish)"
         required: false
@@ -29,7 +33,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Set version
-        run: npm version "${{ inputs.version }}"
+        id: set-version
+        run: echo "new-tag=$(npm version ${{ inputs.version }})" >> "$GITHUB_OUTPUT"
 
       - name: Prepare dist for publishing
         run: |
@@ -52,7 +57,7 @@ jobs:
 
       - name: Push commit and tag
         if: ${{ !inputs.dry-run }}
-        run: git push origin HEAD "v${{ inputs.version }}"
+        run: git push origin HEAD "${{ steps.set-version.outputs.new-tag }}"
 
       - name: Update version badge
         if: ${{ !inputs.dry-run }}
