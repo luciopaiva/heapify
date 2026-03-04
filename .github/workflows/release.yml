@@ -21,35 +21,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22.x"
-          registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-
-      - run: npm ci
+      - uses: ./.github/actions/ci
 
       - name: Set version
         run: npm version "${{ inputs.version }}" --no-git-tag-version
 
-      - name: Build
-        run: npm run build:prod
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Typecheck
-        run: npm run typecheck
-
-      - name: Test
-        run: npm test
-
-      - name: Install Playwright
-        run: npx playwright install --with-deps chromium
-
-      - name: Integration tests
-        run: npm run integration
+      - name: Configure npm registry
+        uses: actions/setup-node@v4
+        with:
+          registry-url: "https://registry.npmjs.org"
 
       - name: Prepare dist for publishing
         run: |

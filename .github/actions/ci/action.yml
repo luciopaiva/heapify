@@ -1,0 +1,39 @@
+name: CI
+description: Shared CI steps — setup, build, lint, typecheck, test, integration
+
+runs:
+  using: composite
+  steps:
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "22.x"
+        cache: npm
+
+    - name: Install dependencies
+      run: npm ci
+      shell: bash
+
+    - name: Install Playwright
+      run: npx playwright install --with-deps chromium
+      shell: bash
+
+    - name: Build
+      run: npm run build:prod
+      shell: bash
+
+    - name: Lint
+      run: npm run lint
+      shell: bash
+
+    - name: Typecheck
+      run: npm run typecheck
+      shell: bash
+
+    - name: Test
+      run: npm test
+      shell: bash
+
+    - name: Integration tests
+      run: npm run integration
+      shell: bash
