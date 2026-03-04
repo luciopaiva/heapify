@@ -21,7 +21,7 @@
     "test": "vitest run --coverage",
     "integration": "npm run build:prod && vitest run --config vitest.integration.config.ts",
     "count": "cloc src/heapify.ts",
-    "bench": "npm run build && cp package.json dist/ && rm -f heapify-local.tgz && npm pack ./dist && mv heapify-*.tgz heapify-local.tgz && rm -rf benchmark/node_modules/heapify && npm -C benchmark install && node benchmark/index.mjs",
+    "bench": "npm run build && cp package.json dist/ && rm -f heapify-local.tgz && npm pack ./dist && mv heapify-*.tgz heapify-local.tgz && rm -rf benchmark/node_modules/heapify && npm -C benchmark install && ./benchmark/node_modules/.bin/tsx benchmark/index.ts",
     "typecheck": "tsc --project tsconfig.check.json",
     "lint": "eslint .",
     "clean": "rm -fr dist",

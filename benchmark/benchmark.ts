@@ -1,25 +1,28 @@
- 
 
 const ONE_MILLI_IN_NANOS = 1000000n;
 
-export default class Benchmark {
+export default abstract class Benchmark<TData> {
 
-    constructor(name, indexes, data, numberOfKeys, batchSize) {
+    name: string;
+    indexes: number[];
+    data: TData[];
+    numberOfKeys: number;
+    batchSize: number;
+    times: Map<string, bigint[]>;
+
+    constructor(name: string, indexes: number[], data: TData[], numberOfKeys: number, batchSize: number) {
         this.name = name;
         this.indexes = indexes;
         this.data = data;
         this.numberOfKeys = numberOfKeys;
         this.batchSize = batchSize;
 
-        /** @type {Map<String, BigInt[]>} */
         this.times = new Map();
     }
 
-    reset() {
-        throw new Error("implement me!");
-    }
+    abstract reset(): void;
 
-    run(count) {
+    run(count: number): void {
         for (let i = 0; i < count; i++) {
             this.runBuildTest();
             this.runPushTest();
@@ -30,8 +33,8 @@ export default class Benchmark {
         }
     }
 
-    getTimes() {
-        const result = new Map();
+    getTimes(): Map<string, bigint> {
+        const result = new Map<string, bigint>();
         for (const [key, values] of this.times.entries()) {
             const medianInMillis = values.sort()[values.length >>> 1] / ONE_MILLI_IN_NANOS;
             result.set(key, medianInMillis);
@@ -39,39 +42,31 @@ export default class Benchmark {
         return result;
     }
 
-    runBuildTest() {
-        this.time("build", this.buildTest.bind(this, this.indexes, this.data));
+    runBuildTest(): void {
+        this.time("build", () => this.buildTest(this.indexes, this.data));
     }
 
-    buildTest() {
-        throw new Error("implement me!");
+    abstract buildTest(indexes: number[], data: TData[]): void;
+
+    runPushTest(): void {
+        this.time("push", () => this.pushTest(this.data));
     }
 
-    runPushTest() {
-        this.time("push", this.pushTest.bind(this, this.data));
+    abstract pushTest(data: TData[]): void;
+
+    runPopTest(): void {
+        this.time("pop", () => this.popTest());
     }
 
-    pushTest() {
-        throw new Error("implement me!");
+    abstract popTest(): void;
+
+    runPushPopBatchTest(): void {
+        this.time("push/pop batch", () => this.pushPopBatchTest(this.data));
     }
 
-    runPopTest() {
-        this.time("pop", this.popTest.bind(this));
-    }
+    abstract pushPopBatchTest(data: TData[]): void;
 
-    popTest() {
-        throw new Error("implement me!");
-    }
-
-    runPushPopBatchTest() {
-        this.time("push/pop batch", this.pushPopBatchTest.bind(this, this.data));
-    }
-
-    pushPopBatchTest() {
-        throw new Error("implement me!");
-    }
-
-    runPushPopInterleaved() {
+    runPushPopInterleaved(): void {
         // initialize with 10% of total keys
         const prepareSize = Math.trunc(this.numberOfKeys / 10);
         this.preparePushPopInterleaved(this.data, prepareSize);
@@ -79,39 +74,31 @@ export default class Benchmark {
         const remainingKeys = this.numberOfKeys - prepareSize;
 
         this.time("push/pop interleaved",
-            this.pushPopInterleaved.bind(this, this.data, prepareSize, remainingKeys));
+            () => this.pushPopInterleaved(this.data, prepareSize, remainingKeys));
 
         // get rid of the initial pops
         this.reset();
     }
 
-    preparePushPopInterleaved() {
-        throw new Error("implement me!");
-    }
+    abstract preparePushPopInterleaved(data: TData[], prepareSize: number): void;
 
-    pushPopInterleaved() {
-        throw new Error("implement me!");
-    }
+    abstract pushPopInterleaved(data: TData[], prepareSize: number, remainingSize: number): void;
 
-    runPushPopRandom() {
+    runPushPopRandom(): void {
         // initialize with 10% of total keys
         const prepareSize = Math.trunc(this.numberOfKeys / 10);
         const walk = this.preparePushPopRandom(this.data, prepareSize);
-        this.time("push/pop random", this.pushPopRandom.bind(this, walk));
+        this.time("push/pop random", () => this.pushPopRandom(walk));
 
         // get rid of any remaining pops not popped yet
         this.reset();
     }
 
-    preparePushPopRandom() {
-        throw new Error("implement me!");
-    }
+    abstract preparePushPopRandom(data: TData[], prepareSize: number): Array<() => void>;
 
-    pushPopRandom() {
-        throw new Error("implement me!");
-    }
+    abstract pushPopRandom(walk: Array<() => void>): void;
 
-    time(tag, fn) {
+    time(tag: string, fn: () => void): void {
         const start = process.hrtime.bigint();
         fn();
         const end = process.hrtime.bigint();

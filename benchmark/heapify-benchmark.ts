@@ -1,37 +1,38 @@
- 
 
-import Benchmark from "./benchmark.mjs";
-import {MinQueue} from "heapify";
+import Benchmark from "./benchmark.js";
+import { MinQueue } from "heapify";
 
-export default class HeapifyBenchmark extends Benchmark {
+export default class HeapifyBenchmark extends Benchmark<number> {
 
-    constructor(...args) {
-        super("Heapify", ...args);
-        this.reset();
-    }
+    q: MinQueue;
 
-    reset() {
+    constructor(indexes: number[], data: number[], numberOfKeys: number, batchSize: number) {
+        super("Heapify", indexes, data, numberOfKeys, batchSize);
         this.q = new MinQueue(this.numberOfKeys);
     }
 
-    buildTest(indexes, data) {
+    reset(): void {
+        this.q = new MinQueue(this.numberOfKeys);
+    }
+
+    buildTest(indexes: number[], data: number[]): void {
         // eslint-disable-next-line no-new
         new MinQueue(this.numberOfKeys, indexes, data);
     }
 
-    pushTest(data) {
+    pushTest(data: number[]): void {
         for (let i = 0; i < this.numberOfKeys; i++) {
             this.q.push(i, data[i]);
         }
     }
 
-    popTest() {
+    popTest(): void {
         for (let i = 0; i < this.numberOfKeys; i++) {
             this.q.pop();
         }
     }
 
-    pushPopBatchTest(data) {
+    pushPopBatchTest(data: number[]): void {
         for (let i = 0; i < this.numberOfKeys; i += this.batchSize) {
             for (let j = 0; j < this.batchSize; j++) {
                 this.q.push(i, data[i + j]);
@@ -42,37 +43,36 @@ export default class HeapifyBenchmark extends Benchmark {
         }
     }
 
-    preparePushPopInterleaved(data, prepareSize) {
+    preparePushPopInterleaved(data: number[], prepareSize: number): void {
         for (let i = 0; i < prepareSize; i++) {
             this.q.push(i, data[i]);
         }
     }
 
-    pushPopInterleaved(data, prepareSize, remainingSize) {
+    pushPopInterleaved(data: number[], prepareSize: number, remainingSize: number): void {
         for (let i = prepareSize; i < remainingSize; i++) {
             this.q.push(i, data[i]);
             this.q.pop();
         }
     }
 
-    preparePushPopRandom(data, prepareSize) {
-        // add a few before starting
+    preparePushPopRandom(data: number[], prepareSize: number): Array<() => void> {
         for (let i = 0; i < prepareSize; i++) {
             this.q.push(i, data[i]);
         }
         const remainingSize = this.numberOfKeys - prepareSize;
 
-        const walk = [];
+        const walk: Array<() => void> = [];
         const pop = this.q.pop.bind(this.q);
         for (let i = prepareSize; i < remainingSize; i++) {
-            walk.push(Math.random() < 0.5 ? this.q.push.bind(this.q, i, data[i]) : pop);
+            walk.push(Math.random() < 0.5 ? () => this.q.push(i, data[i]) : pop);
         }
         return walk;
     }
 
-    pushPopRandom(walk) {
-        for (let i = 0; i < walk.length; i++) {
-            walk[i]();
+    pushPopRandom(walk: Array<() => void>): void {
+        for (const element of walk) {
+            element();
         }
     }
 }
