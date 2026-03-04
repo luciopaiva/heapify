@@ -239,21 +239,8 @@ queue.size;  // 0
 
 ## Benchmark
 
-Here's a table comparing Heapify with other implementations (times are in milliseconds):
-
-```
-                             Closure     FastPQ  FlatQueue  TinyQueue    Heapify
-build                            201         15          -          -         18
-push                             222         47         66         75         24
-pop                              496        143        137        917        110
-push/pop batch                   279        128         83        280         89
-push/pop interleaved             315         65         50        265         34
-push/pop random                  186         45         50        257         48
-```
-
-Host machine: Node.js 13.8.0, 2.6 GHz 6-Core Intel Core i7, 32 GB 2400 MHz DDR4 RAM.
-
 Operations:
+
 - build - build a queue from scratch by providing a collection of keys and priorities, all at once;
 - push - insert a single element into the queue;
 - pop - remove a single element from the queue;
