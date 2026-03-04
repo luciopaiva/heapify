@@ -20,7 +20,7 @@
   "scripts": {
     "test": "vitest run --coverage",
     "coverage": "vitest run --coverage",
-    "coverage:badge": "npm run coverage && node scripts/generate-badge.mjs",
+    "coverage:badge": "npm run coverage && node scripts/generate-coverage-badge.mjs",
     "integration": "npm run build:prod && vitest run --config vitest.integration.config.ts",
     "count": "cloc src/heapify.ts",
     "bench": "bash scripts/bench.sh",
