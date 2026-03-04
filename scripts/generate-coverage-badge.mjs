@@ -1,6 +1,6 @@
+import { generateBadgeSvg, resolveRoot, writeBadge } from "./lib/badge.mjs";
 import { join } from "node:path";
 import { readFileSync } from "node:fs";
-import { generateBadgeSvg, resolveRoot, writeBadge } from "./lib/badge.mjs";
 
 const root = resolveRoot(import.meta.url);
 
