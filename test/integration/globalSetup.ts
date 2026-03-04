@@ -57,3 +57,8 @@ export function setup() {
 export function teardown() {
     fs.rmSync(TEMP_DIR, { recursive: true, force: true });
 }
+
+export default async function globalSetup() {
+    setup();
+    return teardown;
+}
