@@ -16,5 +16,5 @@ mv heapify-*.tgz heapify-local.tgz
 rm -rf benchmark/node_modules/heapify
 npm -C benchmark install
 
-# Run benchmarks
-./benchmark/node_modules/.bin/tsx benchmark/index.ts
+# Run benchmarks (forward any extra arguments, e.g. --publish)
+./benchmark/node_modules/.bin/tsx benchmark/index.ts "$@"

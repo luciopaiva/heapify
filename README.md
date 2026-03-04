@@ -24,14 +24,18 @@ queue.pop();  // undefined
 
 It's the fastest publicly available JavaScript library implementation of a priority queue. Here's a benchmark comparing Heapify to other popular libraries:
 
-| Operation            | Closure | FlatQueue | TinyQueue | Heapify |
-|----------------------|---------|-----------|-----------|---------|
-| build                | 201     | n/a       | n/a       | 18      |
-| push                 | 222     | 66        | 75        | 24      |
-| pop                  | 496     | 137       | 917       | 110     |
-| push/pop batch       | 279     | 83        | 280       | 89      |
-| push/pop interleaved | 315     | 50        | 265       | 34      |
-| push/pop random      | 186     | 50        | 257       | 48      |
+<!-- BENCHMARK_TABLE_START -->
+| Operation            | Closure | FastPQ | FlatQueue | TinyQueue | Heapify |
+|----------------------|---------|--------|-----------|-----------|---------|
+| build                | 35      | 5      | -         | -         | 6       |
+| push                 | 65      | 12     | 18        | 27        | 20      |
+| pop                  | 277     | 58     | 58        | 320       | 48      |
+| push/pop batch       | 78      | 57     | 33        | 122       | 42      |
+| push/pop interleaved | 136     | 24     | 31        | 107       | 13      |
+| push/pop random      | 104     | 35     | 50        | 106       | 35      |
+
+_Generated from commit `0bc384f` on 2026-03-04T11:40:04.050Z._
+<!-- BENCHMARK_TABLE_END -->
 
 See the [benchmark](#benchmark) section for more details.
 
