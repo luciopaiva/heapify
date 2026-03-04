@@ -1,9 +1,9 @@
 
 # CHANGELOG
 
-## v1.0.0
+## Unreleased
 
-- modernize project (use vite, vitetest)
+This version is a major repository infrastructure modernization to make it more robust when running tests, benchmarks and pipeline jobs, giving the project a more professional working environment. No actual library code was changed.
 
 ## v0.6.1
 
