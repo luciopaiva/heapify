@@ -1,0 +1,56 @@
+name: CI
+description: Shared CI steps — setup, build, lint, typecheck, test, integration
+
+inputs:
+  registry-url:
+    description: "npm registry URL to configure (e.g. https://registry.npmjs.org)"
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: .nvmrc
+        cache: npm
+        registry-url: ${{ inputs.registry-url }}
+
+    - name: Install dependencies
+      run: npm ci
+      shell: bash
+
+    - name: Cache Playwright browsers
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ hashFiles('package-lock.json') }}
+
+    - name: Install Playwright OS dependencies
+      run: npx playwright install-deps chromium
+      shell: bash
+
+    - name: Install Playwright browser
+      run: npx playwright install chromium
+      shell: bash
+
+    - name: Build
+      run: npm run build:prod
+      shell: bash
+
+    - name: Lint
+      run: npm run lint
+      shell: bash
+
+    - name: Typecheck
+      run: npm run typecheck
+      shell: bash
+
+    - name: Test
+      run: npm test
+      shell: bash
+
+    - name: Integration tests
+      run: npm run integration
+      shell: bash

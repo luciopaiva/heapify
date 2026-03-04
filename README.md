@@ -1,9 +1,9 @@
 
 ![Heapify](https://raw.githubusercontent.com/luciopaiva/heapify/master/logo.png)
 
-[![codecov](https://img.shields.io/codecov/c/github/luciopaiva/heapify)](https://codecov.io/gh/luciopaiva/heapify)
-[![travis](https://api.travis-ci.com/luciopaiva/heapify.svg?branch=master)](https://travis-ci.com/luciopaiva/heapify) 
-[![version](https://img.shields.io/npm/v/heapify?color=brightgreen&label=version)](https://www.npmjs.com/package/heapify)
+![coverage](badges/coverage.svg)
+![version](badges/version.svg)
+![lines of code](badges/loc.svg)
 
 🚑 🚴 🚌 🚕 🚗 🚚 🚛
 
@@ -24,18 +24,22 @@ queue.pop();  // undefined
 
 It's the fastest publicly available JavaScript library implementation of a priority queue. Here's a benchmark comparing Heapify to other popular libraries:
 
-| Operation            | Closure | FlatQueue | TinyQueue | Heapify |
-|----------------------|---------|-----------|-----------|---------|
-| build                | 201     | n/a       | n/a       | 18      |
-| push                 | 222     | 66        | 75        | 24      |
-| pop                  | 496     | 137       | 917       | 110     |
-| push/pop batch       | 279     | 83        | 280       | 89      |
-| push/pop interleaved | 315     | 50        | 265       | 34      |
-| push/pop random      | 186     | 50        | 257       | 48      |
+<!-- BENCHMARK_TABLE_START -->
+| Operation            | Closure | FastPQ | FlatQueue | TinyQueue | Heapify |
+|----------------------|---------|--------|-----------|-----------|---------|
+| build                | 41      | 6      | -         | -         | 5       |
+| push                 | 66      | 13     | 18        | 26        | 9       |
+| pop                  | 286     | 60     | 58        | 327       | 48      |
+| push/pop batch       | 123     | 56     | 33        | 122       | 44      |
+| push/pop interleaved | 131     | 23     | 30        | 108       | 13      |
+| push/pop random      | 116     | 35     | 49        | 109       | 35      |
+
+_Generated from commit `97ff2c2` on 2026-03-04T11:46:43.158Z._
+<!-- BENCHMARK_TABLE_END -->
 
 See the [benchmark](#benchmark) section for more details.
 
-Heapify's design strives for reliability, with strong test coverage and focus on code readability. It should be easy to understand what the library is doing. The library is also very lean, with no dependencies and a small and concise source code. 
+Heapify's design strives for reliability, with strong test coverage and a focus on code readability. It should be easy to understand what the library is doing. The library is also very lean, with no dependencies and a small, concise codebase. 
 
 # Table of contents
 
@@ -66,7 +70,7 @@ Supported queue operations:
 
 Other features:
 
-- runs on browser and Node.js with ES5 and ES6 support
+- runs on the browser and Node.js with ES5 and ES6 support
 - tiny code base (under 200 LoC)
 - no runtime dependencies
 - supports several types of priorities and keys
@@ -132,7 +136,7 @@ Creates a new priority queue. Parameters are:
 
 - `capacity`: the size of the underlying typed arrays backing the heap;
 - `keys`: an optional array of pre-existing keys. Provide `[]` to skip this field;
-- `priorities`: an optional array of pre-existing priorities. Must match number of keys above. Provide `[]` to skip this field;
+- `priorities`: an optional array of pre-existing priorities. Must match the number of keys above. Provide `[]` to skip this field;
 - `KeysBackingArrayType`: the array type to be used for keys;
 - `PrioritiesBackingArrayType`: the array type to be used for priorities.
 
@@ -154,7 +158,7 @@ queue.capacity;  // 32
 
 ### clear()
 
-Effectively empties the queue. The heap capacity is not changed, nor its elements get erased in any way; it's just the variable that tracks the length that gets cleared to zero, so it's a very cheap operation.
+Effectively empties the queue. The heap capacity is not changed, nor are its elements erased in any way; it's just the variable that tracks the length that gets cleared to zero, so it's a very cheap operation.
 
 Example:
 
@@ -206,7 +210,7 @@ queue.pop();  // 1
 
 ### push(key, priority)
 
-Adds a new item to the queue with a given `key` and `priority`. Will throw an error if the queue is already at its capacity.
+Adds a new item to the queue with a given `key` and `priority`. Throws an error if the queue is already at its capacity.
 
 Example:
 
@@ -250,7 +254,7 @@ push/pop random                  186         45         50        257         48
 Host machine: Node.js 13.8.0, 2.6 GHz 6-Core Intel Core i7, 32 GB 2400 MHz DDR4 RAM.
 
 Operations:
-- build - build queue from scratch by providing a collection of keys and priorities, all at once;
+- build - build a queue from scratch by providing a collection of keys and priorities, all at once;
 - push - insert a single element into the queue;
 - pop - remove a single element from the queue;
 - push/pop batch - performs batches of 1k pushes followed by 1k pops;
@@ -261,9 +265,9 @@ Each test performs 1 million operations and is repeated 5 times. The median valu
 
 Tested libraries:
 
-- [Google Closure library](https://github.com/google/closure-library/blob/master/closure/goog/structs/heap.js) - a hugely popular library, but is the worst implementation with respect to performance;
-- [Fast Priority Queue](https://github.com/lemire/FastPriorityQueue.js) - runs comparably fast, but doesn't support inserting keys as well, so its implementation significantly limits what the user is able to achieve with it;
-- [FlatQueue](https://github.com/mourner/flatqueue) and [TinyQueue](https://github.com/mourner/tinyqueue) - two very nice queue implementations by Vladimir Agafonkin. They don't support the build method and that's why they're missing this benchmark. FlatQueue performs considerably well for an implementation that is not based on typed arrays.
+- [Google Closure library](https://github.com/google/closure-library/blob/master/closure/goog/structs/heap.js) - a hugely popular library, but it is the worst implementation with respect to performance;
+- [Fast Priority Queue](https://github.com/lemire/FastPriorityQueue.js) - runs comparably fast, but doesn't support inserting keys either, so its implementation significantly limits what the user is able to achieve with it;
+- [FlatQueue](https://github.com/mourner/flatqueue) and [TinyQueue](https://github.com/mourner/tinyqueue) - two very nice queue implementations by Vladimir Agafonkin. They don't support the build method and that's why they're missing this benchmark. FlatQueue performs quite well for an implementation that is not based on typed arrays.
 
 ## Contributing
 

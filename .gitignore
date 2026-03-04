@@ -4,3 +4,5 @@
 /.nyc_output/
 /coverage/
 coverage.lcov
+heapify-local.tgz
+benchmark-results.csv

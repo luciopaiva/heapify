@@ -1,0 +1,17 @@
+{
+  "name": "heapify-benchmark",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "fastpriorityqueue": "0.8.0",
+    "flatqueue": "3.0.0",
+    "google-closure-library": "20230802.0.0",
+    "heapify": "file:../heapify-local.tgz",
+    "tinyqueue": "3.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.8.2"
+  }
+}
