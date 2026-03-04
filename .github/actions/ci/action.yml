@@ -14,8 +14,18 @@ runs:
       run: npm ci
       shell: bash
 
-    - name: Install Playwright
-      run: npx playwright install --with-deps chromium
+    - name: Cache Playwright browsers
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ hashFiles('package-lock.json') }}
+
+    - name: Install Playwright OS dependencies
+      run: npx playwright install-deps chromium
+      shell: bash
+
+    - name: Install Playwright browser
+      run: npx playwright install chromium
       shell: bash
 
     - name: Build
