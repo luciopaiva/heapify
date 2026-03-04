@@ -23,6 +23,7 @@ jobs:
     permissions:
       contents: write
       id-token: write  # Required for OIDC npm publish
+                       # Check https://docs.npmjs.com/trusted-publishers
     steps:
       - uses: actions/checkout@v4
 

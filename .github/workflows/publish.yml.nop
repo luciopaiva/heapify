@@ -1,3 +1,8 @@
+#
+# This workflow is disabled because npm's Trusted Publisher only supports one 
+# workflow per repository, so right now only release.yml will work.
+# Check https://www.npmjs.com/package/heapify/access for more details.
+#
 name: Publish to npm
 
 on:

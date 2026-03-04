@@ -32,6 +32,8 @@ runs:
       shell: bash
 
     # Ensure npm 11.5.1 or later for trusted publishing
+    # This is very important, otherwise the publish will fail with a very confusing 404 error
+    # See https://github.com/orgs/community/discussions/173102#discussioncomment-14367428
     - name: Update npm
       run: npm install -g npm@latest
       shell: bash
