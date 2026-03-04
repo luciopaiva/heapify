@@ -15,7 +15,7 @@ See [unpkg](https://unpkg.com/) for more importing options.
 
 ## How do I import Heapify on a Node.js native ES6 module?
 
-One could initially try this:
+One might initially try this:
 
 ```js
 import {MinQueue} from "heapify";
@@ -43,7 +43,7 @@ import {MinQueue} from "heapify/heapify.mjs";
 
 The `main` script exported by Heapify's `package.json` is a CommonJS module, but current Node.js versions still have trouble handling CommonJS modules imported by ES6 module scripts. [There are ways](https://techsparx.com/nodejs/esnext/dynamic-import-2.html) to do it, but they are not very pretty.
 
-The other way around it is to make it a two-step operation, like this:
+Another way around this is to make it a two-step operation, like this:
 
 ```js
 import Heapify from "heapify";
