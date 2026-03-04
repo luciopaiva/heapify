@@ -2,7 +2,7 @@
 ![Heapify](https://raw.githubusercontent.com/luciopaiva/heapify/master/logo.png)
 
 ![coverage](badges/coverage.svg)
-[![version](https://img.shields.io/npm/v/heapify?color=brightgreen&label=version)](https://www.npmjs.com/package/heapify)
+![version](badges/version.svg)
 
 🚑 🚴 🚌 🚕 🚗 🚚 🚛
 
