@@ -17,5 +17,8 @@ export default defineConfig({
         globals: true,
         include: ["test/**/*.test.ts"],
         exclude: ["test/integration/**", "**/node_modules/**"],
+        coverage: {
+            reporter: ["text", "html", "json-summary"],
+        },
     },
 });

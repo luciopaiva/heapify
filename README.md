@@ -1,8 +1,7 @@
 
 ![Heapify](https://raw.githubusercontent.com/luciopaiva/heapify/master/logo.png)
 
-[![codecov](https://img.shields.io/codecov/c/github/luciopaiva/heapify)](https://codecov.io/gh/luciopaiva/heapify)
-[![travis](https://api.travis-ci.com/luciopaiva/heapify.svg?branch=master)](https://travis-ci.com/luciopaiva/heapify) 
+![coverage](badges/coverage.svg)
 [![version](https://img.shields.io/npm/v/heapify?color=brightgreen&label=version)](https://www.npmjs.com/package/heapify)
 
 🚑 🚴 🚌 🚕 🚗 🚚 🚛
