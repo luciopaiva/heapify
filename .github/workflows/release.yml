@@ -36,25 +36,6 @@ jobs:
         id: set-version
         run: echo "new-tag=$(npm version ${{ inputs.version }})" >> "$GITHUB_OUTPUT"
 
-      - name: Prepare dist for publishing
-        run: |
-          cp package.json dist/
-          cp README.md dist/
-          cp LICENSE.md dist/
-
-      - name: Verify dist contents
-        run: |
-          echo "Contents of dist/:"
-          ls -la dist/
-          # Verify expected files exist
-          for f in package.json README.md LICENSE.md heapify.js heapify.mjs heapify.d.ts; do
-            if [ ! -f "dist/$f" ]; then
-              echo "ERROR: expected file dist/$f not found"
-              exit 1
-            fi
-          done
-          echo "All expected files present."
-
       - name: Push commit and tag
         if: ${{ !inputs.dry-run }}
         run: git push origin HEAD "${{ steps.set-version.outputs.new-tag }}"
