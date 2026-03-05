@@ -255,6 +255,8 @@ queue.size;  // 0
 
 ## Benchmark
 
+Times are measured in milliseconds.
+
 Operations:
 
 - build - build a queue from scratch by providing a collection of keys and priorities, all at once;
