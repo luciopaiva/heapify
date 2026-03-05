@@ -1,6 +1,10 @@
 
 # CHANGELOG
 
+## 1.0.3
+
+- Update docs
+
 ## 1.0.2
 
 - GitHub workflow setup

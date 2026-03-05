@@ -1,0 +1,12 @@
+{
+    "name": "huffman-example",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start": "tsx index.ts"
+    },
+    "devDependencies": {
+        "tsx": "^4.19.2",
+        "typescript": "^5.8.2"
+    }
+}
