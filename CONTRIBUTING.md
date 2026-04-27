@@ -8,7 +8,10 @@
 
 ## General guidelines
 
-These are the general guidelines you should follow when contributing with PRs to this project:
+These are the general guidelines you should follow when contributing with PRs to this project.
+
+> [!NOTE]
+> This project is intentionally kept small, focused, and fast. Contributions are very welcome, but new features and larger changes will be reviewed with a high bar for necessity, API impact, maintenance cost, and performance.
 
 ### Pull requests
 
