@@ -11,12 +11,13 @@ describe("node TypeScript import", () => {
             path.join(TEMP_DIR, "tsconfig.json"),
             JSON.stringify({
                 compilerOptions: {
-                    module: "commonjs",
-                    moduleResolution: "node",
+                    module: "node16",
+                    moduleResolution: "node16",
                     target: "es2015",
                     esModuleInterop: true,
                     strict: true,
                     skipLibCheck: true,
+                    types: ["node"],
                 },
                 files: ["test-typescript.ts"],
             }, null, 2),
