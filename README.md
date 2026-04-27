@@ -111,7 +111,7 @@ const {MinQueue} = require("heapify");
 
 ### Browser
 
-If you're using npm/pnpm/yarn/etc with a traditional bunlder (e.g.: vite), you can just import it as usual from your JS/TS file:
+If you're using npm/pnpm/yarn/etc with a traditional bundler (e.g.: vite), you can just import it as usual from your JS/TS file:
 
 ```js
 const {MinQueue} = require("heapify");
